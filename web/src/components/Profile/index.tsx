@@ -5,8 +5,11 @@ import {
   ProfileData, 
   LocationIcon, 
   CakeIcon, 
-  Followage 
+  Followage,
+  EditButton 
 } from './styles'
+
+import { Feed } from '../Feed'
 
 export function Profile() {
   return (
@@ -16,7 +19,7 @@ export function Profile() {
       </Banner>
 
       <ProfileData>
-        {/* <EditButton outlined>Editar perfil</EditButton> */}
+        <EditButton outlined>Editar perfil</EditButton>
 
         <h1>dj</h1>
         <h2>@djrdjrjan</h2>
@@ -36,9 +39,13 @@ export function Profile() {
 
         <Followage>
           <span><strong>373</strong> Following</span>
-          <span><strong>1,501 Followers</strong> Followers</span>
+          <span><strong>1,501</strong> Followers</span>
         </Followage>
       </ProfileData>
+
+      <Feed />
+
+
     </Container>
   )
 }
