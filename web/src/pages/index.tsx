@@ -1,5 +1,7 @@
 import Head from 'next/head'
 import Main from '../components/Main'
+import { MenuBar } from '../components/MenuBar'
+import { SideBar } from '../components/SideBar'
 import { Container, Wrapper } from '../styles/main'
 
 export default function Home() {
@@ -11,9 +13,9 @@ export default function Home() {
       <body>
         <Container>
           <Wrapper>
-            {/* <MenuBar /> */}
+            <MenuBar />
             <Main />
-            {/* <SideBar /> */}
+            <SideBar />
           </Wrapper>
         </Container>
       </body>

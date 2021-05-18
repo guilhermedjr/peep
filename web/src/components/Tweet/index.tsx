@@ -6,6 +6,7 @@ import {
   Avatar,
   Content,
   Header,
+  Dot,
   Description,
   ImageContent,
   Icons,
@@ -30,7 +31,7 @@ export function Tweet() {
           <Header>
             <strong>User</strong>
             <span>@user</span>
-            {/* <Dot /> */}
+            <Dot />
             <time>8h</time>
           </Header>
 
