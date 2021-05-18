@@ -1,15 +1,22 @@
 import Head from 'next/head'
+import Main from '../components/Main'
+import { Container, Wrapper } from '../styles/main'
 
 export default function Home() {
   return (
-    <div>
+      <>
       <Head>
-        <title>Clone do Twitter</title>
+        <title>Twitter</title>
       </Head>
-
-      <main>
-        <h1>Em breve...</h1>
-      </main>
-    </div>
+      <body>
+        <Container>
+          <Wrapper>
+            {/* <MenuBar /> */}
+            <Main />
+            {/* <SideBar /> */}
+          </Wrapper>
+        </Container>
+      </body>
+      </>
   )
 }
