@@ -1,19 +1,22 @@
 import { 
-  Container, 
+  ProfileContainer, 
   Banner,
   Avatar, 
   ProfileData, 
   LocationIcon, 
   CakeIcon, 
   Followage,
-  EditButton 
+  EditButton, 
+  ProfileTweetsContainer,
+  TabsContainer,
+  Tab
 } from './styles'
 
 import { Feed } from '../Feed'
 
 export function Profile() {
   return (
-    <Container>
+    <ProfileContainer>
       <Banner>
         <Avatar />
       </Banner>
@@ -43,9 +46,17 @@ export function Profile() {
         </Followage>
       </ProfileData>
 
-      <Feed />
+      <ProfileTweetsContainer>
+        <TabsContainer>
+          <Tab className="active">Tweets</Tab>
+          <Tab>Tweets e respostas</Tab>
+          <Tab>Mídia</Tab>
+          <Tab>Curtidas</Tab>
+        </TabsContainer>
 
+        <Feed />
+      </ProfileTweetsContainer>
 
-    </Container>
+    </ProfileContainer>
   )
 }

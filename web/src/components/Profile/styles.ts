@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 import { LocationOn, Cake } from '../../styles/icons'
 import Button from '../Button'
 
-export const Container = styled.div`
+export const ProfileContainer = styled.div`
   display: flex;
   flex-direction: column;
 
@@ -126,5 +126,46 @@ export const EditButton = styled(Button)`
     padding: 10px 19px;
     font-size: 15px;
 
+  }
+`
+
+export const ProfileTweetsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+`
+
+export const TabsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-evenly;
+
+  border-bottom: 1px solid var(--outline);
+`
+
+export const Tab = styled.div`
+  padding: 11px 0 15px;
+  text-align: center;
+
+  width: max-content;
+
+  font-weight: bold;
+  font-size: 15px;
+
+  outline: 0;
+  cursor: pointer;
+
+  color: var(--gray);
+
+  transition: 0.2s;
+
+  &:active {
+    border-bottom: 2px solid var(--twitter);
+  }
+
+  &:hover {
+    background: var(--twitter-dark-hover);
+    color: var(--twitter);
   }
 `

@@ -23,7 +23,7 @@ const Main = ({ timeline, dispatch }) => {
         </button>
         <ProfileInfo>
           <strong>dj</strong>
-          <span>24.4 Tweets</span>
+          <span>24.4K Tweets</span>
         </ProfileInfo>
       </Header>
 
