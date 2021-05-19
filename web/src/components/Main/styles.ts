@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components'
-import { ArrowLeft, Home, Search, Notifications, Email } from '../../styles/icons'
+import { ArrowLeft, Home, Search, Notifications, Dm } from '../../styles/icons'
 
 export const Container = styled.div`
   display: flex;
@@ -109,6 +109,6 @@ export const BellIcon = styled(Notifications)`
   ${iconCSS}
 `
 
-export const DmIcon = styled(Email)`
+export const DmIcon = styled(Dm)`
   ${iconCSS}
 `

@@ -2,12 +2,15 @@ import styled, { css } from 'styled-components'
 
 import { 
   Home,
+  Hashtag,
   Notifications, 
-  Email, 
-  FavoriteBorder, 
-  Person, 
-  ExitToApp,
-  Twitter 
+  Dm, 
+  Bookmarks,
+  List,
+  Person,
+  MoreCircle,
+  Twitter,
+  More 
 } from '../../styles/icons'
 
 export const Container = styled.div`
@@ -23,6 +26,7 @@ export const Container = styled.div`
     left: 0;
 
     padding: 9px 19px 20px;
+    margin-left: 0;
 
     max-height: 100vh;
     overflow-y: auto;
@@ -39,14 +43,14 @@ export const Topside = styled.div`
   }
 `
 export const Logo = styled(Twitter)`
-  width: 41px;
-  height: 41px;
+  width: 33px;
+  height: 33px;
 
   > path {
-    fill: var(--twitter);
+    fill: var(--white);
   }
 
-  margin-bottom: 20px;
+  margin-bottom: 13px;
 `
 export const MenuButton = styled.button`
   display: flex;
@@ -73,14 +77,16 @@ export const MenuButton = styled.button`
   outline: 0;
 
   & + button {
-    margin-top: 16.5px;
+    margin-top: 8px;
   }
 
   & + button:last-child {
-    margin-top: 33px;
+    display: block;
+    margin: auto;
+    margin-top: 10px;
 
-    width: 40px;
-    height: 40px;
+    width: 75%;
+    height: 33px;
 
     > span {
       display: none;
@@ -106,7 +112,7 @@ export const MenuButton = styled.button`
   &:hover, &.active {
     span, svg {
       color: var(--twitter);
-      fill: var(-twitter);
+      fill: var(--twitter);
     }
   }
 `
@@ -120,24 +126,41 @@ const iconCSS = css`
 export const HomeIcon = styled(Home)`
   ${iconCSS}
 `
+export const ExploreIcon = styled(Hashtag)`
+  ${iconCSS}
+`
+
 export const BellIcon = styled(Notifications)`
-${iconCSS}
+  ${iconCSS}
 `
-export const DmIcon = styled(Email)`
-${iconCSS}
+export const DmIcon = styled(Dm)`
+  ${iconCSS}
 `
-export const FavoriteIcon = styled(FavoriteBorder)`
-${iconCSS}
+export const BookmarkIcon = styled(Bookmarks)`
+  ${iconCSS}
 `
+export const ListIcon = styled(List)`
+  ${iconCSS}
+`
+
 export const ProfileIcon = styled(Person)`
-${iconCSS}
+  ${iconCSS}
+`
+export const MoreIcon = styled(MoreCircle)`
+  ${iconCSS}
 `
 
 export const Bottomside = styled.div`
   margin-top: 20px;
 
+  width: 100%;
+
   display: flex;
   align-items: center;
+
+  &:hover {
+    background: var(--twitter-dark-hover);
+  }
 `
 
 export const Avatar = styled.div`
@@ -166,7 +189,7 @@ export const ProfileData = styled.div`
   }
 `
 
-export const ExitIcon = styled(ExitToApp)`
+export const OptionsIcon = styled(More)`
   display: none;
 
   @media (min-width: 1280px) {
@@ -176,11 +199,5 @@ export const ExitIcon = styled(ExitToApp)`
     color: var(--white);
     margin-left: 30px;
     cursor: pointer;
-
-    &:hover {
-      > path {
-        color: var(--like);
-      }
-    }
   }
 `

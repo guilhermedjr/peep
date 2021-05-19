@@ -6,14 +6,17 @@ import {
   Logo,
   MenuButton,
   HomeIcon,
+  ExploreIcon,
   BellIcon,
   DmIcon,
-  FavoriteIcon,
+  BookmarkIcon,
+  ListIcon,
   ProfileIcon,
+  MoreIcon,
   Bottomside,
   Avatar,
   ProfileData,
-  ExitIcon
+  OptionsIcon
 } from './styles'
 
 export function MenuBar() {
@@ -28,6 +31,11 @@ export function MenuBar() {
         </MenuButton>
 
         <MenuButton>
+          <ExploreIcon />
+          <span>Explorar</span>
+        </MenuButton>
+
+        <MenuButton>
           <BellIcon />
           <span>Notificações</span>
         </MenuButton>
@@ -38,13 +46,23 @@ export function MenuBar() {
         </MenuButton>
 
         <MenuButton>
-          <FavoriteIcon />
-          <span>Favoritados</span>
+          <BookmarkIcon />
+          <span>Itens salvos</span>
+        </MenuButton>
+
+        <MenuButton>
+          <ListIcon />
+          <span>Listas</span>
         </MenuButton>
 
         <MenuButton className="active">
           <ProfileIcon />
           <span>Perfil</span>
+        </MenuButton>
+
+        <MenuButton>
+          <MoreIcon />
+          <span>Mais</span>
         </MenuButton>
 
         <Button>
@@ -59,7 +77,7 @@ export function MenuBar() {
           <span>@djrdjrjan</span>
         </ProfileData>
 
-        <ExitIcon />
+        <OptionsIcon />
       </Bottomside>
     </Container>
   )
