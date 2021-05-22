@@ -8,3 +8,27 @@
 
 > #### Peep is a social network freely inspired by Twitter, currently under development.
 
+<br/>
+My goal with this project, which will be the biggest and best designed in my portfolio, is to improve my skills as a developer. With it I will get to know new technologies, standards and architectures, explore the best possibilities for each part of the application and acquire a more mature and embracing view of the software development process.
+<br/>
+
+### Projects
+
+| App                                 |  Description              | Completed  |
+| ----------------------------------- | ------------------------- | ---------- |
+| [Peep for Web](source/web)          | React SPA                 |   - [ ]    |
+| Auth server (name to be defined)    |                           |   - [ ]    |
+
+### DDD (Domain-Driven Development)
+
+Peep is being done with DDD, a software modeling approach that aims to facilitate the implementation of complex business rules, which we call domain.
+Better explanations soon :P
+
+### Contributions 
+
+Feel free to contribute with issues and pull requests. All of them will be analyzed as soon as possible :P (if it flopped,
+it was my dog who wrote that part)
+
+### License 
+
+- [MIT](https://choosealicense.com/licenses/mit/)
