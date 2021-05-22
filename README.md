@@ -16,8 +16,8 @@ My goal with this project, which will be the biggest and best designed in my por
 
 | App                                 |  Description              | Completed  |
 | ----------------------------------- | ------------------------- | ---------- |
-| [Peep for Web](source/web)          | React SPA                 |   - [ ]    |
-| Auth server (name to be defined)    |                           |   - [ ]    |
+| [Peep for Web](source/web)          | React SPA                 |   [ ]      |
+| Auth server (name to be defined)    |                           |   [ ]      |
 
 ### DDD (Domain-Driven Development)
 
