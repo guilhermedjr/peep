@@ -14,10 +14,10 @@ My goal with this project, which will be the biggest and best designed in my por
 
 ### Projects
 
-| App                                 |  Description              | Completed  |
-| ----------------------------------- | ------------------------- | ---------- |
-| [Peep for Web](source/web)          | React SPA                 |   [ ]      |
-| Auth server (name to be defined)    |                           |   [ ]      |
+| App                                       |  Description              |
+| ----------------------------------------- | ------------------------- |
+| - [ ] [Peep for Web](source/web)          | React SPA                 | 
+| - [ ] (Name and structure to be defined)  | .NET Auth Server          |
 
 ### DDD (Domain-Driven Development)
 
