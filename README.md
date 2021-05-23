@@ -14,11 +14,12 @@ My goal with this project, which will be the biggest and best designed in my por
 
 ### Projects
 
+
 | App                                                         |  Description              |
 | ----------------------------------------------------------- | ------------------------- |
 | [Peep for Web](source/web)          | React SPA                 | 
-| Name and structure to be defined    | .NET Auth Server          |
-| Name and structure to be defined    | .NET Main server          |
+| [Wings](source/Peep.Wings)          | .NET Auth Server          |
+| Parrot (structure to be defined)    | .NET Main server          |
 | Name and technology to be defined   | Direct Messages Server    |
 | Name and technology to be defined   | Media Server              |
 
