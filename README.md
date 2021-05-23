@@ -17,11 +17,11 @@ My goal with this project, which will be the biggest and best designed in my por
 
 | App                                                         |  Description              |
 | ----------------------------------------------------------- | ------------------------- |
-| [Peep for Web](source/web)          | React SPA                 | 
-| [Wings](source/Peep.Wings)          | .NET Auth Server          |
-| Parrot (structure to be defined)    | .NET Main server          |
-| Name and technology to be defined   | Direct Messages Server    |
-| Name and technology to be defined   | Media Server              |
+| [Peep for Web](source/web)          | React SPA                                         | 
+| [Wings](source/Peep.Wings)          | .NET Auth Server                                  |
+| Parrot - Timeline Service           | .NET Main server & Redis (for distributed cache)  |
+| Name and technology to be defined   | Direct Messages Server                            |
+| Name and technology to be defined   | Media Server                                      |
 
 ### DDD (Domain-Driven Development)
 
