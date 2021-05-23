@@ -1,0 +1,4 @@
+C:\Users\GuilhermeSantos-BDSD\Documents\GitHub\clone-twitter\source\Peep.Wings\Peep.Wings\Peep.Wings.Infrastructure.Data\obj\Debug\netcoreapp3.1\Peep.Wings.Infrastructure.Data.csprojAssemblyReference.cache
+C:\Users\GuilhermeSantos-BDSD\Documents\GitHub\clone-twitter\source\Peep.Wings\Peep.Wings\Peep.Wings.Infrastructure.Data\obj\Debug\netcoreapp3.1\Peep.Wings.Infrastructure.Data.AssemblyInfoInputs.cache
+C:\Users\GuilhermeSantos-BDSD\Documents\GitHub\clone-twitter\source\Peep.Wings\Peep.Wings\Peep.Wings.Infrastructure.Data\obj\Debug\netcoreapp3.1\Peep.Wings.Infrastructure.Data.AssemblyInfo.cs
+C:\Users\GuilhermeSantos-BDSD\Documents\GitHub\clone-twitter\source\Peep.Wings\Peep.Wings\Peep.Wings.Infrastructure.Data\obj\Debug\netcoreapp3.1\Peep.Wings.Infrastructure.Data.csproj.CoreCompileInputs.cache

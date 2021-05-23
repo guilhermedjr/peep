@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "1PNSN7pRFD7DIYQ+4n1a7qEjgQqw0cGvgg9banKIbxcYFvi0e+TOpxT9bhkWj/M8GYh5YCK2Na1vkEdxENv1Iw==",
+  "dgSpecHash": "+1U9BFlNie8U9HV3cD5RY4AwN+PAJYEZXczqLRjabnrZoRPp0Hio+B9eanKNBSfMrBp9ZN1rV/UA4b4Tij8SxA==",
   "success": true,
   "projectFilePath": "C:\\Users\\GuilhermeSantos-BDSD\\Documents\\GitHub\\clone-twitter\\source\\Peep.Wings\\Peep.Wings\\Peep.Wings.Service\\Peep.Wings.Service.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\GuilhermeSantos-BDSD\\.nuget\\packages\\fluentvalidation\\10.1.0\\fluentvalidation.10.1.0.nupkg.sha512",
+    "C:\\Users\\GuilhermeSantos-BDSD\\.nuget\\packages\\fluentvalidation.aspnetcore\\10.1.0\\fluentvalidation.aspnetcore.10.1.0.nupkg.sha512",
+    "C:\\Users\\GuilhermeSantos-BDSD\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\10.1.0\\fluentvalidation.dependencyinjectionextensions.10.1.0.nupkg.sha512",
+    "C:\\Users\\GuilhermeSantos-BDSD\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\2.1.0\\microsoft.extensions.dependencyinjection.abstractions.2.1.0.nupkg.sha512"
+  ],
   "logs": []
 }
