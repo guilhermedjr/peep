@@ -19,16 +19,18 @@ namespace Peep.Wings.Infrastructure.Data.Repository
             this._appDbContext = appDbContext;
         }
 
-        public async void Insert(TEntity obj)
+        public async Task<TEntity> Insert(TEntity obj)
         {
             _appDbContext.Set<TEntity>().Add(obj);
             await _appDbContext.SaveChangesAsync();
+            return obj;
         }
 
-        public async void Update(TEntity obj)
+        public async Task<TEntity> Update(TEntity obj)
         {
             _appDbContext.Entry(obj).State = EntityState.Modified;
            await  _appDbContext.SaveChangesAsync();
+            return obj;
         }
 
         public async void Delete(int id)
