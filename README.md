@@ -16,8 +16,11 @@ My goal with this project, which will be the biggest and best designed in my por
 
 | App                                                         |  Description              |
 | ----------------------------------------------------------- | ------------------------- |
-| <ul><li>- [ ]</li></ul> [Peep for Web](source/web)          | React SPA                 | 
-| <ul><li>- [ ]</li></ul> (Name and structure to be defined)  | .NET Auth Server          |
+| [Peep for Web](source/web)          | React SPA                 | 
+| Name and structure to be defined    | .NET Auth Server          |
+| Name and structure to be defined    | .NET Main server          |
+| Name and technology to be defined   | Direct Messages Server    |
+| Name and technology to be defined   | Media Server              |
 
 ### DDD (Domain-Driven Development)
 
