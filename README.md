@@ -36,3 +36,16 @@ it was my dog who wrote that part)
 ### License 
 
 - [MIT](https://choosealicense.com/licenses/mit/)
+
+<br/>
+
+<div align="center">
+   <img alt="Csharp" src="https://img.shields.io/badge/-C%23-7022DC?style=flat-square&logo=c-sharp&logoColor=white" />
+   <img alt="dotnet" src="https://img.shields.io/badge/-.NET-702D91?style=flat-square&logo=.net&logoColor=white" />
+   <img alt="TypeScript" src="https://img.shields.io/badge/-TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white" />
+   <img alt="React" src="https://img.shields.io/badge/-React-45b8d8?style=flat-square&logo=react&logoColor=white" />
+   <img alt="Nextjs" src="https://img.shields.io/badge/-Nextjs-191929?style=flat-square&logo=next.js&logoColor=white" />
+   <img alt="redux" src="https://img.shields.io/badge/-Redux-6c3995?style=flat-square&logo=redux&logoColor=white" />
+   <img alt="MySQL" src="https://img.shields.io/badge/-MySQL-1a202c?style=flat-square&logo=MySQL&logoColor=white" /> 
+   <img alt="Redis" src="https://img.shields.io/badge/-Redis-e93940?style=flat-square&logo=redis&logoColor=white" />
+</div>
