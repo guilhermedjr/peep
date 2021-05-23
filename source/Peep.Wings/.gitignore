@@ -1,5 +1,7 @@
 .config/
 .vs/
+*.suo
+*.obj
 bin/
 obj/
 packages/
