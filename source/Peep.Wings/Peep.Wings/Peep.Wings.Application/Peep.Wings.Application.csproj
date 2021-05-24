@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -9,7 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\Peep.Wings.Domain\Peep.Wings.Domain.csproj" />
+    <ProjectReference Include="..\Peep.Wings.Service\Peep.Wings.Service.csproj" />
   </ItemGroup>
 
 </Project>
