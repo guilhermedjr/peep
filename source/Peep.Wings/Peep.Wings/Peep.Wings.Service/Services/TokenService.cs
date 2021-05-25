@@ -18,7 +18,7 @@ namespace Peep.Wings.Service.Services
             this._config = config;
         }
 
-        public string GenerateJsonWebToken(User user)
+        public string GenerateJsonWebToken(ApplicationUser user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(this._config["Jwt:Key"]);

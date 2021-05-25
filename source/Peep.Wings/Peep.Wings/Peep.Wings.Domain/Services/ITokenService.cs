@@ -4,6 +4,6 @@ namespace Peep.Wings.Domain.Services
 {
     public interface ITokenService
     {
-        string GenerateJsonWebToken(User user);
+        string GenerateJsonWebToken(ApplicationUser user);
     }
 }

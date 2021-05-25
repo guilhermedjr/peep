@@ -1,23 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Peep.Wings.Domain.Entities;
-using Peep.Wings.Infrastructure.Data.Mapping;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Peep.Wings.Infrastructure.Data.Context
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options): base(options) {}
 
-        public DbSet<User> Users { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(builder);
 
-            modelBuilder.Entity<User>(new UserMap().Configure);
+            builder.Entity<ApplicationUser>(b => 
+                b.HasIndex(u => new { u.Id }).IsUnique());
         }
     }
 }
