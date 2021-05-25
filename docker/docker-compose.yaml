@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  peep-wings-mysql:
+    image: mysql:8.0.23
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_HOST=127.0.0.1
+      - MYSQL_ROOT_PASSWORD="root"
+      - MYSQL_DATABASE="peepwingsdb"
+    volumes:
+      - './volumes/mysql:/var/lib/mysql'
+    networks:
+      - peep-network
+
+networks:
+  peep-network: 
+    driver: bridge
