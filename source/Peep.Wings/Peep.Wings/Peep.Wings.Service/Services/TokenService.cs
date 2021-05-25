@@ -5,10 +5,11 @@ using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
 using Peep.Wings.Domain.Entities;
+using Peep.Wings.Domain.Services;
 
 namespace Peep.Wings.Service.Services
 {
-    public class TokenService
+    public class TokenService : ITokenService
     {
         private readonly IConfiguration _config;
 
