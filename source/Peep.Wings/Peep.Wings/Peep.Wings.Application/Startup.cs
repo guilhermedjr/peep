@@ -7,6 +7,8 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.EntityFrameworkCore;
+using Peep.Wings.Infrastructure.Data;
 
 namespace Peep.Wings.Application
 {
@@ -22,7 +24,6 @@ namespace Peep.Wings.Application
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -47,6 +48,13 @@ namespace Peep.Wings.Application
                     ValidateAudience = false
                 };
             });
+
+            string mySqlConnection = Configuration.GetConnectionString("DefaultConnection");
+
+            services.AddDbContextPool<AppDbContext>(options =>
+                options.UseMySQL(mySqlConnection));
+
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
