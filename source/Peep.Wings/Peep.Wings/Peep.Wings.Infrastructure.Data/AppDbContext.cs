@@ -3,7 +3,7 @@ using Peep.Wings.Domain.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Peep.Wings.Infrastructure.Data.Context
+namespace Peep.Wings.Infrastructure.Data
 {
     public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
     {
