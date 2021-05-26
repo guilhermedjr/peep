@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{4242
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure.Data", "Infrastructure.Data", "{C7FAA0CD-915B-45A5-8362-431574BE3479}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure.CrossCutting", "Infrastructure.CrossCutting", "{9863B5FA-72A4-45F7-BCF5-A6706D409AA3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure.IoC", "Infrastructure.IoC", "{9863B5FA-72A4-45F7-BCF5-A6706D409AA3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Peep.Wings.Application", "Peep.Wings.Application\Peep.Wings.Application.csproj", "{D5B031BC-BE69-43B1-8807-DE5F44D4CBBD}"
 EndProject
@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Peep.Wings.Service", "Peep.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Peep.Wings.Infrastructure.Data", "Peep.Wings.Infrastructure.Data\Peep.Wings.Infrastructure.Data.csproj", "{F028E31D-4349-45FC-98EB-EF96B9C0F251}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Peep.Wings.Infrastructure.CrossCutting", "Peep.Wings.Infrastructure.CrossCutting\Peep.Wings.Infrastructure.CrossCutting.csproj", "{1B5DA632-E907-432F-9FA2-31765D1795BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Peep.Wings.Infrastructure.IoC", "Peep.Wings.Infrastructure.CrossCutting\Peep.Wings.Infrastructure.IoC.csproj", "{1B5DA632-E907-432F-9FA2-31765D1795BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.6" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Peep.Wings.Domain\Peep.Wings.Domain.csproj" />
+    <ProjectReference Include="..\Peep.Wings.Infrastructure.Data\Peep.Wings.Infrastructure.Data.csproj" />
+    <ProjectReference Include="..\Peep.Wings.Service\Peep.Wings.Service.csproj" />
+  </ItemGroup>
+
+</Project>
