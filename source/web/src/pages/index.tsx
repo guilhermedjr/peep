@@ -1,8 +1,8 @@
 import Head from 'next/head'
-import Main from '../components/Main'
-import { MenuBar } from '../components/MenuBar'
-import { SideBar } from '../components/SideBar'
-import { Container, Wrapper } from '../styles/main'
+import Main from '../surface/components/Main'
+import { MenuBar } from '../surface/components/MenuBar'
+import { SideBar } from '../surface/components/SideBar'
+import { Container, Wrapper } from '../surface/styles/main'
 
 export default function Home() {
   return (
