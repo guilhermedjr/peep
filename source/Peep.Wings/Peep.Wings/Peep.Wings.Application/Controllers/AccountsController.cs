@@ -111,6 +111,45 @@ namespace Peep.Wings.Application.Controllers
 
         }
 
+        [HttpPost]
+        [Route("SignIn")]
+        public async Task<IActionResult> SignIn(LoginDto loginDto)
+        {
+            var user = 
+                !String.IsNullOrEmpty(loginDto.Email)
+                    ? await _userManager.FindByEmailAsync(loginDto.Email)
+                    : !String.IsNullOrEmpty(loginDto.PhoneNumber)
+                        ? await _userManager.Users.FirstOrDefaultAsync(u => u.PhoneNumber == loginDto.PhoneNumber)
+                        : await _userManager.Users.FirstOrDefaultAsync(u => u.UserName == loginDto.Username);
+
+            if (user == null)
+                return BadRequest( new { Message = "Informação de login incorreta" });
+
+
+            var result = await _signInManager.PasswordSignInAsync(user.UserName, loginDto.Password, true, false);
+
+            if (!result.Succeeded)
+                return BadRequest( new { Message = "Senha incorreta" } );
+
+            Response.Cookies.Append("peep_token", _tokenService.GenerateJsonWebToken(user), new CookieOptions
+            {
+                HttpOnly = true,
+                IsEssential = true,
+                SameSite = SameSiteMode.Lax
+            });
+
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("Logout")]
+        public IActionResult Logout()
+        {
+            Response.Cookies.Delete("peep_token");
+            return NoContent();
+        }
+
+
         [HttpGet]
         [Route("{id}", Name = "GetById")]
         [Authorize]
@@ -118,7 +157,7 @@ namespace Peep.Wings.Application.Controllers
         {
             var user = await _userManager.FindByIdAsync(id.ToString());
 
-            if (user != null)
+            if (user == null)
                 return NotFound();
 
             var userView = new ApplicationUserViewModel
