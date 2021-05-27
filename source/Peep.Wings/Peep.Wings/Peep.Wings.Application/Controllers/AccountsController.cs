@@ -15,7 +15,7 @@ namespace Peep.Wings.Application.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountsController : ControllerBase
+    public class AccountsController : CustomControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
@@ -28,7 +28,8 @@ namespace Peep.Wings.Application.Controllers
             SignInManager<ApplicationUser> signInManager,
             ITokenService tokenService,
             IEmailService emailService,
-            ISmsService smsService)
+            ISmsService smsService) 
+            : base(userManager)
         {
             this._userManager = userManager;
             this._signInManager = signInManager;
@@ -78,13 +79,7 @@ namespace Peep.Wings.Application.Controllers
 
             if (user.Email != null)
             {
-                var emailToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                var emailConfirmationUrl = Url.Link("ConfirmEmail", new { token = emailToken, email = user.Email });
-
-                await _emailService.SendEmail(
-                    user.Email,
-                    "Peep - Confirmação de email",
-                    $"<html><body>Seja bem-vindo ao Peep! Clique <a href=\"{emailConfirmationUrl}\">aqui</a> para confirmar seu email e poder acessar a sua conta</body></html>");
+                SendConfirmationEmail(user);
                 await _signInManager.SignInAsync(user, true);
             }
 
@@ -141,6 +136,7 @@ namespace Peep.Wings.Application.Controllers
             return Ok();
         }
 
+
         [HttpPost]
         [Route("Logout")]
         public IActionResult Logout()
@@ -160,11 +156,16 @@ namespace Peep.Wings.Application.Controllers
             if (user == null)
                 return NotFound();
 
+            var authenticatedUser = await GetAuthenticatedUserAccount();
+
+            if (authenticatedUser == null)
+                return BadRequest( new { Message = "Usuário não autenticado" } );
+
             var userView = new ApplicationUserViewModel
             {
-                Id = user.Id,
-                Name = user.Name,
-                Username = user.UserName
+                Id = authenticatedUser.Id,
+                Name = authenticatedUser.Name,
+                Username = authenticatedUser.UserName
             };
 
             return Ok(userView);
@@ -184,6 +185,35 @@ namespace Peep.Wings.Application.Controllers
             // e redirecionar para a home em caso positivo
 
             return Redirect(uiUrl);
+        }
+
+        [HttpPost]
+        [Route("ResendConfirmationEmail")]
+        [Authorize]
+        public async Task<IActionResult> ResendConfirmationEmail()
+        {
+            var authenticatedUser = await GetAuthenticatedUserAccount();
+
+            if (authenticatedUser == null)
+                return BadRequest( new { Message = "Usuário não autenticado" } );
+
+            if (authenticatedUser.EmailConfirmed)
+                return BadRequest( new { Message = "Usuário com confirmação de email já realizada" } );
+
+            SendConfirmationEmail(authenticatedUser);
+
+            return Ok();
+        }
+
+        private async void SendConfirmationEmail(ApplicationUser user)
+        {
+            var emailToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var emailConfirmationUrl = Url.Link("ConfirmEmail", new { token = emailToken, email = user.Email });
+
+            await _emailService.SendEmail(
+                user.Email,
+                "Peep - Confirmação de email",
+                $"<html><body>Seja bem-vindo ao Peep! Clique <a href=\"{emailConfirmationUrl}\">aqui</a> para confirmar seu email e poder acessar a sua conta</body></html>");
         }
     }
 }
