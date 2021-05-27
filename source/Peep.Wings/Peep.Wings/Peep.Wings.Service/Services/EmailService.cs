@@ -24,7 +24,7 @@ namespace Peep.Wings.Service.Services
 
         public Task SendEmail(string to, string subject, string body, bool isHTML = true)
         {
-            var email = new MailMessage("peepsocialnetwork@gmail.com", to, subject, body)
+            var email = new MailMessage(_config["Email:Username"], to, subject, body)
             {
                 IsBodyHtml = isHTML
             };
