@@ -1,8 +1,9 @@
 version: '3.8'
 
 services:
-  peep-wings-mysql:
+  wings-mysql:
     image: mysql:8.0.23
+    container_name: 'wings-mysql'
     restart: always
     ports:
       - 3306:3306
@@ -12,6 +13,18 @@ services:
       - MYSQL_DATABASE="peepwingsdb"
     volumes:
       - './volumes/mysql:/var/lib/mysql'
+    networks:
+      - peep-network
+
+  parrot-redis:
+    image: redis:alpine
+    container_name: 'parrot-redis'
+    restart: always
+    command: 'redis-server --requirepass redis-docker'
+    ports:
+      - 6379:6379
+    volumes:
+      - './volumes/redis'
     networks:
       - peep-network
 
