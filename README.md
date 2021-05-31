@@ -18,8 +18,8 @@ My goal with this project, which will be the biggest and best designed in my por
 | App                                                         |  Description              |
 | ----------------------------------------------------------- | ------------------------- |
 | [Peep for Web](source/web)          | React SPA                                         | 
-| [Wings](source/Peep.Wings)          | .NET Auth Server                                  |
-| Parrot - Timeline Service           | .NET Main server & Redis (for distributed cache)  |
+| [Wings](source/Wings)               | .NET Auth Server                                  |
+| [Parrot](source/Parrot)             | .NET Main server + Redis                          |
 | Name and technology to be defined   | Direct Messages Server                            |
 | Name and technology to be defined   | Media Server                                      |
 
