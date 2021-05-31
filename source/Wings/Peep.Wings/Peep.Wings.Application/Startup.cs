@@ -9,6 +9,7 @@ using Peep.Wings.Domain.Entities;
 using Peep.Wings.Infrastructure.Data;
 using Peep.Wings.Infrastructure.IoC;
 
+
 namespace Peep.Wings.Application
 {
     public class Startup
@@ -36,9 +37,10 @@ namespace Peep.Wings.Application
 
             Bootstrapper.ConfigureServices(services, Configuration);
             Bootstrapper.ConfigureAuthentication(services, Configuration);
+
+            
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

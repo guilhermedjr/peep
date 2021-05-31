@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31019.35
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{B23151C8-F8E7-40E7-9672-B49B0C494D46}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{0142EA03-33BD-45AE-849A-423971EAC56B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{1501289E-D698-4A60-8205-906E899171C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peep.Parrot.Application", "Peep.Parrot.Application\Peep.Parrot.Application.csproj", "{8800134F-7AB1-42B6-A5F5-DDEBB3E741AA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure.Data", "Infrastructure.Data", "{3989DE33-D2F8-4A35-9C18-EDB96C822FE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peep.Parrot.Infrastructure.Data", "Peep.Parrot.Infrastructure.Data\Peep.Parrot.Infrastructure.Data.csproj", "{38ABE4A6-BD24-4290-9C6F-307B57FF8A25}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8800134F-7AB1-42B6-A5F5-DDEBB3E741AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8800134F-7AB1-42B6-A5F5-DDEBB3E741AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8800134F-7AB1-42B6-A5F5-DDEBB3E741AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8800134F-7AB1-42B6-A5F5-DDEBB3E741AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38ABE4A6-BD24-4290-9C6F-307B57FF8A25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38ABE4A6-BD24-4290-9C6F-307B57FF8A25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38ABE4A6-BD24-4290-9C6F-307B57FF8A25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38ABE4A6-BD24-4290-9C6F-307B57FF8A25}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8800134F-7AB1-42B6-A5F5-DDEBB3E741AA} = {B23151C8-F8E7-40E7-9672-B49B0C494D46}
+		{38ABE4A6-BD24-4290-9C6F-307B57FF8A25} = {3989DE33-D2F8-4A35-9C18-EDB96C822FE4}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {378FD623-4CE9-47B3-B2C2-D3411B04C521}
+	EndGlobalSection
+EndGlobal
