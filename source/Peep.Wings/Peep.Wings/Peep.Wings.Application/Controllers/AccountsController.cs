@@ -38,23 +38,7 @@ namespace Peep.Wings.Application.Controllers
             this._smsService = smsService;
         }
 
-        /* */
-        [HttpPost]
-        [Route("Email")]
-        public IActionResult SendEmail([FromQuery] string email)
-        {
-            Task result =  _emailService.SendEmail(
-                    email,
-                    "Você recebeu um email!",
-                    "Sim, isso mesmo. Isso é um email");
-
-            if (result.IsCompleted)
-                return Ok();
-            return BadRequest();
-
-        }
-        /* */
-
+      
         [HttpPost]
         [Route("SignUp")]
         public async Task<IActionResult> SignUp(RegistrationDto registrationDto)
@@ -67,6 +51,7 @@ namespace Peep.Wings.Application.Controllers
                 BirthDate = registrationDto.BirthDate,
                 UserName = registrationDto.Username,
                 Password = registrationDto.Password,
+                JoinedAt = DateTime.Now,
                 EmailConfirmed = false,
                 PhoneNumberConfirmed = false
 
@@ -79,7 +64,14 @@ namespace Peep.Wings.Application.Controllers
 
             if (user.Email != null)
             {
-                SendConfirmationEmail(user);
+                var emailToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                var emailConfirmationUrl = Url.Link("ConfirmEmail", new { token = emailToken, email = user.Email });
+
+                await _emailService.SendEmail(
+                    user.Email,
+                    "Peep - Confirmação de email",
+                    $"<html><body>Seja bem-vindo ao Peep! Clique <a href=\"{emailConfirmationUrl}\">aqui</a> para confirmar seu email e poder acessar a sua conta</body></html>");
+
                 await _signInManager.SignInAsync(user, true);
             }
 
@@ -171,6 +163,95 @@ namespace Peep.Wings.Application.Controllers
             return Ok(userView);
         }
 
+        [HttpPut]
+        [Authorize]
+        public async Task<IActionResult> Update(UpdateAccountDto updateAccountDto)
+        {
+            var authenticatedUser = await GetAuthenticatedUserAccount();
+
+            if (authenticatedUser == null)
+                return BadRequest( new { Message = "Usuário não autenticado" } );
+
+            if (String.IsNullOrEmpty(updateAccountDto.Id.ToString()))
+                return BadRequest( new { Message = "Identificador do usuário não informado" } );
+
+            var user = await _userManager.FindByIdAsync(updateAccountDto.Id.ToString());
+
+            if (user == null)
+                return NotFound( new { Message = "Usuário não encontrado" } );
+
+            if (!String.IsNullOrEmpty(updateAccountDto.Email) && 
+                user.Email != updateAccountDto.Email)
+            {
+                if (await _userManager.Users.FirstOrDefaultAsync(u => u.Email == updateAccountDto.Email) != null)
+                    return BadRequest( new { Message = "Email já utilizado em outra conta" } );
+
+                user.EmailConfirmed = false;
+                user.Email = updateAccountDto.Email;
+                var emailToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                var emailConfirmationUrl = Url.Link("ConfirmEmail", new { token = emailToken, email = user.Email });
+                await _emailService.SendEmail(
+                   user.Email,
+                   "Peep - Confirmação de email",
+                   $"<html><body>Clique <a href=\"{emailConfirmationUrl}\">aqui</a> para confirmar seu novo email de acesso à sua conta Peep</body></html>");
+            }
+
+            if (!String.IsNullOrEmpty(updateAccountDto.PhoneNumber) &&
+                user.PhoneNumber != updateAccountDto.PhoneNumber)
+            {
+                // TODO: confirmação de número de telefone
+                user.PhoneNumber = updateAccountDto.PhoneNumber;
+            }
+
+            if (!String.IsNullOrEmpty(updateAccountDto.Username) &&
+                user.UserName != updateAccountDto.Username)
+            {
+                if (await _userManager.Users.FirstOrDefaultAsync(u => u.UserName == updateAccountDto.Username) != null)
+                    return BadRequest( new { Message = "Nome de usuário já utilizado em outra conta" } );
+
+                user.UserName = updateAccountDto.Username;
+            }
+
+            if (!String.IsNullOrEmpty(updateAccountDto.Name) &&
+                user.Name != updateAccountDto.Name)
+            {
+                user.Name = updateAccountDto.Name;
+            }
+
+            if (!String.IsNullOrEmpty(updateAccountDto.NewPassword) &&
+                user.Password != updateAccountDto.NewPassword)
+            {
+                if (String.IsNullOrEmpty(updateAccountDto.CurrentPassword))
+                    return BadRequest( new { Message = "Uma nova senha foi informada, porém a atual não" } );
+
+                if (!await _userManager.CheckPasswordAsync(user, updateAccountDto.CurrentPassword))
+                    return BadRequest( new { Message = "Senha atual incorreta" } );
+
+                await _userManager.ChangePasswordAsync(user, updateAccountDto.CurrentPassword, updateAccountDto.NewPassword);
+            }
+
+            var result = await _userManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+                return BadRequest( new { result.Errors } );
+
+            var userView = new ApplicationUserViewModel
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Username = user.UserName
+            };
+
+            Response.Cookies.Append("peep_token", _tokenService.GenerateJsonWebToken(user), new CookieOptions
+            {
+                HttpOnly = true,
+                IsEssential = true,
+                SameSite = SameSiteMode.Lax
+            });
+
+            return Ok(userView);
+        }
+
         [HttpGet]
         [Route("ConfirmEmail")]
         public async Task<IActionResult> ConfirmEmail([FromQuery] string token, [FromQuery] string email)
@@ -200,20 +281,15 @@ namespace Peep.Wings.Application.Controllers
             if (authenticatedUser.EmailConfirmed)
                 return BadRequest( new { Message = "Usuário com confirmação de email já realizada" } );
 
-            SendConfirmationEmail(authenticatedUser);
-
-            return Ok();
-        }
-
-        private async void SendConfirmationEmail(ApplicationUser user)
-        {
-            var emailToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            var emailConfirmationUrl = Url.Link("ConfirmEmail", new { token = emailToken, email = user.Email });
+            var emailToken = await _userManager.GenerateEmailConfirmationTokenAsync(authenticatedUser);
+            var emailConfirmationUrl = Url.Link("ConfirmEmail", new { token = emailToken, email = authenticatedUser.Email });
 
             await _emailService.SendEmail(
-                user.Email,
+                authenticatedUser.Email,
                 "Peep - Confirmação de email",
                 $"<html><body>Seja bem-vindo ao Peep! Clique <a href=\"{emailConfirmationUrl}\">aqui</a> para confirmar seu email e poder acessar a sua conta</body></html>");
+
+            return Ok();
         }
     }
 }

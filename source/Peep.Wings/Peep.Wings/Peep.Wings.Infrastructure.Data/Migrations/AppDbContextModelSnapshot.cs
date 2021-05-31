@@ -169,6 +169,9 @@ namespace Peep.Wings.Infrastructure.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<DateTime>("JoinedAt")
+                        .HasColumnType("datetime");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("tinyint(1)");
 

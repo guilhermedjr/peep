@@ -9,8 +9,8 @@ using Peep.Wings.Infrastructure.Data;
 namespace Peep.Wings.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210525140421_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20210531133553_V2")]
+    partial class V2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -170,6 +170,9 @@ namespace Peep.Wings.Infrastructure.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime>("JoinedAt")
+                        .HasColumnType("datetime");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("tinyint(1)");
