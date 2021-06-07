@@ -20,5 +20,10 @@ namespace Peep.Parrot.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public Task GetUserFollowRequests(Guid userId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

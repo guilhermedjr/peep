@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Peep.Parrot.Domain.Repository;
 using Peep.Parrot.Repositories;
+using Peep.Parrot.Infrastructure.Data;
 
 namespace Peep.Parrot.Application
 {
@@ -20,6 +21,8 @@ namespace Peep.Parrot.Application
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<RedisDbConnection>();
+
             services.AddStackExchangeRedisCache(options =>
             {
                 options.Configuration = Configuration.GetConnectionString("redis");

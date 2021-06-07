@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Peep.Parrot.Domain\Peep.Parrot.Domain.csproj" />
+    <ProjectReference Include="..\Peep.Parrot.Infrastructure.Data\Peep.Parrot.Infrastructure.Data.csproj" />
   </ItemGroup>
 
 </Project>
