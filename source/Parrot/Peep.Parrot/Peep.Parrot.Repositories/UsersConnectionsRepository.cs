@@ -6,6 +6,11 @@ namespace Peep.Parrot.Repositories
 {
     public class UsersConnectionsRepository : IUsersConnectionsRepository
     {
+        public Task RequestFollowUp(Guid requestingUserId, Guid requestedUserId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task AddFollowUp(Guid followerId, Guid followedId)
         {
             throw new NotImplementedException();
