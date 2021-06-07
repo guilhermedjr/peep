@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Peep.Parrot.Domain.Repository;
+using Peep.Parrot.Repositories;
 
 namespace Peep.Parrot.Application
 {
@@ -23,11 +25,14 @@ namespace Peep.Parrot.Application
                 options.Configuration = Configuration.GetConnectionString("redis");
             });
 
+            services.AddScoped<IUserInfoRepository, UserInfoRepository>();
+            services.AddScoped<IUsersConnectionsRepository, UsersConnectionsRepository>();
+            services.AddScoped<IPeepsRepository, PeepsRepository>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Peep.Parrot.Application", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Peep Parrot ", Version = "v1" });
             });
         }
 

@@ -3,7 +3,9 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
+using Peep.Parrot.Domain.Dtos;
 using Peep.Parrot.Domain.Entities;
+using Peep.Parrot.Domain.Repository;
 
 namespace Peep.Parrot.Application.Controllers
 {
@@ -12,11 +14,14 @@ namespace Peep.Parrot.Application.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IDistributedCache _cache;
+        private readonly IUserInfoRepository _userInfoRepository;
 
         public UsersController(
-            IDistributedCache cache)
+            IDistributedCache cache,
+            IUserInfoRepository userInfoRepository)
         {
             this._cache = cache;
+            this._userInfoRepository = userInfoRepository;
         }
 
         [HttpGet]
