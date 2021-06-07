@@ -1,0 +1,62 @@
+﻿using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using StackExchange.Redis;
+using Peep.Parrot.Infrastructure.Data.Utils;
+
+namespace Peep.Parrot.Infrastructure.Data
+{
+    public class RedisDbConnection
+    {
+        private readonly IConfiguration _config;
+        protected readonly ConnectionMultiplexer _connection;
+
+        public RedisDbConnection(IConfiguration config)
+        {
+            this._config = config;
+            this._connection = ConnectionMultiplexer.Connect(_config.GetConnectionString("redis"));
+        }
+
+        protected bool Disconnect()
+        {
+            if (_connection.IsConnected)
+                return  _connection.CloseAsync().IsCompletedSuccessfully;
+            return false;
+        }
+
+        protected async Task<T> GetObjectFromKey<T>(string key)
+        {
+            var db = _connection.GetDatabase();
+            var redisHash = await db.HashGetAllAsync(key);
+            var obj = RedisUtils.HashEntriesToObject<T>(redisHash);
+            return obj;
+        }
+
+        protected bool CreateHash<T>(string key, T obj)
+        {
+            var db = _connection.GetDatabase();
+            var hash = RedisUtils.ObjectToHashEntries(obj);
+
+            if (!db.KeyExists(key))
+                return db.HashSetAsync(key, hash).IsCompletedSuccessfully;
+            return false;
+            
+        }
+
+        protected bool UpdateHashFromKey<T>(string key, T obj)
+        {
+            var db = _connection.GetDatabase();
+            var hash = RedisUtils.ObjectToHashEntries(obj);
+
+            if (db.KeyExists(key))
+                return db.HashSetAsync(key, hash).IsCompletedSuccessfully;
+            return false;
+        }
+
+        protected async Task<bool> DeleteKey(string key)
+        {
+            var db = _connection.GetDatabase();
+            return await db.KeyDeleteAsync(key);
+        }
+           
+    }
+}
