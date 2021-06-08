@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using StackExchange.Redis;
 using Peep.Parrot.Infrastructure.Data.Utils;
@@ -50,6 +51,30 @@ namespace Peep.Parrot.Infrastructure.Data
             if (db.KeyExists(key))
                 return db.HashSetAsync(key, hash).IsCompletedSuccessfully;
             return false;
+        }
+
+        protected void AddGuidToListHead(string listKey, Guid guid)
+        {
+            var db = _connection.GetDatabase();
+            db.ListLeftPushAsync(listKey, RedisUtils.GuidToRedisValue(guid));
+        }
+
+        protected void AddGuidToListTail(string listKey, Guid guid)
+        {
+            var db = _connection.GetDatabase();
+            db.ListRightPushAsync(listKey, RedisUtils.GuidToRedisValue(guid));
+        }
+
+        protected void AddGuidArrayToListHead(string listKey, Guid[] guidArray)
+        {
+            var db = _connection.GetDatabase();
+            db.ListLeftPushAsync(listKey, RedisUtils.GuidArrayToRedisValues(guidArray));
+        }
+
+        protected void AddGuidArrayToListTail(string listKey, Guid[] guidArray)
+        {
+            var db = _connection.GetDatabase();
+            db.ListRightPushAsync(listKey, RedisUtils.GuidArrayToRedisValues(guidArray));
         }
 
         protected async Task<bool> DeleteKey(string key)

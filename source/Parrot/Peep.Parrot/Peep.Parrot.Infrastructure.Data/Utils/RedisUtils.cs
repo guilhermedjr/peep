@@ -60,5 +60,26 @@ namespace Peep.Parrot.Infrastructure.Data.Utils
             return (T)obj;
         }
 
+        public static RedisValue GuidToRedisValue(Guid guid) =>
+           (RedisValue)guid.ToString();
+
+        public static Guid RedisValueToGuid(RedisValue redisValue) =>
+            Guid.Parse((string)redisValue);
+
+        public static RedisValue[] GuidArrayToRedisValues(Guid[] guidArray)
+        {
+            if (guidArray == null || guidArray.Length == 0)
+                return null;
+            return Array.ConvertAll(guidArray, x => (RedisValue)x.ToString());
+
+        }
+
+        public static Guid[] RedisValuesToGuidArray(RedisValue[] redisValues)
+        {
+            if (redisValues == null || redisValues.Length == 0) 
+                return null;
+            return Array.ConvertAll(redisValues, x => Guid.Parse((string)x));
+        }
+
     }
 }
