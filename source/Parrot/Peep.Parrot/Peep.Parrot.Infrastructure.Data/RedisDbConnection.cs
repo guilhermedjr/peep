@@ -77,6 +77,39 @@ namespace Peep.Parrot.Infrastructure.Data
             db.ListRightPushAsync(listKey, RedisUtils.GuidArrayToRedisValues(guidArray));
         }
 
+        protected async Task<bool> GuidIsOnList(string listKey, Guid guid)
+        {
+            var db = _connection.GetDatabase();
+            RedisValue[] members = await db.ListRangeAsync(listKey, 0, -1);
+
+            foreach (var member in members)
+            {
+                if (RedisUtils.RedisValueToGuid(member) == guid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        protected async Task<bool> AddGuidOnSet(string setKey, Guid guid)
+        {
+            var db = _connection.GetDatabase();
+            return await db.SetAddAsync(setKey, RedisUtils.GuidToRedisValue(guid));
+        }
+
+        protected async Task<bool> GuidIsOnSet(string setKey, Guid guid)
+        {
+            var db = _connection.GetDatabase();
+            return await db.SetContainsAsync(setKey, RedisUtils.GuidToRedisValue(guid));
+        }
+
+        protected async Task<bool> DeleteGuidOfSet(string setKey, Guid guid)
+        {
+            var db = _connection.GetDatabase();
+            return await db.SetRemoveAsync(setKey, RedisUtils.GuidToRedisValue(guid));
+        }
+
         protected async Task<bool> DeleteKey(string key)
         {
             var db = _connection.GetDatabase();
