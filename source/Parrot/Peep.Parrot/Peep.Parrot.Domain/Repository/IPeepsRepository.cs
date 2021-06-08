@@ -6,8 +6,8 @@ namespace Peep.Parrot.Domain.Repository
 {
     public interface IPeepsRepository
     {
-        bool AddPeep(AddPeepDto addPeepDto);
-        Task EditPeep(Guid userId, EditPeepDto editPeepDto);
-        Task DeletePeep(Guid userId, Guid peepId);
+        Task<bool> AddPeep(AddPeepDto addPeepDto);
+        Task<bool> EditPeep(EditPeepDto editPeepDto);
+        Task<bool> DeletePeep(Guid userId, Guid peepId);
     }
 }

@@ -11,7 +11,7 @@ namespace Peep.Parrot.Repositories
     {
         public PeepsRepository(IConfiguration config): base(config) {}
 
-        public bool AddPeep(AddPeepDto addPeepDto)
+        public async Task <bool> AddPeep(AddPeepDto addPeepDto)
         {
             var now = DateTime.Now;
             var peepId = Guid.NewGuid();
@@ -22,20 +22,31 @@ namespace Peep.Parrot.Repositories
 
             if (base.CreateHash<AddPeepDto>($"peep:{peepId}", addPeepDto))
             {
-                base.AddGuidToListHead($"peeps_user:{addPeepDto.UserId}", peepId);
-                return true;
+                return await base.AddGuidOnSet($"peeps_user:{addPeepDto.UserId}", peepId);
             }
             return false;
         }
             
-        public Task EditPeep(Guid userId, EditPeepDto editPeepDto)
+        public async Task<bool> EditPeep(EditPeepDto editPeepDto)
         {
-            throw new NotImplementedException();
+            if (base.GetObjectFromKey<EditPeepDto>($"peep:{editPeepDto.PeepId}") != null)
+            {
+                if (await base.GuidIsOnSet($"peeps_user:{editPeepDto.UserId}", editPeepDto.PeepId))
+                {
+                    return base.UpdateHashFromKey<EditPeepDto>($"peep:{editPeepDto.PeepId}", editPeepDto);
+                }
+                return false;
+            }
+            return false;
         }
-
-        public Task DeletePeep(Guid userId, Guid peepId)
+       
+        public async Task<bool> DeletePeep(Guid userId, Guid peepId)
         {
-            throw new NotImplementedException();
+            if (await base.DeleteGuidOfSet($"peeps_user:{userId}", peepId))
+            {
+                return await base.DeleteKey($"peep:{peepId}");
+            }
+            return false;
         }
     }
 }

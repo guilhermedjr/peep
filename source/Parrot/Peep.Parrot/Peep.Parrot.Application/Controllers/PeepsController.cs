@@ -25,13 +25,35 @@ namespace Peep.Parrot.Application.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddPeep(AddPeepDto addPeepDto)
+        public async Task<IActionResult> AddPeep(AddPeepDto addPeepDto)
         {
             if (String.IsNullOrEmpty(addPeepDto.UserId.ToString()))
                 return BadRequest(new { Message = "User Id not specified" });
 
-            if (_peepsRepository.AddPeep(addPeepDto))
+            if (await _peepsRepository.AddPeep(addPeepDto))
                 return Ok();
+            return BadRequest();
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> EditPeep(EditPeepDto editPeepDto)
+        {
+            if (String.IsNullOrEmpty(editPeepDto.UserId.ToString()))
+                return BadRequest(new { Message = "User Id not specified" });
+
+            if (await _peepsRepository.EditPeep(editPeepDto))
+                return NoContent();
+            return BadRequest();
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeletePeep([FromQuery] Guid userId, Guid peepId)
+        {
+            if (String.IsNullOrEmpty(userId.ToString()))
+                return BadRequest(new { Message = "User Id not specified" });
+
+            if (await _peepsRepository.DeletePeep(userId, peepId))
+                return NoContent();
             return BadRequest();
         }
 
