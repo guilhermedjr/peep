@@ -46,9 +46,19 @@ namespace Peep.Parrot.Infrastructure.Data.Utils
             {
                 HashEntry entry = hashEntries.FirstOrDefault(he => he.Name.ToString().Equals(property.Name));
                 if (entry.Equals(new HashEntry())) continue;
-                property.SetValue(obj, Convert.ChangeType(entry.Value.ToString(), property.PropertyType));
+
+                if (property.PropertyType == typeof(Guid))
+                {
+                    property.SetValue(obj, Convert.ChangeType(Guid.Parse(entry.Value.ToString()), property.PropertyType));
+                }
+                else
+                {
+                    property.SetValue(obj, Convert.ChangeType(entry.Value.ToString(), property.PropertyType));
+                }
+
             }
             return (T)obj;
         }
+
     }
 }
