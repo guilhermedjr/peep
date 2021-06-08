@@ -28,7 +28,7 @@ namespace Peep.Parrot.Application.Controllers
         public async Task<IActionResult> Index([FromQuery] Guid id)
         {
             if (String.IsNullOrEmpty(id.ToString()))
-                return BadRequest();
+                return BadRequest(new { Message = "User Id not specified" });
 
             var cacheKey = $"cache_user:{id}";
             var cache = await _cache.GetStringAsync(cacheKey);
@@ -50,18 +50,38 @@ namespace Peep.Parrot.Application.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddUserInfo(AddUserInfoDto addUserInfoDto)
+        public async Task<IActionResult> AddUserInfo(AddUserInfoDto addUserInfoDto)
         {
+            if (String.IsNullOrEmpty(addUserInfoDto.Id.ToString()))
+                return BadRequest(new { Message = "User Id not specified" });
+
             if (_userInfoRepository.AddUserInfo(addUserInfoDto))
-                return Ok();
+            {
+                var cacheKey = $"cache_user:{addUserInfoDto.Id}";
+                var userInfo = await _userInfoRepository.GetUserInfo(addUserInfoDto.Id);
+                var cache = JsonSerializer.Serialize<UserInfoViewModel>(userInfo);
+                await _cache.SetStringAsync(cacheKey, cache);
+                return Ok(userInfo);
+            }
+
             return BadRequest();
         }
 
         [HttpPut]
-        public IActionResult UpdateUserInfo(UpdateUserInfoDto updateUserInfoDto)
+        public async Task<IActionResult> UpdateUserInfo(UpdateUserInfoDto updateUserInfoDto)
         {
+            if (String.IsNullOrEmpty(updateUserInfoDto.Id.ToString()))
+                return BadRequest( new { Message = "User Id not specified" });
+
             if (_userInfoRepository.UpdateUserInfo(updateUserInfoDto))
+            {
+                var cacheKey = $"cache_user:{updateUserInfoDto.Id}";
+                var userInfo = await _userInfoRepository.GetUserInfo(updateUserInfoDto.Id);
+                var cache = JsonSerializer.Serialize<UserInfoViewModel>(userInfo);
+                await _cache.SetStringAsync(cacheKey, cache);
                 return NoContent();
+            }
+               
             return BadRequest();
         }
 
@@ -69,7 +89,7 @@ namespace Peep.Parrot.Application.Controllers
         public async Task<IActionResult> DeleteUserInfo([FromQuery] Guid id)
         {
             if (String.IsNullOrEmpty(id.ToString()))
-                return BadRequest(new { Message = "Parameters are null" });
+                return BadRequest(new { Message = "User Id not specified" });
 
             if (await _userInfoRepository.DeleteUserInfo(id))
             {
