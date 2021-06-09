@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using StackExchange.Redis;
 using Peep.Parrot.Infrastructure.Data.Utils;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Peep.Parrot.Infrastructure.Data
 {
@@ -106,6 +108,24 @@ namespace Peep.Parrot.Infrastructure.Data
                 }
             }
             return false;
+        }
+
+        protected async Task<List<Guid>> GetAllGuidSetMembers(string setKey)
+        {
+            var db = _connection.GetDatabase();
+            RedisValue[] members = await db.SetMembersAsync(setKey);
+
+            if (members.Length == 0)
+                return null;
+
+            List<Guid> result = new List<Guid>();
+
+            foreach (var member in members)
+            {
+                result.Add(RedisUtils.RedisValueToGuid(member));
+            }
+
+            return result;
         }
 
         protected async Task<bool> AddGuidOnSet(string setKey, Guid guid)

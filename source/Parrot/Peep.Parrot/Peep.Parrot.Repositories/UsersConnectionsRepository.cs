@@ -2,6 +2,7 @@
 using Peep.Parrot.Domain.Repository;
 using Peep.Parrot.Infrastructure.Data;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Peep.Parrot.Repositories
@@ -23,6 +24,10 @@ namespace Peep.Parrot.Repositories
                 return await this.RemoveFollowUpRequestAsync(requestingUserId, requestedUserId);
             return false;
         }
+
+        public async Task<List<Guid>> GetUserFollowUpRequests(Guid userId) =>
+            await base.GetAllGuidSetMembers($"followupRequests_user:{userId}");
+        
 
         public async Task<bool> AddFollowUp(Guid followerId, Guid followedId)
         {
@@ -50,19 +55,9 @@ namespace Peep.Parrot.Repositories
 
         public async Task<bool> RemoveFollowUp(Guid followerId, Guid followedId)
         {
-            if (await base.GuidIsOnSet($"followers_user:{followedId}", followerId))
-            {
-                if (await base.DeleteGuidOfSet($"followers_user:{followedId}", followerId))
-                    return await base.DeleteGuidOfSet($"following_user:{followerId}", followedId);
-                return false;
-            }
-                
+            if (await ConnectionExists(followerId, followedId))
+                return await this.RemoveConnectionAsync(followedId, followerId);
             return false;
-        }
-
-        public Task GetUserFollowRequests(Guid userId)
-        {
-            throw new NotImplementedException();
         }
 
         private async Task<bool> FollowUpRequestExistsAsync(Guid requestingUserId, Guid requestedUserId) =>
@@ -71,7 +66,16 @@ namespace Peep.Parrot.Repositories
         private async Task<bool> RemoveFollowUpRequestAsync(Guid requestingUserId, Guid requestedUserId) =>
             await base.DeleteGuidOfSet($"followupRequests_user:{requestedUserId}", requestingUserId);
 
-        private async Task<bool> ConnectionExists(Guid followerId, Guid followedId) =>
+        public async Task<bool> ConnectionExists(Guid followerId, Guid followedId) =>
             await base.GuidIsOnSet($"followers_user:{followedId}", followerId);
+
+        public async Task<bool> RemoveConnectionAsync(Guid followedId, Guid followerId)
+        {
+            if (await base.DeleteGuidOfSet($"followers_user:{followedId}", followerId))
+                return await base.DeleteGuidOfSet($"following_user:{followerId}", followedId);
+            return false;
+        }
+
+        
     }
 }

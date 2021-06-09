@@ -62,6 +62,21 @@ namespace Peep.Parrot.Application.Controllers
             return BadRequest();
         }
 
+        [HttpGet]
+        [Route("GetUserFollowUpRequests")]
+        public async Task<IActionResult> GetUserFollowUpRequests([FromQuery] Guid userId)
+        {
+            if (String.IsNullOrEmpty(userId.ToString()))
+                return BadRequest(new { Message = "User Id not specified" });
+
+            var requests = await _usersConnectionsRepository.GetUserFollowUpRequests(userId);
+
+            if (requests != null)
+                return Ok(requests);
+            return NotFound(new { Message = "The user does not have followup requests" });
+            
+        }
+
         [HttpPost]
         [Route("AddFollowUp")]
         public async Task<IActionResult> AddFollowUp(
