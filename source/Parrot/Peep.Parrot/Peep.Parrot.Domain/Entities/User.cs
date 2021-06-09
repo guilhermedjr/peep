@@ -19,7 +19,7 @@ namespace Peep.Parrot.Domain.Entities
         public List<Nest> Nests { get; set; }
         public List<User> FollowRequests { get; set; }
         public List<User> BlockedUsers { get; set; }
-        public List<User> SilencedUsers { get; set; }
+        public List<User> MutedUsers { get; set; }
  
     }
 }
