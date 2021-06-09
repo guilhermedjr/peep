@@ -5,9 +5,10 @@ namespace Peep.Parrot.Domain.Repository
 {
     public interface IUsersConnectionsRepository
     {
-        Task RequestFollowUp(Guid requestingUserId, Guid requestedUserId);
+        Task<bool> RequestFollowUp(Guid requestingUserId, Guid requestedUserId);
+        Task<bool> RemoveFollowUpRequest(Guid requestingUserId, Guid requestedUserId);
+        Task<bool> AddFollowUp(Guid followerId, Guid followedId);
+        Task<bool> RemoveFollowUp(Guid followerId, Guid followedId);
         Task GetUserFollowRequests(Guid userId);
-        Task AddFollowUp(Guid followerId, Guid followedId);
-        Task RemoveFollowUp(Guid followerId, Guid followedId);
     }
 }

@@ -81,5 +81,14 @@ namespace Peep.Parrot.Infrastructure.Data.Utils
             return Array.ConvertAll(redisValues, x => Guid.Parse((string)x));
         }
 
+        public static bool RedisValueToBoolean(RedisValue redisValue) =>
+            Convert.ToBoolean(redisValue.ToString());
+
+        public static RedisValue GenericTypeToRedisValue<T>(T value) =>
+            (RedisValue)value.ToString();
+
+        /*public static T RedisValueToGenericType<T>(RedisValue redisValue) =>
+            (T)Convert.ChangeType(redisValue, typeof(T));*/
+
     }
 }

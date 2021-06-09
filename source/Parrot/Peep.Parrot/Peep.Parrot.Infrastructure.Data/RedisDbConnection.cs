@@ -53,6 +53,22 @@ namespace Peep.Parrot.Infrastructure.Data
             return false;
         }
 
+        protected async Task<bool> GetBooleanValueOfHashField(string hashKey, string fieldName)
+        {
+            var db = _connection.GetDatabase();
+            RedisValue value = await db.HashGetAsync(hashKey, (RedisValue)fieldName);
+            return RedisUtils.RedisValueToBoolean(value);
+        }
+
+        protected async void SetValueOfHashField<T>(string hashKey, string fieldName, T value)
+        {
+            var db = _connection.GetDatabase();
+            RedisValue hashField = (RedisValue)fieldName;
+            RedisValue hashValue = RedisUtils.GenericTypeToRedisValue<T>(value);
+
+            await db.HashSetAsync(hashKey, hashField, hashValue);
+        }
+
         protected void AddGuidToListHead(string listKey, Guid guid)
         {
             var db = _connection.GetDatabase();

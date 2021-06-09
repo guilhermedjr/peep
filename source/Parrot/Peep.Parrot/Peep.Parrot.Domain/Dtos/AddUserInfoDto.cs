@@ -17,5 +17,7 @@ namespace Peep.Parrot.Domain.Dtos
         public string Location { get; set; }
         [Required]
         public string Website { get; set; }
+        
+        public bool IsPrivateAccount { get; set; }
     }
 }

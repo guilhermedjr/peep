@@ -13,8 +13,11 @@ namespace Peep.Parrot.Repositories
     {
         public UserInfoRepository(IConfiguration config): base(config) {}
 
-        public bool AddUserInfo(AddUserInfoDto addUserInfoDto) =>
-            base.CreateHash<AddUserInfoDto>($"user:{addUserInfoDto.Id}", addUserInfoDto);
+        public bool AddUserInfo(AddUserInfoDto addUserInfoDto)
+        {
+            addUserInfoDto.IsPrivateAccount = false;
+            return base.CreateHash<AddUserInfoDto>($"user:{addUserInfoDto.Id}", addUserInfoDto);
+        }
 
         public async Task<UserInfoViewModel> GetUserInfo(Guid id) =>
             await base.GetObjectFromKey<UserInfoViewModel>($"user:{id}");

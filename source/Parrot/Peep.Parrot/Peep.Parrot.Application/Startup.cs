@@ -30,6 +30,7 @@ namespace Peep.Parrot.Application
 
             services.AddScoped<IUserInfoRepository, UserInfoRepository>();
             services.AddScoped<IUsersConnectionsRepository, UsersConnectionsRepository>();
+            services.AddScoped<IUserRestrictionsRepository, UserRestrictionsRepository>();
             services.AddScoped<IPeepsRepository, PeepsRepository>();
             services.AddScoped<INestsRepository, NestsRepository>();
 
