@@ -1,5 +1,5 @@
 export type Account = {
-  Id: string
+  readonly Id?: string
   Name: string
   Username: string
   AccountInfo?: AccountInfo
@@ -9,9 +9,7 @@ export type Account = {
 type AccountInfo = {
   Email?: string
   PhoneNumber?: string
-  JoinedAt: string
-  Following: number
-  Followers: number
+  readonly JoinedAt?: string
 }
 
 type AccountUserInfo = {
@@ -19,4 +17,59 @@ type AccountUserInfo = {
   Location?: string
   BirthDate?: string
   Website?: string
+}
+
+type User = {
+  readonly UserId?: string
+  IsPrivateAccount?: boolean
+  Following?: User[]
+  Followers?: User[]
+  readonly Peeps?: Peep[]
+  readonly Replies?: Peep[]
+  readonly UserNests?: Nest[]
+  readonly Nests?: Nest[]
+  readonly FollowRequests?: User[]
+  readonly BlockedUsers?: User[]
+  readonly MutedUsers?: User[]
+}
+
+export enum EPeepSource {
+  PeepWebApp,
+  PeepForAndroid,
+  PeepForIPhone,
+  PeepForAlexia,
+  PeepForElectrolux,
+  PeepForSpaceXSuperHeavy
+}
+
+export enum EPeepReplyRestriction {
+  Everyone,
+  Followed,
+  Mentioned
+}
+
+type Peep = {
+  readonly PeepId?: string
+  UserId: string
+  readonly Date?: string
+  readonly Time?: string
+  Source: EPeepSource,
+  Description: string
+  IsQuote: boolean
+  QuotedPeepId?: string
+  readonly Quotes?: Peep[]
+  readonly Reposts?: Account[]
+  readonly Likes?: Account[]
+  readonly Replies?: Peep[]
+}
+
+type Nest = {
+  readonly NestId?: string
+  OwnerId: string
+  IsPublic: boolean
+  Name: string
+  Description: string
+  readonly Members?: User[]
+  readonly Followers?: User[]
+  readonly CreatedAt?: string
 }
