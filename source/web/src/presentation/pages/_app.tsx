@@ -1,6 +1,6 @@
 import { Provider } from 'react-redux'
-import store from '../heartwood/store'
-import GlobalStyles from '../surface/styles/GlobalStyles'
+import store from '../../logic/store'
+import GlobalStyles from '../styles/GlobalStyles'
 
 function MyApp({ Component, pageProps }) {
   return (
