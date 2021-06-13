@@ -1,6 +1,7 @@
 import { Provider } from 'react-redux'
-import store from '../../logic/store'
-import GlobalStyles from '../styles/GlobalStyles'
+import { PeepsContext } from '../logic/contexts/PeepsContext'
+import store from '../logic/store'
+import GlobalStyles from '../presentation/styles/GlobalStyles'
 
 function MyApp({ Component, pageProps }) {
   return (

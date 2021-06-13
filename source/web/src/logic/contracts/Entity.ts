@@ -6,20 +6,20 @@ export type Account = {
   AccountUserInfo?: AccountUserInfo
 }
 
-type AccountInfo = {
+export type AccountInfo = {
   Email?: string
   PhoneNumber?: string
   readonly JoinedAt?: string
 }
 
-type AccountUserInfo = {
+export type AccountUserInfo = {
   Bio: string
   Location?: string
   BirthDate?: string
   Website?: string
 }
 
-type User = {
+export type User = {
   readonly UserId?: string
   IsPrivateAccount?: boolean
   Following?: User[]
@@ -48,7 +48,7 @@ export enum EPeepReplyRestriction {
   Mentioned
 }
 
-type Peep = {
+export type Peep = {
   readonly PeepId?: string
   UserId: string
   readonly Date?: string
@@ -63,7 +63,7 @@ type Peep = {
   readonly Replies?: Peep[]
 }
 
-type Nest = {
+export type Nest = {
   readonly NestId?: string
   OwnerId: string
   IsPublic: boolean

@@ -1,8 +1,8 @@
 import { AxiosResponse } from 'axios'
 import AxiosInstances from './config'
-import { HttpResponse } from '../contracts/HttpClient'
+import { HttpResponse, IParrotHttpClient } from '../contracts/HttpClient'
 
-export class ParrotHttpClient {
+export class ParrotHttpClient implements IParrotHttpClient {
   private readonly baseUrl = AxiosInstances.Parrot
   private readonly headers =  
     {'Accept': 'application/json','Content-Type': 'application/json'}

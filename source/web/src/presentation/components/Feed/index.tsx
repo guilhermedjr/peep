@@ -1,15 +1,15 @@
-import { Tweet } from '../Tweet'
+import { Peep } from '../Peep'
 
-import { Tweets } from './styles'
+import { Peeps } from './styles'
 
 export function Feed() {
   return (
-    <Tweets>
-      <Tweet />
-      <Tweet />
-      <Tweet />
-      <Tweet />
-      <Tweet />
-    </Tweets> 
+    <Peeps>
+      <Peep />
+      <Peep />
+      <Peep />
+      <Peep />
+      <Peep />
+    </Peeps> 
   )   
 }

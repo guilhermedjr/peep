@@ -28,4 +28,14 @@ export {
 export { Cake, Favorite } from 'styled-icons/material'
 export { Comment, Retweet } from 'styled-icons/evil'
 
+export { DotsHorizontalRounded as Options } from '@styled-icons/boxicons-regular/DotsHorizontalRounded'
+
 export { ArrowLeft } from 'styled-icons/heroicons-solid'
+
+export { Earth as Everyone } from '@styled-icons/ionicons-solid/Earth'
+export { UserFollow as Followed } from '@styled-icons/remix-line/UserFollow'
+export { At as Mentioned } from '@styled-icons/bootstrap/At'
+
+export { FileMedia as Media } from '@styled-icons/octicons/FileMedia'
+export { Gif, Poll, Emoji, ShareIos as Share } from '@styled-icons/fluentui-system-regular'
+export { Schedule } from '@styled-icons/material-outlined/Schedule'

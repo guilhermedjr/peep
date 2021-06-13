@@ -1,12 +1,12 @@
 import styled, { css } from 'styled-components'
 
-import { Comment, Retweet, Favorite } from '../../styles/icons'
+import { Comment, Retweet, Favorite, Share, Options } from '../../styles/icons'
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
 
-  padding: 14px 16px;
+  padding: 14px 16px 10px 16px;
 
   border-bottom: 1px solid var(--outline);
 
@@ -16,6 +16,8 @@ export const Container = styled.div`
 export const Retweeted = styled.div`
   display: flex;
   align-items: center;
+
+  padding-bottom: 0.2rem;
 
   font-size: 13px;
   color: var(--gray);
@@ -58,37 +60,50 @@ export const Content = styled.div`
   flex-direction: column;
 
   width: 100%;
-  margin-top: 2px;
+  margin-top: -5px;
   padding-left: 59px;
 `
 
 export const Header = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
   font-size: 15px;
   white-space: nowrap;
 
-  > strong {
+  strong {
     margin-right: 5px;
   }
 
-  > span, time {
+  span, time {
     color: var(--gray);
   }
 
-  > strong, span {
+  strong, span {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
   }
+
+  > div:first-child {
+    display: flex;
+  }
+`
+
+export const PeepOtions = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  z-index: 2;
 `
 
 export const Dot = styled.div`
   background: var(--gray);
-  width: 2px;
-  height: 2px;
-  margin: 0 10px;
+  width: 1px;
+  height: 1px;
+  margin: 0 5px;
+  margin-top: 10px;
 `
 
 export const Description = styled.p`
@@ -115,13 +130,14 @@ export const Icons = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   margin: 11px auto 0;
-  width: 100%;
 
-  @media (min-width: 330px) {
-    width: 63%;
-  }
+  width: 70%;
+  max-height: 1.25rem;
+  height: 100%;
+
+
 
   > div {
     cursor: pointer;
@@ -136,19 +152,25 @@ export const Status = styled.div`
   display: flex;
   align-items: center;
 
-  font-size: 14px;
+  font-size: 12px;
+
+  height: auto;
+
+  > span {
+    color: var(--gray);
+  }
 
   > svg {
     margin-right: 5px;
   }
 
-  &:first-child {
+  /* &:first-child {
     &, > svg path {
       color: var(--gray);
     }
-  }
+  } */
 
-  &:nth-child(2) {
+  /* &:nth-child(2):checked {
     color: var(--retweet);
 
     > svg path {
@@ -156,13 +178,13 @@ export const Status = styled.div`
     }
   }
 
-  &:nth-child(3) {
+  &:nth-child(3):hover {
     color: var(--like);
 
     > svg {
       fill: var(--like);
     }
-  }
+  } */
 `
 const iconCSS = css`
   width: 19px;
@@ -180,4 +202,87 @@ export const RetweetIcon = styled(Retweet)`
 export const LikeIcon = styled(Favorite)`
   ${iconCSS}
 `
+export const ShareIcon = styled(Share)`
+  ${iconCSS}
 
+  color: var(--gray);
+  fill: var(--gray);
+`
+
+export const OptionsButton = styled.div`
+  border-radius: 20px;
+  width: 2rem;
+  height: 2rem;
+
+  text-align: center;
+
+
+  &:hover {
+    background: var(--twitter-dark-hover);
+
+    svg {
+      color: var(--twitter);
+      fill: var(--twitter);
+    }
+  }
+`
+
+export const CommentIconArea = styled.div`
+  border-radius: 20px;
+  width: 2rem;
+  height: 2rem;
+
+  text-align: center;
+
+  &:hover {
+    background: var(--twitter-dark-hover);
+
+    svg {
+      color: var(--twitter);
+      fill: var(--twitter);
+    }
+  }
+`
+
+export const ShareIconArea = CommentIconArea
+
+export const RetweetIconArea = styled.div`
+  border-radius: 20px;
+  width: 2rem;
+  height: 2rem;
+
+  text-align: center;
+
+  &:hover {
+    background: var(--retweet-light);
+
+    svg {
+      color: var(--retweet);
+      fill: var(--retweet);
+    }
+  }
+`
+
+export const LikeIconArea = styled.div`
+  border-radius: 20px;
+  width: 2rem;
+  height: 2rem;
+
+  text-align: center;
+
+  &:hover {
+    background: var(--like-light);
+
+    svg {
+      color: var(--like);
+      fill: var(--like);
+    }
+  }
+`
+
+export const OptionsIcon = styled(Options)`
+  ${iconCSS}
+
+  color: var(--gray);
+  fill: var(--gray);
+`

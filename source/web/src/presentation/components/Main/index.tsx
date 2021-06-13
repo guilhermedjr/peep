@@ -22,8 +22,8 @@ const Main = ({ timeline, dispatch }) => {
           <BackIcon />
         </button>
         <ProfileInfo>
-          <strong>dj</strong>
-          <span>24.4K Tweets</span>
+          <strong>user</strong>
+          <span>5 Tweets</span>
         </ProfileInfo>
       </Header>
 

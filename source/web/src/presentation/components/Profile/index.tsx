@@ -24,25 +24,25 @@ export function Profile() {
       <ProfileData>
         <EditButton outlined>Editar perfil</EditButton>
 
-        <h1>dj</h1>
-        <h2>@djrdjrjan</h2>
+        <h1>user</h1>
+        <h2>@user</h2>
 
         <p>Profile description</p>
 
         <ul>
           <li>
             <LocationIcon />
-            Santos, Brasil
+            Somewhere
           </li>
           <li>
             <CakeIcon />
-            Born 21 July 2003
+            Born 1 Jan 1800
           </li>
         </ul>
 
         <Followage>
-          <span><strong>373</strong> Following</span>
-          <span><strong>1,501</strong> Followers</span>
+          <span><strong>0</strong> Following</span>
+          <span><strong>0</strong> Followers</span>
         </Followage>
       </ProfileData>
 

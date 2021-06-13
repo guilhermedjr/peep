@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const Tweets = styled.div`
+export const Peeps = styled.div`
   display: flex;
   flex-direction: column;
 
