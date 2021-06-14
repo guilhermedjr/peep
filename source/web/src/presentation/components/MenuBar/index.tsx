@@ -1,4 +1,6 @@
+import { useContext } from 'react'
 import Button from '../Button'
+import { PeepsContext } from '../../../logic/contexts/PeepsContext'
 
 import {
   Container, 
@@ -20,6 +22,7 @@ import {
 } from './styles'
 
 export function MenuBar() {
+  const { openModal } = useContext(PeepsContext)
   return (
     <Container>
       <Topside>
@@ -65,16 +68,16 @@ export function MenuBar() {
           <span>Mais</span>
         </MenuButton>
 
-        <Button>
-          <span>Tweetar</span>
+        <Button onClick={openModal}>
+          <span>Peep</span>
         </Button>
       </Topside>
 
       <Bottomside>
         <Avatar />
         <ProfileData>
-          <strong>dj</strong>
-          <span>@djrdjrjan</span>
+          <strong>Ednaldo Pereira</strong>
+          <span>@oednaldopereira</span>
         </ProfileData>
 
         <OptionsIcon />

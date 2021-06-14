@@ -26,7 +26,7 @@ type PeepModalProps = {
 }
 
 export function PeepModal(props: PeepModalProps) {
-  const { addPeep, editPeep, isModalOpen } = useContext(PeepsContext)
+  const { addPeep, editPeep, isModalOpen, closeModal } = useContext(PeepsContext)
   
   return (
     <Container style={{

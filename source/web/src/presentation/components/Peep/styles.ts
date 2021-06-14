@@ -106,12 +106,15 @@ export const Dot = styled.div`
   margin-top: 10px;
 `
 
-export const Description = styled.p`
-  font-size: 14px;
-  margin-top: 4px;
+export const PeepContent = styled.div`
+  margin-top: 0.5px;
 `
 
-export const ImageContent = styled.div`
+export const Description = styled.p`
+  font-size: 14.5px;
+`
+
+export const ImageContent = styled.img`
   margin-top: 12px;
   width: 100%;
   height: min(285px, max(175px, 41vw));

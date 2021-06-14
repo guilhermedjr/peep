@@ -24,10 +24,14 @@ export function Profile() {
       <ProfileData>
         <EditButton outlined>Editar perfil</EditButton>
 
-        <h1>user</h1>
-        <h2>@user</h2>
+        <h1>Ednaldo Pereira</h1>
+        <h2>@oednaldopereira</h2>
 
-        <p>Profile description</p>
+        <p>Cantor e compositor Ednaldo Pereira</p>
+        <br />
+        <p>Contribua  <a href="http://apoia.se/ednaldopereira" style={{
+          color: 'var(--twitter)'
+        }}>http://apoia.se/ednaldopereira</a>  para receber  seu vídeo</p>
 
         <ul>
           <li>

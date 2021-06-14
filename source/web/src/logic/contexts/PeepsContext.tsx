@@ -4,6 +4,8 @@ import { IParrotHttpClient, HttpStatusCode } from '../contracts/HttpClient'
 
 type PeepsContextData = {
   isModalOpen: boolean,
+  openModal: () => void,
+  closeModal: () => void,
   addPeep: (peep: Peep) => Promise<boolean>
   editPeep: (peep: Peep) => Promise<boolean>
 }
@@ -18,6 +20,14 @@ export const PeepsContext = createContext({} as PeepsContextData)
 export default function PeepsProvider({parrotHttpClient, children}: PeepsProviderProps) {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [peepToEdit, setPeepToEdit] = useState<Peep>()
+  
+  const openModal = (): void => {
+    setIsModalOpen(true)
+  }
+
+  const closeModal = (): void => {
+    setIsModalOpen(false)
+  }
 
   async function addPeep(peep: Peep): Promise<boolean> {
     const response = await parrotHttpClient.httpPost('peeps', peep)
@@ -33,6 +43,8 @@ export default function PeepsProvider({parrotHttpClient, children}: PeepsProvide
     <PeepsContext.Provider
       value={{
         isModalOpen,
+        openModal,
+        closeModal,
         addPeep,
         editPeep
       }}

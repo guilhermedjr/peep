@@ -1,5 +1,7 @@
 import * as React from 'react'
 import { useState, useEffect } from 'react'
+import { PeepHasContent } from '../../contracts/Peep'
+import { getMonthText, fullTimeToSeconds } from '../../utils'
 
 import {
   Container, 
@@ -9,6 +11,7 @@ import {
   Avatar,
   Content,
   Header,
+  PeepContent,
   Dot,
   OptionsButton,
   OptionsIcon,
@@ -28,26 +31,98 @@ import {
   ShareIcon
 } from './styles'
 
+type PeepProps = {
+  hasContent: PeepHasContent[]
+  user: string
+  username: string
+  isRepost: boolean
+  date: string
+  time: string
+  description?: string
+  imageContentPath?: string
+}
 
-export function Peep() {
+
+export function Peep(props: PeepProps) {
   const [showOptions, setShowOptions] = useState<boolean>(false)
+
+  // melhorar isto
+  const formatDateTime = (date: string, time: string): string => {
+    const now = new Date()
+
+    date = date.replace("/", "").replace("-", "").replace("/", "").replace("-", "")
+
+    let day = date.substr(0, 2),
+        month = Number(date.substr(2, 2)),
+        year = date.substr(6, 2)
+
+    time = time.replace(":", "").replace(":", "")
+
+    let hours = time.substr(0, 2),
+        minutes = time.substr(2, 2),
+        seconds = time.substr(4, 2)
+
+    let dayNow: string = String(now.getDate())
+    let monthNow: string = String(now.getMonth())
+    let yearNow: string = String(now.getFullYear()).substr(2, 2)
+
+    let hoursNow: string = String(now.getHours())
+    let minutesNow: string = String(now.getMinutes())
+    let secondsNow: string = String(now.getSeconds())
+
+    if (year != yearNow)
+      return `${day} ${getMonthText(month)} ${year}`
+
+    if (String(month) == monthNow) {
+      let daysSincePost = Number(dayNow) - Number(day)
+
+      if (daysSincePost < 7) {
+        if (day == dayNow) {
+          if (hours == hoursNow || Number(hours) == Number(hoursNow) - 1) {
+            let secondsSincePast = fullTimeToSeconds(time)
+
+            if (secondsSincePast < 60) 
+              return `${secondsSincePast}s`
+            if (secondsSincePast < 3600)
+              return `${Math.round(secondsSincePast / 60)}min`
+            return '1h'
+          } else {
+            return `${Number(hoursNow) - Number(hours)}h`
+          }
+        } else {
+            return `${Number(dayNow) - Number(day)}d`
+        } 
+      } 
+       else {
+        return `${day} ${getMonthText(month)}`
+      }
+    }
+    else {
+      return `${day} ${getMonthText(month)}`
+    }
+
+  }
+
   return (
     <Container>
-      <Retweeted>
-        <RtIcon />
-        Você retweetou
-      </Retweeted>
-
+      { props.isRepost 
+          ? <Retweeted>
+              <RtIcon />
+              Você retweetou
+            </Retweeted>
+          : []
+      }
+      
       <Body>
         <Avatar />
 
         <Content>
           <Header>
             <div>
-              <strong>User</strong>
-              <span>@user</span>
+              <strong>{props.user}</strong>
+              <span>@{props.username}</span>
               <Dot />
-              <time>8h</time>
+              <time>{formatDateTime(props.date, props.time)}</time>
             </div>
             <div>
               <OptionsButton>
@@ -59,9 +134,16 @@ export function Peep() {
             </div>
           </Header>
 
-          <Description>AAAAAAAAAAAAAAAAAAA que depressão</Description>
-
-          <ImageContent />
+          <PeepContent>
+            { props.hasContent.filter(c => c.type == 0)[0].isPresent 
+                ? <Description>{props.description}</Description>
+                : []
+            }
+            { props.hasContent.filter(c => c.type == 1)[0].isPresent
+               ? <ImageContent src={props.imageContentPath} />
+               : []
+            }
+          </PeepContent>
 
           <Icons>
             <Status>
