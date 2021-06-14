@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 
-import { Comment, Retweet, Favorite, Share, Options } from '../../styles/icons'
+import { Comment, Retweet, Favorite, Share, Options, OptionsMobile } from '../../styles/icons'
 
 export const Container = styled.div`
   display: flex;
@@ -230,6 +230,12 @@ export const OptionsButton = styled.div`
   }
 `
 
+export const OptionsButtonMobile = styled.div`
+  width: 2rem;
+  height: 2rem;
+  text-align: center;
+`
+
 export const CommentIconArea = styled.div`
   border-radius: 20px;
   width: 2rem;
@@ -289,3 +295,5 @@ export const OptionsIcon = styled(Options)`
   color: var(--gray);
   fill: var(--gray);
 `
+
+export const OptionsIconMobile = OptionsIcon

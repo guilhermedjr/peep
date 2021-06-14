@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useLayoutEffect } from 'react'
 import { PeepHasContent } from '../../contracts/Peep'
 import { getMonthText, fullTimeToSeconds } from '../../utils'
 
@@ -14,7 +14,9 @@ import {
   PeepContent,
   Dot,
   OptionsButton,
+  OptionsButtonMobile,
   OptionsIcon,
+  OptionsIconMobile,
   // OptionsButtonDot,
   // PeepOptions,
   Description,
@@ -42,9 +44,24 @@ type PeepProps = {
   imageContentPath?: string
 }
 
+function useWindowSize() {
+  const [size, setSize] = useState([0, 0])
+  useLayoutEffect(() => {
+    function updateSize() {
+      setSize([window.innerWidth, window.innerHeight])
+    }
+    window.addEventListener('resize', updateSize)
+    updateSize()
+    return () => window.removeEventListener('resize', updateSize)
+  }, [])
+  return size
+}
+
 
 export function Peep(props: PeepProps) {
   const [showOptions, setShowOptions] = useState<boolean>(false)
+
+  const [viewportWidth, viewportHeight] = useWindowSize();
 
   // melhorar isto
   const formatDateTime = (date: string, time: string): string => {
@@ -125,9 +142,15 @@ export function Peep(props: PeepProps) {
               <time>{formatDateTime(props.date, props.time)}</time>
             </div>
             <div>
-              <OptionsButton>
-                <OptionsIcon />
-              </OptionsButton>
+              { viewportWidth >= 1280
+                  ?   <OptionsButton>
+                        <OptionsIcon />
+                      </OptionsButton>
+                  :   <OptionsButtonMobile>
+                        <OptionsIconMobile />
+                      </OptionsButtonMobile>
+              }
+             
             
               {/* <PeepOptions style={{ display: showOptions ? 'flex' : 'none'}}>
               <PeepOptions/> */}

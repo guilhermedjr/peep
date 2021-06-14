@@ -28,7 +28,7 @@ export {
 export { Cake, Favorite } from 'styled-icons/material'
 export { Comment, Retweet } from 'styled-icons/evil'
 
-export { DotsHorizontalRounded as Options } from '@styled-icons/boxicons-regular/DotsHorizontalRounded'
+export { DotsHorizontalRounded as Options, DotsVerticalRounded as OptionsMobile } from '@styled-icons/boxicons-regular'
 
 export { ArrowLeft } from 'styled-icons/heroicons-solid'
 
