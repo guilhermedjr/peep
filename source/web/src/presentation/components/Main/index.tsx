@@ -28,7 +28,7 @@ const Main = ({ timeline, dispatch }) => {
   const usernameTeste = 'oednaldopereira'
   return (
     <Container>
-      {/* <Header>
+      <Header>
         <button>
           <BackIcon />
         </button>
@@ -38,8 +38,8 @@ const Main = ({ timeline, dispatch }) => {
         </ProfileInfo>
       </Header>
 
-      <Profile user={user} /> */}
-      <ExpandedPeep 
+      <Profile user={user} />
+      {/* <ExpandedPeep 
         user={userTeste} username={usernameTeste} 
         hasContent={[
          {type: 0,
@@ -55,7 +55,7 @@ const Main = ({ timeline, dispatch }) => {
        description={'Adesivo  desculpa  montagem  Ednaldo Pereira'}
        imageContentPath={'desculpaAmigoComiSuaEsposa_EdnaldoPereira.jpg'}
        source={0}
-      />
+      /> */}
 
       <BottomMenu>
         <HomeIcon />

@@ -2,6 +2,8 @@ import { PeepProps } from '../../contracts/components'
 import { EPeepSource } from '../../../logic/contracts/Entity'
 import { ptBR as resource } from '../../resource'
 
+import { useParams } from 'react-router-dom'
+
 import {
   Container,
   Retweeted,
@@ -39,6 +41,8 @@ type ExpandedPeepProps = PeepProps & {
 }
 
 export function ExpandedPeep(props: ExpandedPeepProps) {
+  // let { peepUser, peepId } = useParams();
+
   return (
     <Container>
       { props.isRepost 

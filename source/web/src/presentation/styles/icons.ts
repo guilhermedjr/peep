@@ -12,17 +12,17 @@ export {
   MoreHorizontalOutline as More 
 } from 'styled-icons/evaicons-outline'
 
-export { Bookmark as Bookmarks } from 'styled-icons/feather'
+export { Bookmark as Bookmarks, Activity } from 'styled-icons/feather'
 
 export { FileList3 as List } from 'styled-icons/remix-line'
-
-export { MoreCircle } from 'styled-icons/fluentui-system-regular'
 
 export {
   FavoriteBorder,
   ExitToApp,
   LocationOn,
-  Search
+  Search,
+  Schedule,
+  PushPin as Pin
 } from 'styled-icons/material-outlined'
 
 export { Cake, Favorite } from 'styled-icons/material'
@@ -37,5 +37,9 @@ export { UserFollow as Followed } from '@styled-icons/remix-line/UserFollow'
 export { At as Mentioned } from '@styled-icons/bootstrap/At'
 
 export { FileMedia as Media } from '@styled-icons/octicons/FileMedia'
-export { Gif, Poll, Emoji, ShareIos as Share } from '@styled-icons/fluentui-system-regular'
-export { Schedule } from '@styled-icons/material-outlined/Schedule'
+export { Gif, Poll, Emoji, ShareIos as Share, MoreCircle, SpeakerMute as Mute } from '@styled-icons/fluentui-system-regular'
+
+export { Trash as Delete } from '@styled-icons/heroicons-outline/Trash'
+
+export { AddToList } from '@styled-icons/entypo/AddToList'
+

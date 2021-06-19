@@ -14,7 +14,10 @@ export const Container = styled.article`
 
   &:hover {
     background: var(--primary-light);
-  }   
+  }
+
+  transition-duration: 0.2s;
+  cursor: pointer;
 `
 
 export const Retweeted = styled.div`

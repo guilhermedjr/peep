@@ -1,6 +1,10 @@
 import Resource from '../presentation/contracts/Resource'
 
 export const ptBR: Resource = {
+  Login: {
+    Slogan: 'Acontecendo agora',
+    Message: 'Inscreva-se no Peep hoje mesmo.'
+  },
   User: {
     Info: {
       BirthDate: 'Nascido em',
@@ -38,6 +42,10 @@ export const ptBR: Resource = {
 }
 
 export const enUS: Resource = {
+  Login: {
+    Slogan: 'Happening now',
+    Message: 'Sign up to Peep even today.'
+  },
   User: {
     Info: {
       BirthDate: 'Born',

@@ -1,4 +1,8 @@
 type Resource = {
+  Login: {
+    Slogan: string,
+    Message: string
+  }
   User: {
     Info: {
       BirthDate: string,
