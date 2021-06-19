@@ -2,6 +2,7 @@ import * as React from 'react'
 import { useState, useEffect, useLayoutEffect } from 'react'
 import { PeepHasContent } from '../../contracts/Peep'
 import { getMonthText, fullTimeToSeconds } from '../../utils'
+import { PeepProps } from '../../contracts/components'
 
 import {
   Container, 
@@ -9,6 +10,7 @@ import {
   RtIcon,
   Body,
   Avatar,
+  ProfileImage,
   Content,
   Header,
   PeepContent,
@@ -33,16 +35,7 @@ import {
   ShareIcon
 } from './styles'
 
-type PeepProps = {
-  hasContent: PeepHasContent[]
-  user: string
-  username: string
-  isRepost: boolean
-  date: string
-  time: string
-  description?: string
-  imageContentPath?: string
-}
+
 
 function useWindowSize() {
   const [size, setSize] = useState([0, 0])
@@ -131,7 +124,13 @@ export function Peep(props: PeepProps) {
       }
       
       <Body>
-        <Avatar />
+        <Avatar>
+          <ProfileImage src={
+            typeof props.userProfileImagePath != 'undefined'
+              ? props.userProfileImagePath
+              : 'defaultProfileImage.png'
+          }/>
+        </Avatar> 
 
         <Content>
           <Header>

@@ -1,7 +1,11 @@
+import { useState } from 'react'
+import { ptBR as resource } from '../../resource'
+
 import { 
   ProfileContainer, 
   Banner,
   Avatar, 
+  ProfileImage,
   ProfileData, 
   LocationIcon, 
   CakeIcon, 
@@ -13,40 +17,56 @@ import {
 } from './styles'
 
 import { Feed } from '../Feed'
+import { User } from '../../../logic/contracts/Entity'
 
-export function Profile() {
+type ProfileProps = {
+  user: User
+}
+
+
+export function Profile(props: ProfileProps) {
+  const [user, setUser] = useState<User>(props.user)
+
   return (
     <ProfileContainer>
       <Banner>
-        <Avatar />
+        <Avatar>
+          <ProfileImage src={
+            typeof user.ProfileImagePath != 'undefined' 
+              ? user.ProfileImagePath
+              : 'defaultProfileImage.png'
+            }/>
+        </Avatar> 
       </Banner>
 
       <ProfileData>
         <EditButton outlined>Editar perfil</EditButton>
 
-        <h1>Ednaldo Pereira</h1>
-        <h2>@oednaldopereira</h2>
+        <h1>{user.Name}</h1>
+        <h2>@{user.Username}</h2>
 
-        <p>Cantor e compositor Ednaldo Pereira</p>
+        {/* <p>Cantor e compositor Ednaldo Pereira</p>
         <br />
         <p>Contribua  <a href="http://apoia.se/ednaldopereira" style={{
           color: 'var(--twitter)'
-        }}>http://apoia.se/ednaldopereira</a>  para receber  seu vídeo</p>
+        }}>http://apoia.se/ednaldopereira</a>  para receber  seu vídeo</p> */}
+
+        <p>{user.Bio}</p>
 
         <ul>
           <li>
             <LocationIcon />
-            Somewhere
+            {user.Location}
           </li>
           <li>
             <CakeIcon />
-            Born 1 Jan 1800
+            {resource.User.Info.BirthDate} 1 Jan 1800
           </li>
         </ul>
 
         <Followage>
-          <span><strong>0</strong> Following</span>
-          <span><strong>0</strong> Followers</span>
+          <span><strong>0</strong> {resource.User.Connections.Following}</span>
+          <span><strong>0</strong> {resource.User.Connections.Followers}</span>
         </Followage>
       </ProfileData>
 

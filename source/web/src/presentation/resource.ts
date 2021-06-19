@@ -1,6 +1,16 @@
 import Resource from '../presentation/contracts/Resource'
 
 export const ptBR: Resource = {
+  User: {
+    Info: {
+      BirthDate: 'Nascido em',
+      JoinDate: 'Entrou em'
+    },
+    Connections: {
+      Following: 'Seguindo',
+      Followers: 'Seguidores'
+    }
+  },
   Peep: {
     Publication: {
       Month: {
@@ -28,6 +38,16 @@ export const ptBR: Resource = {
 }
 
 export const enUS: Resource = {
+  User: {
+    Info: {
+      BirthDate: 'Born',
+      JoinDate: 'Joined'
+    },
+    Connections: {
+      Following: 'Following',
+      Followers: 'Followers'
+    }
+  },
   Peep: {
     Publication: {
       Month: {

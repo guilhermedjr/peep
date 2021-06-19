@@ -1,4 +1,14 @@
 type Resource = {
+  User: {
+    Info: {
+      BirthDate: string,
+      JoinDate: string
+    },
+    Connections: {
+      Following: string,
+      Followers: string
+    }
+  }
   Peep: {
     Publication: {
       Month: {

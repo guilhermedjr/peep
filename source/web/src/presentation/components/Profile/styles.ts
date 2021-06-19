@@ -32,7 +32,6 @@ export const Avatar = styled.div`
   height: max(45px, min(135px, 22vw));
 
   border: 3.75px solid var(--primary);
-  background: var(--gray);
   border-radius: 50%;
 
   position: absolute;
@@ -40,6 +39,13 @@ export const Avatar = styled.div`
   left: 15px;
 
 `
+export const ProfileImage = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+`
+
+
 export const ProfileData = styled.div`
   padding: min(calc(10vw + 7px), 67px) 16px 0;
 

@@ -12,7 +12,7 @@ export default function Home() {
   return (
       <>
       <Head>
-        <title>Twitter</title>
+        <title>Peep</title>
       </Head>
       <body>
         <Container>
