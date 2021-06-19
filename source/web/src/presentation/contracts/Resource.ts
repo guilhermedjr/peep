@@ -1,7 +1,43 @@
 type Resource = {
   Login: {
     Slogan: string,
-    Message: string
+    Message: string,
+    SignIn: string,
+    SignUp: string
+  },
+  CreateAccount: {
+    Steps: {
+      Basic: {
+        Label: string,
+        UseEmailOption: string,
+        UsePhoneOption: string,
+        ForwardButton: string
+      },
+      CustomizeExperience: {
+        Label: string,
+        EmailsReceiving: {
+          Label: string,
+          Description: string
+        },
+        ConnectionsViaEmail: {
+          Label: string,
+          Description: string
+        }
+      }
+
+    },
+    Inputs: {
+      Name: string,
+      Email: string,
+      Phone: string,
+      BirthDate: {
+        Label: string,
+        Explication: string,
+        Day: string,
+        Month: string,
+        Year: string
+      }
+    },
   }
   User: {
     Info: {

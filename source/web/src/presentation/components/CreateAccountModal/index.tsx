@@ -3,7 +3,7 @@ import {
 } from './styles'
 
 
-export function CreateAccountModal () {
+export function CreateAccountModal() {
   return (
     <Container>
 

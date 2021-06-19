@@ -21,8 +21,8 @@ export function Login() {
         <Slogan>{resource.Login.Slogan}</Slogan>
         <LoginMessage>{resource.Login.Message}</LoginMessage>
         <ButtonsArea>
-          <Button outlined={false}>Inscrever-se</Button>
-          <Button outlined={true}>Entrar</Button>
+          <Button outlined={false}>{resource.Login.SignUp}</Button>
+          <Button outlined={true}>{resource.Login.SignIn}</Button>
         </ButtonsArea>
       </LoginArea>
     </Container>
