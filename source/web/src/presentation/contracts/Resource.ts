@@ -22,9 +22,9 @@ type Resource = {
         ConnectionsViaEmail: {
           Label: string,
           Description: string
-        }
+        },
+        ForwardButton: string
       }
-
     },
     Inputs: {
       Name: string,

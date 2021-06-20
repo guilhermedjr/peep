@@ -1,6 +1,9 @@
 import { connect } from 'react-redux'
+import { useParams } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import { User } from '../../../logic/contracts/Entity'
 import { ExpandedPeep } from '../ExpandedPeep'
+
 
 import { Profile } from '../Profile'
 
@@ -17,6 +20,8 @@ import {
 } from './styles'
 
 const Main = ({ timeline, dispatch }) => {
+  const { userId } = useParams() as { userId: string }
+
   let user: User = {
     Name: 'Ednaldo Pereira',
     Username: 'oednaldopereira',
@@ -24,8 +29,6 @@ const Main = ({ timeline, dispatch }) => {
     Location: 'Em algum lugar, pra relaxar',
     Website: 'http://apoia.se/ednaldopereira',
   }
-  const userTeste = 'Ednaldo Pereira'
-  const usernameTeste = 'oednaldopereira'
   return (
     <Container>
       <Header>

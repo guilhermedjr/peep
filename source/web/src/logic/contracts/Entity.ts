@@ -19,6 +19,15 @@ export type AccountUserInfo = {
   Website?: string
 }
 
+export type CreateAccountDto = {
+  Name: string
+  Email?: string
+  PhoneNumber?: string
+  BirthDate: string
+  Username: string
+  Password: string
+}
+
 export type User = {
   readonly UserId?: string
   Name?: string

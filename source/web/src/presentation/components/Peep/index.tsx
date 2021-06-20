@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { useState, useEffect, useLayoutEffect } from 'react'
+import { Redirect } from 'react-router-dom'
 import { PeepHasContent } from '../../contracts/Peep'
 import { getMonthText, fullTimeToSeconds } from '../../utils'
 import { PeepProps } from '../../contracts/components'
@@ -113,8 +114,12 @@ export function Peep(props: PeepProps) {
 
   }
 
+  const expandPeep = () => {
+    return <Redirect to={'/:peepUser/status/:peepId'} />
+  }
+
   return (
-    <Container>
+    <Container onClick={expandPeep}>
       { props.isRepost 
           ? <Retweeted>
               <RtIcon />

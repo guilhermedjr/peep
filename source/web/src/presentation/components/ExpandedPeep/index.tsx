@@ -41,7 +41,7 @@ type ExpandedPeepProps = PeepProps & {
 }
 
 export function ExpandedPeep(props: ExpandedPeepProps) {
-  // let { peepUser, peepId } = useParams();
+  let { peepUsername, peepId } = useParams() as { peepUsername: string, peepId: string }
 
   return (
     <Container>
@@ -66,7 +66,7 @@ export function ExpandedPeep(props: ExpandedPeepProps) {
           <Header>
             <div>
               <strong>{props.user}</strong>
-              <span>@{props.username}</span>
+              <span>@{peepUsername}</span>
             </div>
             <div>
               {/* { viewportWidth >= 1280
@@ -106,11 +106,11 @@ export function ExpandedPeep(props: ExpandedPeepProps) {
             <time>Jun 9, 2021</time>
             <Dot />
             <span>
-              {props.source == 0 
+              {props.source == EPeepSource.PeepWebApp
                 ? 'Peep Web App' 
-                : props.source == 1
+                : props.source == EPeepSource.PeepForAndroid
                    ? 'Peep for Android'
-                   : props.source == 2
+                   : props.source == EPeepSource.PeepForIPhone
                       ? 'Peep for IPhone'
                       : 'Peep for Alexia'
               }

@@ -1,14 +1,12 @@
 import Head from 'next/head'
 import { useContext } from 'react'
-import Main from '../presentation/components/Main'
-import { MenuBar } from '../presentation/components/MenuBar'
-import { SideBar } from '../presentation/components/SideBar'
-import { PeepModal } from '../presentation/components/PeepModal'
-import { Container, Wrapper } from '../presentation/styles/main'
-import { PeepsContext } from '../logic/contexts/PeepsContext'
+import { Container } from '../presentation/styles/main'
 import { Login } from '../presentation/components/Login'
+import { LoginContext } from '../presentation/contexts/LoginContext'
+import { CreateAccountModal } from '../presentation/components/CreateAccountModal'
 
 export default function Index() {
+  const { isSignUpModalOpen } = useContext(LoginContext)
   return (
     <>
       <Head>
@@ -17,6 +15,7 @@ export default function Index() {
       <body>
         <Container>
           <Login />
+          <CreateAccountModal isVisible={isSignUpModalOpen} />
         </Container>
       </body>
     </>
