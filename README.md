@@ -20,8 +20,9 @@ My goal with this project, which will be the biggest and best designed in my por
 | [Peep for Web](source/web)          | React SPA                                         | 
 | [Wings](source/Wings)               | .NET Auth Server                                  |
 | [Parrot](source/Parrot)             | .NET Main server + Redis                          |
+| [Media server](source/media_server) | Elixir Phoenix Media Server (GraphQL)             |
 | Name and technology to be defined   | Direct Messages Server                            |
-| Name and technology to be defined   | Media Server                                      |
+
 
 ### DDD (Domain-Driven Development)
 
@@ -42,6 +43,7 @@ it was my dog who wrote that part)
 <div align="center">
    <img alt="Csharp" src="https://img.shields.io/badge/-C%23-7022DC?style=flat-square&logo=c-sharp&logoColor=white" />
    <img alt="dotnet" src="https://img.shields.io/badge/-.NET-702D91?style=flat-square&logo=.net&logoColor=white" />
+   <img alt="Elixir" src="https://img.shields.io/badge/elixir-%234B275F.svg?style=for-the-badge&logo=elixir&logoColor=white"/>
    <img alt="TypeScript" src="https://img.shields.io/badge/-TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white" />
    <img alt="React" src="https://img.shields.io/badge/-React-45b8d8?style=flat-square&logo=react&logoColor=white" />
    <img alt="Nextjs" src="https://img.shields.io/badge/-Nextjs-191929?style=flat-square&logo=next.js&logoColor=white" />
