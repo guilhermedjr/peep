@@ -1,0 +1,28 @@
+<h1>Listing Profile image</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Imagepath</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for profile_image <- @profile_image do %>
+    <tr>
+      <td><%= profile_image.user %></td>
+      <td><%= profile_image.imagePath %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.profile_image_path(@conn, :show, profile_image) %></span>
+        <span><%= link "Edit", to: Routes.profile_image_path(@conn, :edit, profile_image) %></span>
+        <span><%= link "Delete", to: Routes.profile_image_path(@conn, :delete, profile_image), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Profile image", to: Routes.profile_image_path(@conn, :new) %></span>

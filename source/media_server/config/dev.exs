@@ -2,9 +2,10 @@ use Mix.Config
 
 # Configure your database
 config :media_server, MediaServer.Repo,
-  username: "postgres",
-  password: "postgres",
-  database: "media_server_dev",
+  username: "root",
+  password: "root",
+  database: "peepmediadb",
+  port: 4001,
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10

@@ -1,0 +1,18 @@
+<h1>Show Profile image</h1>
+
+<ul>
+
+  <li>
+    <strong>User:</strong>
+    <%= @profile_image.user %>
+  </li>
+
+  <li>
+    <strong>Imagepath:</strong>
+    <%= @profile_image.imagePath %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.profile_image_path(@conn, :edit, @profile_image) %></span>
+<span><%= link "Back", to: Routes.profile_image_path(@conn, :index) %></span>
