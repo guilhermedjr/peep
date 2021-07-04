@@ -1,12 +1,12 @@
-defmodule MediaServer.UserMedia do
+defmodule MediaServer.ProfileImages do
   @moduledoc """
-  The UserMedia context.
+  The ProfileImages context.
   """
 
   import Ecto.Query, warn: false
   alias MediaServer.Repo
 
-  alias MediaServer.UserMedia.ProfileImage
+  alias MediaServer.ProfileImages.ProfileImage
 
   @doc """
   Returns the list of profile_image.

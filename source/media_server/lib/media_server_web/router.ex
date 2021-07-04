@@ -17,8 +17,12 @@ defmodule MediaServerWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+  end
 
-    resources "/profile_image", ProfileImageController
+  scope "/api", MediaServerWeb do
+    pipe_through :api
+
+    resources "/profileImages", ProfileImageController
   end
 
   # Other scopes may use custom stacks.
