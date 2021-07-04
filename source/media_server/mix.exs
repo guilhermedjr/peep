@@ -20,7 +20,7 @@ defmodule MediaServer.MixProject do
   def application do
     [
       mod: {MediaServer.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :absinthe_plug]
     ]
   end
 
@@ -40,6 +40,8 @@ defmodule MediaServer.MixProject do
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_dashboard, "~> 0.4"},
+      {:absinthe, "~> 1.5.0"},
+      {:absinthe_plug, "~> 1.5.0"},
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"},
       {:gettext, "~> 0.11"},
