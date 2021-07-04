@@ -23,6 +23,7 @@ defmodule MediaServerWeb.Router do
     pipe_through :api
 
     resources "/profileImages", ProfileImageController
+    resources "/peepMedia", PeepMediaController
   end
 
   # Other scopes may use custom stacks.
