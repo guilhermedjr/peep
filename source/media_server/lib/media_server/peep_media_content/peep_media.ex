@@ -4,6 +4,13 @@ defmodule MediaServer.PeepMediaContent.PeepMedia do
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
+  @required_fields [
+    :peep,
+    :index,
+    :media,
+    :media_type
+  ]
+
   schema "peep_media" do
     field :index, :integer
     field :media, :binary
@@ -16,7 +23,7 @@ defmodule MediaServer.PeepMediaContent.PeepMedia do
   @doc false
   def changeset(peep_media, attrs) do
     peep_media
-    |> cast(attrs, [:peep, :index, :media_type, :media])
-    |> validate_required([:peep, :index, :media_type, :media])
+    |> cast(attrs, @required_fields)
+    |> validate_required(@required_fields)
   end
 end

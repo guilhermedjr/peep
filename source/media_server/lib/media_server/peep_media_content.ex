@@ -8,17 +8,13 @@ defmodule MediaServer.PeepMediaContent do
 
   alias MediaServer.PeepMediaContent.PeepMedia
 
-  @doc """
-  Returns the list of peep_media.
-
-  ## Examples
-
-      iex> list_peep_media()
-      [%PeepMedia{}, ...]
-
-  """
-  def list_peep_media do
-    Repo.all(PeepMedia)
+  def list_peep_media(peepId) do
+    from(m in PeepMedia,
+      where: m.peep == ^peepId,
+      order_by: [m.index],
+      select: m
+    )
+    |> Repo.all()
   end
 
   @doc """
@@ -49,10 +45,11 @@ defmodule MediaServer.PeepMediaContent do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_peep_media(attrs \\ %{}) do
-    %PeepMedia{}
-    |> PeepMedia.changeset(attrs)
-    |> Repo.insert()
+  def create_peep_media(_attrs \\ %{}) do
+    # %PeepMedia{}
+    # |> PeepMedia.changeset(attrs)
+    # |> Repo.insert()
+    raise "TODO"
   end
 
   @doc """

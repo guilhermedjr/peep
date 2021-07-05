@@ -26,6 +26,12 @@ defmodule MediaServerWeb.Router do
     resources "/peepMedia", PeepMediaController
   end
 
+  scope "/api" do
+    pipe_through :api
+
+    forward "/graphql", Absinthe.Plug.GraphiQL, schema: MediaServerWeb.Schema
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", MediaServerWeb do
   #   pipe_through :api
