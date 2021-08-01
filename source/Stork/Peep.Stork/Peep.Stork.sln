@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31019.35
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peep.Stork.Application", "Peep.Stork.Application\Peep.Stork.Application.csproj", "{869ABE03-6529-4B68-9818-6C8E6D68FD4E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{8F0475E7-8C69-482A-9842-73B63857D4D9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{82507D72-102B-4376-A76E-29AC0597AA94}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hubs", "Hubs", "{197A5720-093D-4514-A813-825C8E69AFC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peep.Stork.Domain", "Peep.Stork.Domain\Peep.Stork.Domain.csproj", "{8982B1A1-4453-4395-9286-CF79BCA8AE95}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peep.Stork.Hubs", "Peep.Stork.Hubs\Peep.Stork.Hubs.csproj", "{E056C06A-9AB2-478B-847E-9D1300C2BCC7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{869ABE03-6529-4B68-9818-6C8E6D68FD4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{869ABE03-6529-4B68-9818-6C8E6D68FD4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{869ABE03-6529-4B68-9818-6C8E6D68FD4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{869ABE03-6529-4B68-9818-6C8E6D68FD4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8982B1A1-4453-4395-9286-CF79BCA8AE95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8982B1A1-4453-4395-9286-CF79BCA8AE95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8982B1A1-4453-4395-9286-CF79BCA8AE95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8982B1A1-4453-4395-9286-CF79BCA8AE95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E056C06A-9AB2-478B-847E-9D1300C2BCC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E056C06A-9AB2-478B-847E-9D1300C2BCC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E056C06A-9AB2-478B-847E-9D1300C2BCC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E056C06A-9AB2-478B-847E-9D1300C2BCC7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{869ABE03-6529-4B68-9818-6C8E6D68FD4E} = {8F0475E7-8C69-482A-9842-73B63857D4D9}
+		{8982B1A1-4453-4395-9286-CF79BCA8AE95} = {82507D72-102B-4376-A76E-29AC0597AA94}
+		{E056C06A-9AB2-478B-847E-9D1300C2BCC7} = {197A5720-093D-4514-A813-825C8E69AFC8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0AD02548-563F-49CA-8D31-0FD0F48E37E1}
+	EndGlobalSection
+EndGlobal

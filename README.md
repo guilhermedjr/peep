@@ -21,7 +21,7 @@ My goal with this project, which will be the biggest and best designed in my por
 | [Wings](source/Wings)               | .NET Auth Server                                  |
 | [Parrot](source/Parrot)             | .NET Main server + Redis                          |
 | [Media server](source/media_server) | Elixir Phoenix Media Server (GraphQL)             |
-| Name and technology to be defined   | Direct Messages Server                            |
+| [Stork](source/Stork)               | .NET Direct Messages Server (SignalR)             |
 
 
 ### DDD (Domain-Driven Development)
