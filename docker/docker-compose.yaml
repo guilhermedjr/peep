@@ -1,20 +1,20 @@
 version: '3.8'
 
 services:
-  wings-mysql:
-    image: mysql:8.0.23
-    container_name: 'wings-mysql'
-    restart: always
-    ports:
-      - 3306:3306
-    environment:
-      - MYSQL_HOST=127.0.0.1
-      - MYSQL_ROOT_PASSWORD="root"
-      - MYSQL_DATABASE="peepwingsdb"
-    volumes:
-      - './volumes/mysql:/var/lib/mysql'
-    networks:
-      - peep-network
+  # wings-mysql:
+  #   image: mysql:8.0.23
+  #   container_name: 'wings-mysql'
+  #   restart: always
+  #   ports:
+  #     - 3306:3306
+  #   environment:
+  #     - MYSQL_HOST=127.0.0.1
+  #     - MYSQL_ROOT_PASSWORD="root"
+  #     - MYSQL_DATABASE="peepwingsdb"
+  #   volumes:
+  #     - './volumes/mysql:/var/lib/mysql'
+  #   networks:
+  #     - peep-network
 
   parrot-redis:
     image: redis:alpine
@@ -25,6 +25,26 @@ services:
       - 6379:6379
     volumes:
       - './volumes/redis'
+    networks:
+      - peep-network
+
+# Stop 'wings-mysql' container to be able to run 'stork-mysql' (docker stop wings-mysql),
+# or vice versa
+
+# This port conflict will be fixed soon
+
+  stork-mysql:
+    image: mysql:8.0.23
+    container_name: 'stork-mysql'
+    restart: always
+    ports: 
+      - 3306:3306
+    environment: 
+      - MYSQL_HOST=127.0.0.1
+      - MYSQL_ROOT_PASSWORD="root"
+      - MYSQL_DATABASE="peepstorkdb"
+    volumes:
+      - './volumes/mysql:/var/lib/mysql'
     networks:
       - peep-network
 
