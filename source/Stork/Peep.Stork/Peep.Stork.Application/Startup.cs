@@ -11,7 +11,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Peep.Stork.Infrastructure.Data;
 using Peep.Stork.Hubs;
+
 
 
 namespace Peep.Stork.Application
@@ -27,6 +30,11 @@ namespace Peep.Stork.Application
 
         public void ConfigureServices(IServiceCollection services)
         {
+            string mySqlConnection = Configuration.GetConnectionString("DefaultConnection");
+
+            services.AddDbContextPool<AppDbContext>(options =>
+               options.UseMySQL(mySqlConnection));
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
