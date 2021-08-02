@@ -1,7 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text.Json;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
+using Peep.Stork.Domain.Entities;
 using Peep.Stork.Domain.Dtos;
-using Peep.Stork.Domain.Hubs;
+using Peep.Stork.Domain.Hub;
 
 namespace Peep.Stork.Hubs
 {
@@ -9,8 +11,9 @@ namespace Peep.Stork.Hubs
     {
         public async Task SendDirectMessage(SendDirectMessageDto sendDirectMessageDto)
         {
-            await Clients.Client(sendDirectMessageDto.Receiver.ToString())
-              .SendAsync("Receive", sendDirectMessageDto.Sender, sendDirectMessageDto.Text);
+            await Clients.Client(sendDirectMessageDto.ReceiverId.ToString())
+              .SendAsync("ReceiveDirectMessage", sendDirectMessageDto.SenderId, sendDirectMessageDto.Text);
         }
+        
     }
 }

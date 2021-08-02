@@ -8,12 +8,12 @@ namespace Peep.Stork.Infrastructure.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<ApplicationUser> Users { get; set; }
         public DbSet<DirectMessage> DirectMessages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>()
+            modelBuilder.Entity<ApplicationUser>()
                 .HasKey(u => u.Id);
             modelBuilder.Entity<DirectMessage>()
                 .HasKey(m => m.Id);
