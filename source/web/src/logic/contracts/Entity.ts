@@ -90,3 +90,9 @@ export type Nest = {
   readonly Followers?: User[]
   readonly CreatedAt?: string
 }
+
+export type SendDirectMessageDto = {
+  SenderId: string;
+  ReceiverId: string;
+  Text: string;
+}

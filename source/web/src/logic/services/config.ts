@@ -7,6 +7,9 @@ const AxiosInstances: IAxiosInstances = {
   }),
   Parrot: axios.create({
     baseURL: 'https://localhost:44364/'
+  }), 
+  Stork: axios.create({
+    baseURL: 'https://localhost:44327/'
   })
 }
 

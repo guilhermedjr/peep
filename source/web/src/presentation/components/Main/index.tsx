@@ -1,9 +1,10 @@
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import * as actions from '../../../store/actions'
 import { User } from '../../../logic/contracts/Entity'
 import { ExpandedPeep } from '../ExpandedPeep'
-
 
 import { Profile } from '../Profile'
 
@@ -69,6 +70,5 @@ const Main = ({ timeline, dispatch }) => {
     </Container>
   )
 }
-
 
 export default connect(state => ({ timeline: state }))(Main)
