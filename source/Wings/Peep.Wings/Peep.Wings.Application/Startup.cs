@@ -8,6 +8,7 @@ using Microsoft.OpenApi.Models;
 using Peep.Wings.Domain.Entities;
 using Peep.Wings.Infrastructure.Data;
 using Peep.Wings.Infrastructure.IoC;
+using Peep.Wings.Service.Services;
 
 
 namespace Peep.Wings.Application
@@ -38,7 +39,8 @@ namespace Peep.Wings.Application
             Bootstrapper.ConfigureServices(services, Configuration);
             Bootstrapper.ConfigureAuthentication(services, Configuration);
 
-            
+            services.AddHttpClient<PeepStorkService>();
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

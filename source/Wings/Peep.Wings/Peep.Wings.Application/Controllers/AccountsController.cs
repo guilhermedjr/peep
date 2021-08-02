@@ -19,16 +19,21 @@ namespace Peep.Wings.Application.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+
         private readonly ITokenService _tokenService;
         private readonly IEmailService _emailService;
         private readonly ISmsService _smsService;
+        private readonly IPeepParrotService _parrotService;
+        private readonly IPeepStorkService _storkService;
 
         public AccountsController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ITokenService tokenService,
             IEmailService emailService,
-            ISmsService smsService) 
+            ISmsService smsService,
+            IPeepParrotService parrotService,
+            IPeepStorkService storkService) 
             : base(userManager)
         {
             this._userManager = userManager;
@@ -36,6 +41,8 @@ namespace Peep.Wings.Application.Controllers
             this._tokenService = tokenService;
             this._emailService = emailService;
             this._smsService = smsService;
+            this._parrotService = parrotService;
+            this._storkService = storkService;
         }
 
       
@@ -290,6 +297,42 @@ namespace Peep.Wings.Application.Controllers
                 $"<html><body>Seja bem-vindo ao Peep! Clique <a href=\"{emailConfirmationUrl}\">aqui</a> para confirmar seu email e poder acessar a sua conta</body></html>");
 
             return Ok();
+        }
+
+        private async Task SyncAddedUser(ApplicationUser user)
+        {
+            var userToSync = new SyncUserDto
+            {
+                Id = user.Id,
+                Email = user.Email,
+                Name = user.Name,
+                Username = user.UserName,
+                PhoneNumber = user.PhoneNumber,
+                Password = user.Password,
+                BirthDate = user.BirthDate,
+                JoinedAt = user.JoinedAt
+            };
+
+            await _parrotService.AddUser(userToSync);
+            await _storkService.AddUser(userToSync);
+        }
+
+        private async Task SyncUpdatedUser(ApplicationUser user)
+        {
+            var userToSync = new SyncUserDto
+            {
+                Id = user.Id,
+                Email = user.Email,
+                Name = user.Name,
+                Username = user.UserName,
+                PhoneNumber = user.PhoneNumber,
+                Password = user.Password,
+                BirthDate = user.BirthDate,
+                JoinedAt = user.JoinedAt
+            };
+
+            await _parrotService.UpdateUser(userToSync);
+            await _storkService.UpdateUser(userToSync);
         }
     }
 }
