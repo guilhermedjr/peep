@@ -6,7 +6,7 @@ updates:
     schedule: 
       interval: "daily"
     commit-message: 
-      prefix: "Yarn security update: "
+      prefix: "Yarn update: "
     reviewers:
       - "octocat"
       - "guilhermedjr"
