@@ -8,5 +8,5 @@ updates:
     commit-message: 
       prefix: "Yarn security update: "
     reviewers:
-      "octocat"
-      "guilhermedjr"
+      - "octocat"
+      - "guilhermedjr"
