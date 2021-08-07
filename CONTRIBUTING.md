@@ -7,14 +7,25 @@ These are not rules, but issues/pull requests that follow the recommendations ha
 chance of being reviewed and merged, and in a faster time, in addition to being more likely
 to receive contributions from other interested developers.
 
-In short, these guidelines facilitate the communication between the contributors and the repository owner(s),
+In resume, these guidelines facilitate the communication between the contributors and the repository owner(s),
 and between the contributors themselves. By choosing to sign this "contract" with the community and follow its
-suggestions, you will be contributing in a more relevant way with this project and with the professional
-(and also personal) growth of everyone involved in it.
+suggestions, you will be contributing in a more relevant way with this project and with the growth of everyone involved in it.
 
 ##### List of guidelines
 
+- [Contribuing](#how-to-contribute)
 - [Styleguides](#styleguides)
+
+## How to contribute
+
+### Suggesting features
+
+Know that feature you wanted to see on Twitter? Or one that already exists but could be improved? 
+You can open a "Discussion" proposing functionalities that don't exist on Twitter. 
+In the case of small changes to existing features on the social network and already implemented here on Peep, 
+pull requests can be made.
+
+Coming soon: guidelines for **issues** and **pull requests**
 
 ## Styleguides
 
@@ -36,15 +47,15 @@ All TypeScript code is automatically linted with [Prettier](https://prettier.io/
 
 > "Look, don't misjudge me... but anyone who still uses JavaScript instead TypeScript deserves a good spanking" - Lil Peep
 
-- [Imports/Exports](#imports/exports)
-- [Types/Interfaces](#types-or-interfaces?)
+- [Imports/Exports](#imports-and-exports)
+- [Types/Interfaces](#types-or-interfaces)
 - [Naming](#naming-on-ts)
 
-#### Imports/Exports
+#### Imports and Exports
 
 Inline exports with expressions whenever possible
 
-```
+```typescript
 // Use this:
 export default class ClassName {
 
@@ -57,11 +68,11 @@ class ClassName {
 export default ClassName
 ```
 
-#### Types or Interfaces?
+#### Types or Interfaces
 
 Type declarations instead of interface declarations whenever possible
 
-```
+```typescript
 // Use this:
 type User = {
   Id: string
@@ -80,7 +91,7 @@ interface User {
 Only create interfaces to establish contracts that must be followed by implementations of those interfaces,
 as in the example:
 
-```
+```typescript
 interface IHttpClient {
   httpGet<T>(url: string): Promise<T>
 }
@@ -96,7 +107,6 @@ export class FetchApiHttpClient implements IHttpClient {
     // some method implementation
   }
 }
-
 ```
 
 #### Naming on TS

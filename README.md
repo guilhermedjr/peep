@@ -31,8 +31,8 @@ Better explanations soon :P
 
 ### Contributions 
 
-Feel free to contribute with issues and pull requests. All of them will be analyzed as soon as possible :P (if it flopped,
-it was my dog who wrote that part)
+See [here](CONTRIBUTING.md) how you can contribute to this project
+
 
 ### License 
 
