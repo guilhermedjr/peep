@@ -56,13 +56,13 @@ export enum EPeepSource {
   PeepForIPhone,
   PeepForAlexia,
   PeepForElectrolux,
-  PeepForSpaceXSuperHeavy
+  PeepForSpaceXSuperHeavy,
 }
 
 export enum EPeepReplyRestriction {
   Everyone,
   Followed,
-  Mentioned
+  Mentioned,
 }
 
 export type Peep = {
@@ -70,7 +70,7 @@ export type Peep = {
   UserId: string
   readonly Date?: string
   readonly Time?: string
-  Source: EPeepSource,
+  Source: EPeepSource
   Description: string
   IsQuote: boolean
   QuotedPeepId?: string
@@ -92,7 +92,7 @@ export type Nest = {
 }
 
 export type SendDirectMessageDto = {
-  SenderId: string;
-  ReceiverId: string;
-  Text: string;
+  SenderId: string
+  ReceiverId: string
+  Text: string
 }
