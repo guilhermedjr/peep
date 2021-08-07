@@ -15,10 +15,8 @@ namespace Peep.Wings.Infrastructure.IoC
     {
         public static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
-            string mySqlConnection = configuration.GetConnectionString("DefaultConnection");
-
-            services.AddDbContextPool<AppDbContext>(options =>
-                options.UseMySQL(mySqlConnection));
+            services.AddDbContext<AppDbContext>(options =>
+                options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<ISmsService, SmsService>();
