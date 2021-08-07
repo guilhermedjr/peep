@@ -20,4 +20,6 @@
     <ProjectReference Include="..\Peep.Parrot.Repositories\Peep.Parrot.Repositories.csproj" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+
 </Project>

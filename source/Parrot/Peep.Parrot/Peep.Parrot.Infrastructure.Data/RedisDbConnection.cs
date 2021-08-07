@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using StackExchange.Redis;
 using Peep.Parrot.Infrastructure.Data.Utils;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Peep.Parrot.Infrastructure.Data
