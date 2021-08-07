@@ -3,7 +3,7 @@ import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr'
 import { SendDirectMessageDto } from '../contracts/Entity'
 
 type DmContextData = {
-  chat: any[],
+  chat: any[]
   sendMessage: (message: SendDirectMessageDto) => Promise<void>
 }
 
@@ -13,7 +13,7 @@ type DmProviderProps = {
 
 export const DmContext = createContext({} as DmContextData)
 
-export default function DmProvider({children}: DmProviderProps) {
+export default function DmProvider({ children }: DmProviderProps) {
   const [connection, setConnection] = useState<HubConnection>(null)
   const [chat, setChat] = useState([])
   const latestChat = useRef(null)
@@ -31,15 +31,16 @@ export default function DmProvider({children}: DmProviderProps) {
 
   useEffect(() => {
     if (connection) {
-      connection.start()
+      connection
+        .start()
         .then(() => {
-          connection.on('ReceiveDirectMessage', message => {
+          connection.on('ReceiveDirectMessage', (message) => {
             const updatedChat = [...latestChat.current]
             updatedChat.push(message)
             setChat(updatedChat)
           })
         })
-        .catch(e => console.log('Connection to DM server failed: ', e))
+        .catch((e) => console.log('Connection to DM server failed: ', e))
     }
   }, [connection])
 
@@ -59,11 +60,10 @@ export default function DmProvider({children}: DmProviderProps) {
     <DmContext.Provider
       value={{
         chat,
-        sendMessage
+        sendMessage,
       }}
     >
       children
     </DmContext.Provider>
   )
 }
-

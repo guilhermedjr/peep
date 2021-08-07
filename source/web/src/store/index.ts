@@ -3,16 +3,16 @@ import { createStore, combineReducers } from 'redux'
 const INITIAL_STATE = []
 
 const reducers = combineReducers({
-  prop1: function(state = INITIAL_STATE, action) {
+  prop1: function (state = INITIAL_STATE, action) {
     return {
-      exemplo: 'ok'
+      exemplo: 'ok',
     }
-  }, 
-  prop2: function(state = INITIAL_STATE, action) {
+  },
+  prop2: function (state = INITIAL_STATE, action) {
     return {
-      exemplo: 'ok, de novo'
+      exemplo: 'ok, de novo',
     }
-  }
+  },
 })
 
 const store = createStore(reducers)
