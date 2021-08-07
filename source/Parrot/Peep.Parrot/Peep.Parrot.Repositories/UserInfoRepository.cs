@@ -1,31 +1,34 @@
 ﻿using System;
-using Microsoft.Extensions.Configuration;
 using Peep.Parrot.Domain.Dtos;
 using Peep.Parrot.Domain.Repository;
 using System.Threading.Tasks;
 using Peep.Parrot.Infrastructure.Data;
-using Peep.Parrot.Domain.Entities;
 using Peep.Parrot.Domain.ViewModels;
 
 namespace Peep.Parrot.Repositories
 {
-    public class UserInfoRepository : RedisDbConnection, IUserInfoRepository
+    public class UserInfoRepository : IUserInfoRepository
     {
-        public UserInfoRepository(IConfiguration config): base(config) {}
+        private readonly RedisDbConnection _redisDbConnection;
+
+        public UserInfoRepository(RedisDbConnection redisDbConnection) 
+        {
+            this._redisDbConnection = redisDbConnection;
+        }
 
         public bool AddUserInfo(AddUserInfoDto addUserInfoDto)
         {
             addUserInfoDto.IsPrivateAccount = false;
-            return base.CreateHash<AddUserInfoDto>($"user:{addUserInfoDto.Id}", addUserInfoDto);
+            return _redisDbConnection.CreateHash<AddUserInfoDto>($"user:{addUserInfoDto.Id}", addUserInfoDto);
         }
 
         public async Task<UserInfoViewModel> GetUserInfo(Guid id) =>
-            await base.GetObjectFromKey<UserInfoViewModel>($"user:{id}");
+            await _redisDbConnection.GetObjectFromKey<UserInfoViewModel>($"user:{id}");
 
         public bool UpdateUserInfo(UpdateUserInfoDto updateUserInfoDto) =>
-            base.UpdateHashFromKey($"user:{updateUserInfoDto.Id}", updateUserInfoDto);
+            _redisDbConnection.UpdateHashFromKey($"user:{updateUserInfoDto.Id}", updateUserInfoDto);
 
         public Task<bool> DeleteUserInfo(Guid id) =>
-            base.DeleteKey($"user:{id}");
+            _redisDbConnection.DeleteKey($"user:{id}");
     }
 }

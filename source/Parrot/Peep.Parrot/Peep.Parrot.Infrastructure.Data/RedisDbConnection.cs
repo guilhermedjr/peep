@@ -26,7 +26,7 @@ namespace Peep.Parrot.Infrastructure.Data
             return false;
         }
 
-        protected async Task<T> GetObjectFromKey<T>(string key)
+        public async Task<T> GetObjectFromKey<T>(string key)
         {
             var db = _connection.GetDatabase();
             var redisHash = await db.HashGetAllAsync(key);
@@ -34,7 +34,7 @@ namespace Peep.Parrot.Infrastructure.Data
             return obj;
         }
 
-        protected bool CreateHash<T>(string key, T obj)
+        public bool CreateHash<T>(string key, T obj)
         {
             var db = _connection.GetDatabase();
             var hash = RedisUtils.ObjectToHashEntries(obj);
@@ -45,7 +45,7 @@ namespace Peep.Parrot.Infrastructure.Data
             
         }
 
-        protected bool UpdateHashFromKey<T>(string key, T obj)
+        public bool UpdateHashFromKey<T>(string key, T obj)
         {
             var db = _connection.GetDatabase();
             var hash = RedisUtils.ObjectToHashEntries(obj);
@@ -55,14 +55,14 @@ namespace Peep.Parrot.Infrastructure.Data
             return false;
         }
 
-        protected async Task<bool> GetBooleanValueOfHashField(string hashKey, string fieldName)
+        public async Task<bool> GetBooleanValueOfHashField(string hashKey, string fieldName)
         {
             var db = _connection.GetDatabase();
             RedisValue value = await db.HashGetAsync(hashKey, (RedisValue)fieldName);
             return RedisUtils.RedisValueToBoolean(value);
         }
 
-        protected async void SetValueOfHashField<T>(string hashKey, string fieldName, T value)
+        public async void SetValueOfHashField<T>(string hashKey, string fieldName, T value)
         {
             var db = _connection.GetDatabase();
             RedisValue hashField = (RedisValue)fieldName;
@@ -71,31 +71,31 @@ namespace Peep.Parrot.Infrastructure.Data
             await db.HashSetAsync(hashKey, hashField, hashValue);
         }
 
-        protected void AddGuidToListHead(string listKey, Guid guid)
+        public void AddGuidToListHead(string listKey, Guid guid)
         {
             var db = _connection.GetDatabase();
             db.ListLeftPushAsync(listKey, RedisUtils.GuidToRedisValue(guid));
         }
 
-        protected void AddGuidToListTail(string listKey, Guid guid)
+        public void AddGuidToListTail(string listKey, Guid guid)
         {
             var db = _connection.GetDatabase();
             db.ListRightPushAsync(listKey, RedisUtils.GuidToRedisValue(guid));
         }
 
-        protected void AddGuidArrayToListHead(string listKey, Guid[] guidArray)
+        public void AddGuidArrayToListHead(string listKey, Guid[] guidArray)
         {
             var db = _connection.GetDatabase();
             db.ListLeftPushAsync(listKey, RedisUtils.GuidArrayToRedisValues(guidArray));
         }
 
-        protected void AddGuidArrayToListTail(string listKey, Guid[] guidArray)
+        public void AddGuidArrayToListTail(string listKey, Guid[] guidArray)
         {
             var db = _connection.GetDatabase();
             db.ListRightPushAsync(listKey, RedisUtils.GuidArrayToRedisValues(guidArray));
         }
 
-        protected async Task<bool> GuidIsOnList(string listKey, Guid guid)
+        public async Task<bool> GuidIsOnList(string listKey, Guid guid)
         {
             var db = _connection.GetDatabase();
             RedisValue[] members = await db.ListRangeAsync(listKey, 0, -1);
@@ -110,7 +110,7 @@ namespace Peep.Parrot.Infrastructure.Data
             return false;
         }
 
-        protected async Task<List<Guid>> GetAllGuidSetMembers(string setKey)
+        public async Task<List<Guid>> GetAllGuidSetMembers(string setKey)
         {
             var db = _connection.GetDatabase();
             RedisValue[] members = await db.SetMembersAsync(setKey);
@@ -128,29 +128,28 @@ namespace Peep.Parrot.Infrastructure.Data
             return result;
         }
 
-        protected async Task<bool> AddGuidOnSet(string setKey, Guid guid)
+        public async Task<bool> AddGuidOnSet(string setKey, Guid guid)
         {
             var db = _connection.GetDatabase();
             return await db.SetAddAsync(setKey, RedisUtils.GuidToRedisValue(guid));
         }
 
-        protected async Task<bool> GuidIsOnSet(string setKey, Guid guid)
+        public async Task<bool> GuidIsOnSet(string setKey, Guid guid)
         {
             var db = _connection.GetDatabase();
             return await db.SetContainsAsync(setKey, RedisUtils.GuidToRedisValue(guid));
         }
 
-        protected async Task<bool> DeleteGuidOfSet(string setKey, Guid guid)
+        public async Task<bool> DeleteGuidOfSet(string setKey, Guid guid)
         {
             var db = _connection.GetDatabase();
             return await db.SetRemoveAsync(setKey, RedisUtils.GuidToRedisValue(guid));
         }
 
-        protected async Task<bool> DeleteKey(string key)
+        public async Task<bool> DeleteKey(string key)
         {
             var db = _connection.GetDatabase();
             return await db.KeyDeleteAsync(key);
         }
-           
     }
 }

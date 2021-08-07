@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
 using Peep.Parrot.Domain.Dtos;
 using Peep.Parrot.Domain.Repository;
 using Peep.Parrot.Infrastructure.Data;
 
 namespace Peep.Parrot.Repositories
 {
-    public class PeepsRepository : RedisDbConnection, IPeepsRepository
+    public class PeepsRepository : IPeepsRepository
     {
-        public PeepsRepository(IConfiguration config): base(config) {}
+        private readonly RedisDbConnection _redisDbConnection;
+
+        public PeepsRepository(RedisDbConnection redisDbConnection)
+        {
+            this._redisDbConnection = redisDbConnection;
+        }
 
         public async Task <bool> AddPeep(AddPeepDto addPeepDto)
         {
@@ -20,20 +24,20 @@ namespace Peep.Parrot.Repositories
             addPeepDto.Date = now.Date;
             addPeepDto.Time = now.TimeOfDay;
 
-            if (base.CreateHash<AddPeepDto>($"peep:{peepId}", addPeepDto))
+            if (_redisDbConnection.CreateHash<AddPeepDto>($"peep:{peepId}", addPeepDto))
             {
-                return await base.AddGuidOnSet($"peeps_user:{addPeepDto.UserId}", peepId);
+                return await _redisDbConnection.AddGuidOnSet($"peeps_user:{addPeepDto.UserId}", peepId);
             }
             return false;
         }
             
         public async Task<bool> EditPeep(EditPeepDto editPeepDto)
         {
-            if (base.GetObjectFromKey<EditPeepDto>($"peep:{editPeepDto.PeepId}") != null)
+            if (_redisDbConnection.GetObjectFromKey<EditPeepDto>($"peep:{editPeepDto.PeepId}") != null)
             {
-                if (await base.GuidIsOnSet($"peeps_user:{editPeepDto.UserId}", editPeepDto.PeepId))
+                if (await _redisDbConnection.GuidIsOnSet($"peeps_user:{editPeepDto.UserId}", editPeepDto.PeepId))
                 {
-                    return base.UpdateHashFromKey<EditPeepDto>($"peep:{editPeepDto.PeepId}", editPeepDto);
+                    return _redisDbConnection.UpdateHashFromKey<EditPeepDto>($"peep:{editPeepDto.PeepId}", editPeepDto);
                 }
                 return false;
             }
@@ -42,9 +46,9 @@ namespace Peep.Parrot.Repositories
        
         public async Task<bool> DeletePeep(Guid userId, Guid peepId)
         {
-            if (await base.DeleteGuidOfSet($"peeps_user:{userId}", peepId))
+            if (await _redisDbConnection.DeleteGuidOfSet($"peeps_user:{userId}", peepId))
             {
-                return await base.DeleteKey($"peep:{peepId}");
+                return await _redisDbConnection.DeleteKey($"peep:{peepId}");
             }
             return false;
         }

@@ -1,28 +1,28 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
 using Peep.Parrot.Domain.Repository;
 using Peep.Parrot.Infrastructure.Data;
 
 namespace Peep.Parrot.Repositories
 {
-    public class UserRestrictionsRepository : RedisDbConnection, IUserRestrictionsRepository
+    public class UserRestrictionsRepository : IUserRestrictionsRepository
     {
-        private readonly 
-            IUsersConnectionsRepository _usersConnectionsRepository;
+        private readonly RedisDbConnection _redisDbConnection;
+        private readonly IUsersConnectionsRepository _usersConnectionsRepository;
 
         public UserRestrictionsRepository(
-            IConfiguration config,
+            RedisDbConnection redisDbConnection,
             IUsersConnectionsRepository usersConnectionsRepository
-            ): base(config) 
+            )
         {
+            this._redisDbConnection = redisDbConnection;
             this._usersConnectionsRepository = usersConnectionsRepository;
         }
 
         public async Task<bool> MuteUser(Guid mufflerId, Guid mutedUserId)
         {
-            if (!await base.GuidIsOnSet($"muted_user:{mufflerId}", mutedUserId))
-                return await base.AddGuidOnSet($"muted_user:{mufflerId}", mutedUserId);
+            if (!await _redisDbConnection.GuidIsOnSet($"muted_user:{mufflerId}", mutedUserId))
+                return await _redisDbConnection.AddGuidOnSet($"muted_user:{mufflerId}", mutedUserId);
             return false;
         }
 
@@ -60,26 +60,26 @@ namespace Peep.Parrot.Repositories
 
         public async Task<bool> UnmuteUser(Guid mufflerId, Guid mutedUserId)
         {
-            if (await base.GuidIsOnSet($"muted_user:{mufflerId}", mutedUserId))
-                return await base.DeleteGuidOfSet($"muted_user:{mufflerId}", mutedUserId);
+            if (await _redisDbConnection.GuidIsOnSet($"muted_user:{mufflerId}", mutedUserId))
+                return await _redisDbConnection.DeleteGuidOfSet($"muted_user:{mufflerId}", mutedUserId);
             return false;
         }
 
         public async Task<bool> UnblockUser(Guid blockingUserId, Guid blockedUserId)
         {
             if (await BlockageExistsAsync(blockingUserId, blockedUserId))
-                return await base.DeleteGuidOfSet($"blocked_user:{blockingUserId}", blockedUserId);
+                return await _redisDbConnection.DeleteGuidOfSet($"blocked_user:{blockingUserId}", blockedUserId);
             return false;
         }
 
         public async void ChangeAccountVisibility(Guid userId)
         {
-            bool accountVisibility = await base.GetBooleanValueOfHashField($"user:{userId}", "IsPrivateAccount");
-            base.SetValueOfHashField<bool>($"user:{userId}", "IsPrivateAccount", !accountVisibility);
+            bool accountVisibility = await _redisDbConnection.GetBooleanValueOfHashField($"user:{userId}", "IsPrivateAccount");
+            _redisDbConnection.SetValueOfHashField<bool>($"user:{userId}", "IsPrivateAccount", !accountVisibility);
         }
 
         private async Task<bool> BlockageExistsAsync(Guid blockingUserId, Guid blockedUserId) =>
-            await base.GuidIsOnSet($"blocked_user:{blockingUserId}", blockedUserId);
+            await _redisDbConnection.GuidIsOnSet($"blocked_user:{blockingUserId}", blockedUserId);
 
         private async Task<bool> BlockedUserFollowsBlockingUserAsync(Guid blockedUserId, Guid blockingUserId) =>
             await _usersConnectionsRepository.ConnectionExists(blockedUserId, blockingUserId);
@@ -91,6 +91,6 @@ namespace Peep.Parrot.Repositories
             await _usersConnectionsRepository.RemoveConnectionAsync(followerId, followedId);
 
         private async Task<bool> BlockUserAsync(Guid blockingUserId, Guid blockedUserId) =>
-           await base.AddGuidOnSet($"blocked_user:{blockingUserId}", blockedUserId);
+           await _redisDbConnection.AddGuidOnSet($"blocked_user:{blockingUserId}", blockedUserId);
     }
 }

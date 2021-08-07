@@ -4,11 +4,19 @@ using Peep.Parrot.Domain.Repository;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Peep.Parrot.Infrastructure.Data;
 
 namespace Peep.Parrot.Repositories
 {
     public class NestsRepository : INestsRepository
     {
+        private readonly RedisDbConnection _redisDbConnection;
+
+        public NestsRepository(RedisDbConnection redisDbConnection)
+        {
+            this._redisDbConnection = redisDbConnection;
+        }
+
         public Task AddNest(AddNestDto addNestDto)
         {
             throw new NotImplementedException();

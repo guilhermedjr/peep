@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Peep.Parrot.Domain.Repository;
+﻿using Peep.Parrot.Domain.Repository;
 using Peep.Parrot.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
@@ -7,14 +6,19 @@ using System.Threading.Tasks;
 
 namespace Peep.Parrot.Repositories
 {
-    public class UsersConnectionsRepository : RedisDbConnection, IUsersConnectionsRepository
+    public class UsersConnectionsRepository : IUsersConnectionsRepository
     {
-        public UsersConnectionsRepository(IConfiguration config) : base(config) { }
+        private readonly RedisDbConnection _redisDbConnection;
+
+        public UsersConnectionsRepository(RedisDbConnection redisDbConnection)
+        {
+            this._redisDbConnection = redisDbConnection;
+        }
 
         public async Task<bool> RequestFollowUp(Guid requestingUserId, Guid requestedUserId)
         {
             if (!await FollowUpRequestExistsAsync(requestingUserId, requestedUserId))
-                return await base.AddGuidOnSet($"followupRequests_user:{requestedUserId}", requestingUserId);
+                return await _redisDbConnection.AddGuidOnSet($"followupRequests_user:{requestedUserId}", requestingUserId);
             return false;
         }
 
@@ -26,7 +30,7 @@ namespace Peep.Parrot.Repositories
         }
 
         public async Task<List<Guid>> GetUserFollowUpRequests(Guid userId) =>
-            await base.GetAllGuidSetMembers($"followupRequests_user:{userId}");
+            await _redisDbConnection.GetAllGuidSetMembers($"followupRequests_user:{userId}");
         
 
         public async Task<bool> AddFollowUp(Guid followerId, Guid followedId)
@@ -37,16 +41,16 @@ namespace Peep.Parrot.Repositories
                 {
                     if (await RemoveFollowUpRequestAsync(followerId, followedId))
                     {
-                        if (await base.AddGuidOnSet($"followers_user:{followedId}", followerId))
-                            return await base.AddGuidOnSet($"following_user:{followerId}", followedId);
+                        if (await _redisDbConnection.AddGuidOnSet($"followers_user:{followedId}", followerId))
+                            return await _redisDbConnection.AddGuidOnSet($"following_user:{followerId}", followedId);
                         return false;
                     }
                        
                     return false;
                 }
 
-                else if (await base.AddGuidOnSet($"followers_user:{followedId}", followerId))
-                    return await base.AddGuidOnSet($"following_user:{followerId}", followedId);
+                else if (await _redisDbConnection.AddGuidOnSet($"followers_user:{followedId}", followerId))
+                    return await _redisDbConnection.AddGuidOnSet($"following_user:{followerId}", followedId);
                 return false;
             }
 
@@ -61,18 +65,18 @@ namespace Peep.Parrot.Repositories
         }
 
         private async Task<bool> FollowUpRequestExistsAsync(Guid requestingUserId, Guid requestedUserId) =>
-            await base.GuidIsOnSet($"followupRequests_user:{requestedUserId}", requestingUserId);
+            await _redisDbConnection.GuidIsOnSet($"followupRequests_user:{requestedUserId}", requestingUserId);
 
         private async Task<bool> RemoveFollowUpRequestAsync(Guid requestingUserId, Guid requestedUserId) =>
-            await base.DeleteGuidOfSet($"followupRequests_user:{requestedUserId}", requestingUserId);
+            await _redisDbConnection.DeleteGuidOfSet($"followupRequests_user:{requestedUserId}", requestingUserId);
 
         public async Task<bool> ConnectionExists(Guid followerId, Guid followedId) =>
-            await base.GuidIsOnSet($"followers_user:{followedId}", followerId);
+            await _redisDbConnection.GuidIsOnSet($"followers_user:{followedId}", followerId);
 
         public async Task<bool> RemoveConnectionAsync(Guid followedId, Guid followerId)
         {
-            if (await base.DeleteGuidOfSet($"followers_user:{followedId}", followerId))
-                return await base.DeleteGuidOfSet($"following_user:{followerId}", followedId);
+            if (await _redisDbConnection.DeleteGuidOfSet($"followers_user:{followedId}", followerId))
+                return await _redisDbConnection.DeleteGuidOfSet($"following_user:{followerId}", followedId);
             return false;
         }
 
