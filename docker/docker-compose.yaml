@@ -1,68 +1,48 @@
-version: '3.8'
+version: "3.8"
 
 services:
-  # wings-mysql:
-  #   image: mysql:8.0.23
-  #   container_name: 'wings-mysql'
-  #   restart: always
-  #   ports:
-  #     - 3306:3306
-  #   environment:
-  #     - MYSQL_HOST=127.0.0.1
-  #     - MYSQL_ROOT_PASSWORD="root"
-  #     - MYSQL_DATABASE="peepwingsdb"
-  #   volumes:
-  #     - './volumes/mysql:/var/lib/mysql'
-  #   networks:
-  #     - peep-network
-
-  parrot-redis:
-    image: redis:alpine
-    container_name: 'parrot-redis'
-    restart: always
-    command: 'redis-server --requirepass redis-docker'
-    ports:
-      - 6379:6379
-    volumes:
-      - './volumes/redis'
-    networks:
-      - peep-network
-
-# Stop 'wings-mysql' container to be able to run 'stork-mysql' (docker stop wings-mysql),
-# or vice versa
-
-# This port conflict will be fixed soon
-
-  stork-mysql:
-    image: mysql:8.0.23
-    container_name: 'stork-mysql'
-    restart: always
-    ports: 
-      - 3306:3306
-    environment: 
-      - MYSQL_HOST=127.0.0.1
-      - MYSQL_ROOT_PASSWORD="root"
-      - MYSQL_DATABASE="peepstorkdb"
-    volumes:
-      - './volumes/mysql:/var/lib/mysql'
-    networks:
-      - peep-network
-
-  mediaserver-postgres:
+  wings-postgres:
     image: postgres
-    container_name: 'mediaserver-postgres'
+    container_name: "wings-postgres"
     restart: always
     ports:
       - 4001:5432
     environment:
       - POSTGRES_PASSWORD=root
       - POSTGRES_USER=root
-      - POSTGRES_DB=peepmediadb
+      - POSTGRES_DB=peepwingsdb
     volumes:
-      - '/var/lib/postgresql/data'
+      - "/var/lib/postgresql/data"
+    networks:
+      - peep-network
+
+  parrot-redis:
+    image: redis:alpine
+    container_name: "parrot-redis"
+    restart: always
+    command: "redis-server --requirepass redis-docker"
+    ports:
+      - 6379:6379
+    volumes:
+      - "./volumes/redis"
+    networks:
+      - peep-network
+
+  stork-postgres:
+    image: postgres
+    container_name: "stork-postgres"
+    restart: always
+    ports:
+      - 4001:5432
+    environment:
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_USER=root
+      - POSTGRES_DB=peepstorkdb
+    volumes:
+      - "/var/lib/postgresql/data"
     networks:
       - peep-network
 
 networks:
-  peep-network: 
+  peep-network:
     driver: bridge
