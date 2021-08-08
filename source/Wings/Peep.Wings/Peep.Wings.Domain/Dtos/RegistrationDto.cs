@@ -9,10 +9,8 @@ namespace Peep.Wings.Domain.Dtos
     {
         [Required]
         public string Name { get; set; }
-
+        [Required]
         public string Email { get; set; }
-        public string PhoneNumber { get; set; }
-
         [Required]
         public string BirthDate { get; set; }
         [Required]

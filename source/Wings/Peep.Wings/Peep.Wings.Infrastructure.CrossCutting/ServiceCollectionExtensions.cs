@@ -61,9 +61,9 @@ namespace Peep.Wings.Infrastructure.IoC
 
             options.User.RequireUniqueEmail = true;
 
-            options.SignIn.RequireConfirmedEmail = false;
+            options.SignIn.RequireConfirmedEmail = true;
             options.SignIn.RequireConfirmedPhoneNumber = false;
-            options.SignIn.RequireConfirmedAccount = false;
+            options.SignIn.RequireConfirmedAccount = true;
         }
 
         public static IServiceCollection ConfigureAuthentication(this IServiceCollection services, IConfiguration configuration)

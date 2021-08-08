@@ -22,7 +22,6 @@ namespace Peep.Wings.Application.Controllers
 
         private readonly ITokenService _tokenService;
         private readonly IEmailService _emailService;
-        private readonly ISmsService _smsService;
         private readonly IPeepParrotService _parrotService;
         private readonly IPeepStorkService _storkService;
 
@@ -31,7 +30,6 @@ namespace Peep.Wings.Application.Controllers
             SignInManager<ApplicationUser> signInManager,
             ITokenService tokenService,
             IEmailService emailService,
-            ISmsService smsService,
             IPeepParrotService parrotService,
             IPeepStorkService storkService) 
             : base(userManager)
@@ -40,7 +38,6 @@ namespace Peep.Wings.Application.Controllers
             this._signInManager = signInManager;
             this._tokenService = tokenService;
             this._emailService = emailService;
-            this._smsService = smsService;
             this._parrotService = parrotService;
             this._storkService = storkService;
         }
@@ -53,8 +50,7 @@ namespace Peep.Wings.Application.Controllers
             var user = new ApplicationUser
             {
                 Name = registrationDto.Name,
-                Email = !String.IsNullOrEmpty(registrationDto.Email) ? registrationDto.Email : null,
-                PhoneNumber = !String.IsNullOrEmpty(registrationDto.PhoneNumber) ? registrationDto.PhoneNumber : null,
+                Email = registrationDto.Email,
                 BirthDate = registrationDto.BirthDate,
                 UserName = registrationDto.Username,
                 Password = registrationDto.Password,
@@ -69,40 +65,40 @@ namespace Peep.Wings.Application.Controllers
             if (!result.Succeeded)
                 return BadRequest( new { result.Errors } );
 
-            if (user.Email != null)
-            {
-                var emailToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                var emailConfirmationUrl = Url.Link("ConfirmEmail", new { token = emailToken, email = user.Email });
+            
+            var emailToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var emailConfirmationUrl = Url.Link("ConfirmEmail", new { token = emailToken, email = user.Email });
 
-                await _emailService.SendEmail(
-                    user.Email,
-                    "Peep - Confirmação de email",
-                    $"<html><body>Seja bem-vindo ao Peep! Clique <a href=\"{emailConfirmationUrl}\">aqui</a> para confirmar seu email e poder acessar a sua conta</body></html>");
-
-                await _signInManager.SignInAsync(user, true);
-            }
-
-            //TODO: Confirmação de conta via número de telefone 
+            await _emailService.SendEmailAsync(
+                user.Email,
+                "Peep - Confirmação de email",
+                $"<html><body>Seja bem-vindo ao Peep! Clique <a href=\"{emailConfirmationUrl}\">aqui</a> para confirmar seu email e poder acessar a sua conta</body></html>");
 
             var userView = new ApplicationUserViewModel
             {
                 Id = user.Id,
                 Name = user.Name,
-                Username = user.UserName
+                Username = user.UserName,
+                Email = user.Email
             };
-                
 
-            Response.Cookies.Append("peep_token", _tokenService.GenerateJsonWebToken(user), new CookieOptions
-            {
-                HttpOnly = true,
-                IsEssential = true,
-                SameSite = SameSiteMode.Lax
-            });
+            return Ok(userView);
+        }
 
-            return Created(
-                Url.Link("GetById", new { Id = user }),
-                userView);
+        [HttpPost]
+        [Route("ConfirmEmail")]
+        public async Task<IActionResult> ConfirmEmail([FromQuery] string token, [FromQuery] string email)
+        {
+            var user = await _userManager.Users.FirstAsync(u => u.Email == email);
 
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+
+            string uiUrl = result.Succeeded ? "emailConfirmado" : "emailInexistente";
+
+            // TODO: Fazer integração no front-end: criar as telas de email confirmado/não confirmado
+            // e redirecionar para a home em caso positivo
+
+            return Redirect(uiUrl);
         }
 
         [HttpPost]
@@ -112,18 +108,26 @@ namespace Peep.Wings.Application.Controllers
             var user = 
                 !String.IsNullOrEmpty(loginDto.Email)
                     ? await _userManager.FindByEmailAsync(loginDto.Email)
-                    : !String.IsNullOrEmpty(loginDto.PhoneNumber)
-                        ? await _userManager.Users.FirstOrDefaultAsync(u => u.PhoneNumber == loginDto.PhoneNumber)
-                        : await _userManager.Users.FirstOrDefaultAsync(u => u.UserName == loginDto.Username);
+                        : await _userManager.Users.FirstAsync(u => u.UserName == loginDto.Username);
 
             if (user == null)
-                return BadRequest( new { Message = "Informação de login incorreta" });
+                return BadRequest(new { Message = "Email ou nome de usuário incorreto" });
 
+            if (!user.EmailConfirmed)
+                return BadRequest(new { Message = "O email de acesso à conta não foi confirmado" });
 
-            var result = await _signInManager.PasswordSignInAsync(user.UserName, loginDto.Password, true, false);
+            var login = await _signInManager.PasswordSignInAsync(user.UserName, loginDto.Password, true, false);
 
-            if (!result.Succeeded)
+            if (!login.Succeeded)
                 return BadRequest( new { Message = "Senha incorreta" } );
+
+            var userView = new ApplicationUserViewModel
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Username = user.UserName,
+                Email = user.Email
+            };
 
             Response.Cookies.Append("peep_token", _tokenService.GenerateJsonWebToken(user), new CookieOptions
             {
@@ -132,7 +136,7 @@ namespace Peep.Wings.Application.Controllers
                 SameSite = SameSiteMode.Lax
             });
 
-            return Ok();
+            return Ok(userView);
         }
 
 
@@ -164,7 +168,8 @@ namespace Peep.Wings.Application.Controllers
             {
                 Id = authenticatedUser.Id,
                 Name = authenticatedUser.Name,
-                Username = authenticatedUser.UserName
+                Username = authenticatedUser.UserName,
+                Email = authenticatedUser.Email
             };
 
             return Ok(userView);
@@ -197,17 +202,10 @@ namespace Peep.Wings.Application.Controllers
                 user.Email = updateAccountDto.Email;
                 var emailToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 var emailConfirmationUrl = Url.Link("ConfirmEmail", new { token = emailToken, email = user.Email });
-                await _emailService.SendEmail(
+                await _emailService.SendEmailAsync(
                    user.Email,
                    "Peep - Confirmação de email",
                    $"<html><body>Clique <a href=\"{emailConfirmationUrl}\">aqui</a> para confirmar seu novo email de acesso à sua conta Peep</body></html>");
-            }
-
-            if (!String.IsNullOrEmpty(updateAccountDto.PhoneNumber) &&
-                user.PhoneNumber != updateAccountDto.PhoneNumber)
-            {
-                // TODO: confirmação de número de telefone
-                user.PhoneNumber = updateAccountDto.PhoneNumber;
             }
 
             if (!String.IsNullOrEmpty(updateAccountDto.Username) &&
@@ -259,25 +257,8 @@ namespace Peep.Wings.Application.Controllers
             return Ok(userView);
         }
 
-        [HttpGet]
-        [Route("ConfirmEmail")]
-        public async Task<IActionResult> ConfirmEmail([FromQuery] string token, [FromQuery] string email)
-        {
-            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Email == email);
-
-            var result = await _userManager.ConfirmEmailAsync(user, token);
-
-            string uiUrl = result.Succeeded ? "emailConfirmado" : "emailInexistente";
-
-            // TODO: Fazer integração no front-end: criar as telas de email confirmado/não confirmado
-            // e redirecionar para a home em caso positivo
-
-            return Redirect(uiUrl);
-        }
-
         [HttpPost]
         [Route("ResendConfirmationEmail")]
-        [Authorize]
         public async Task<IActionResult> ResendConfirmationEmail()
         {
             var authenticatedUser = await GetAuthenticatedUserAccount();
@@ -291,7 +272,7 @@ namespace Peep.Wings.Application.Controllers
             var emailToken = await _userManager.GenerateEmailConfirmationTokenAsync(authenticatedUser);
             var emailConfirmationUrl = Url.Link("ConfirmEmail", new { token = emailToken, email = authenticatedUser.Email });
 
-            await _emailService.SendEmail(
+            await _emailService.SendEmailAsync(
                 authenticatedUser.Email,
                 "Peep - Confirmação de email",
                 $"<html><body>Seja bem-vindo ao Peep! Clique <a href=\"{emailConfirmationUrl}\">aqui</a> para confirmar seu email e poder acessar a sua conta</body></html>");
@@ -307,7 +288,6 @@ namespace Peep.Wings.Application.Controllers
                 Email = user.Email,
                 Name = user.Name,
                 Username = user.UserName,
-                PhoneNumber = user.PhoneNumber,
                 Password = user.Password,
                 BirthDate = user.BirthDate,
                 JoinedAt = user.JoinedAt
@@ -325,7 +305,6 @@ namespace Peep.Wings.Application.Controllers
                 Email = user.Email,
                 Name = user.Name,
                 Username = user.UserName,
-                PhoneNumber = user.PhoneNumber,
                 Password = user.Password,
                 BirthDate = user.BirthDate,
                 JoinedAt = user.JoinedAt

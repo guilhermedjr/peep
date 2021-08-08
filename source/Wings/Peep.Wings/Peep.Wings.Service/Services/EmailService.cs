@@ -22,7 +22,7 @@ namespace Peep.Wings.Service.Services
             };
         }
 
-        public Task SendEmail(string to, string subject, string body, bool isHTML = true)
+        public Task SendEmailAsync(string to, string subject, string body, bool isHTML = true)
         {
             var email = new MailMessage(_config["Email:Username"], to, subject, body)
             {
