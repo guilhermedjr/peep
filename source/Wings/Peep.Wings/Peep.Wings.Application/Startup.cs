@@ -31,13 +31,14 @@ namespace Peep.Wings.Application
             });
 
             services
-                .AddDefaultIdentity<ApplicationUser>(Bootstrapper.ConfigureIdentity)
+                .AddDefaultIdentity<ApplicationUser>(ServiceCollectionExtensions.ConfigureIdentity)
                 .AddRoles<ApplicationRole>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
 
-            Bootstrapper.ConfigureServices(services, Configuration);
-            Bootstrapper.ConfigureAuthentication(services, Configuration);
+            services.ConfigureServices(Configuration)
+                .ConfigureExternalLoginProviders(Configuration)
+                .ConfigureAuthentication(Configuration);
 
             services.AddHttpClient<PeepStorkService>();
 

@@ -11,16 +11,43 @@ using Peep.Wings.Service.Services;
 
 namespace Peep.Wings.Infrastructure.IoC
 {
-    public static class Bootstrapper
+    public static class ServiceCollectionExtensions
     {
-        public static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection ConfigureServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<AppDbContext>(options =>
-                options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
+                options.UseNpgsql(configuration.GetConnectionString("postgres")));
 
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<ISmsService, SmsService>();
             services.AddScoped<ITokenService, TokenService>();
+
+            return services;
+        }
+
+        public static IServiceCollection ConfigureExternalLoginProviders(this IServiceCollection services, 
+            IConfiguration configuration)
+        {
+
+            if (configuration["Authentication:Google:ClientId"] != null)
+            {
+                services.AddAuthentication().AddGoogle(o =>
+                {
+                    o.ClientId = configuration["Authentication:Google:ClientId"];
+                    o.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+                });
+            }
+
+            if (configuration["Authentication:GitHub:ClientId"] != null)
+            {
+                services.AddAuthentication().AddGitHub(gitHubOptions =>
+                {
+                    gitHubOptions.ClientId = configuration["Authentication:GitHub:ClientId"];
+                    gitHubOptions.ClientSecret = configuration["Authentication:GitHub:ClientSecret"];
+                });
+            }
+
+            return services;
         }
 
         public static void ConfigureIdentity(IdentityOptions options)
@@ -39,7 +66,7 @@ namespace Peep.Wings.Infrastructure.IoC
             options.SignIn.RequireConfirmedAccount = false;
         }
 
-        public static void ConfigureAuthentication(IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection ConfigureAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
             var key = Encoding.ASCII.GetBytes(configuration["Jwt:Key"]);
             services.AddAuthentication(x =>
@@ -59,6 +86,8 @@ namespace Peep.Wings.Infrastructure.IoC
                     ValidateAudience = false
                 };
             });
+
+            return services;
         }
     }
 }
