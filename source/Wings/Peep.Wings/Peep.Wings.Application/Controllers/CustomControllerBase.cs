@@ -19,13 +19,17 @@ namespace Peep.Wings.Application.Controllers
             this._userManager = userManager;
         }
 
+        public abstract Task<IActionResult> ConfirmEmail([FromQuery] string token, [FromQuery] string email);
+
         protected ApplicationUserViewModel LoggedUser =>
             HttpContext.User.Identity.IsAuthenticated
                 ? new ApplicationUserViewModel
                 {
                     Id = Guid.Parse(HttpContext.User.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value),
                     Username = HttpContext.User.Claims.First(c => c.Type == "UserName").Value,
-                    Name = HttpContext.User.Claims.First(c => c.Type == ClaimTypes.Name).Value
+                    Name = HttpContext.User.Claims.First(c => c.Type == ClaimTypes.Name).Value,
+                    Email = HttpContext.User.Claims.First(c => c.Type == ClaimTypes.Email).Value,
+                    AuthenticationMethod = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.AuthenticationMethod)?.Value
                 }
                 : null;
 

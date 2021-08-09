@@ -19,7 +19,6 @@ namespace Peep.Wings.Infrastructure.IoC
                 options.UseNpgsql(configuration.GetConnectionString("postgres")));
 
             services.AddScoped<IEmailService, EmailService>();
-            services.AddScoped<ISmsService, SmsService>();
             services.AddScoped<ITokenService, TokenService>();
 
             return services;
@@ -31,10 +30,10 @@ namespace Peep.Wings.Infrastructure.IoC
 
             if (configuration["Authentication:Google:ClientId"] != null)
             {
-                services.AddAuthentication().AddGoogle(o =>
+                services.AddAuthentication().AddGoogle(googleOptions =>
                 {
-                    o.ClientId = configuration["Authentication:Google:ClientId"];
-                    o.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+                    googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
+                    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
                 });
             }
 

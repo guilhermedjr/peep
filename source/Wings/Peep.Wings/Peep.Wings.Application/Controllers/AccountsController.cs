@@ -55,8 +55,7 @@ namespace Peep.Wings.Application.Controllers
                 UserName = registrationDto.Username,
                 Password = registrationDto.Password,
                 JoinedAt = DateTime.Now,
-                EmailConfirmed = false,
-                PhoneNumberConfirmed = false
+                EmailConfirmed = false
 
             };
 
@@ -87,7 +86,7 @@ namespace Peep.Wings.Application.Controllers
 
         [HttpPost]
         [Route("ConfirmEmail")]
-        public async Task<IActionResult> ConfirmEmail([FromQuery] string token, [FromQuery] string email)
+        public async override Task<IActionResult> ConfirmEmail([FromQuery] string token, [FromQuery] string email)
         {
             var user = await _userManager.Users.FirstAsync(u => u.Email == email);
 
@@ -138,7 +137,6 @@ namespace Peep.Wings.Application.Controllers
 
             return Ok(userView);
         }
-
 
         [HttpPost]
         [Route("Logout")]
@@ -255,29 +253,6 @@ namespace Peep.Wings.Application.Controllers
             });
 
             return Ok(userView);
-        }
-
-        [HttpPost]
-        [Route("ResendConfirmationEmail")]
-        public async Task<IActionResult> ResendConfirmationEmail()
-        {
-            var authenticatedUser = await GetAuthenticatedUserAccount();
-
-            if (authenticatedUser == null)
-                return BadRequest( new { Message = "Usuário não autenticado" } );
-
-            if (authenticatedUser.EmailConfirmed)
-                return BadRequest( new { Message = "Usuário com confirmação de email já realizada" } );
-
-            var emailToken = await _userManager.GenerateEmailConfirmationTokenAsync(authenticatedUser);
-            var emailConfirmationUrl = Url.Link("ConfirmEmail", new { token = emailToken, email = authenticatedUser.Email });
-
-            await _emailService.SendEmailAsync(
-                authenticatedUser.Email,
-                "Peep - Confirmação de email",
-                $"<html><body>Seja bem-vindo ao Peep! Clique <a href=\"{emailConfirmationUrl}\">aqui</a> para confirmar seu email e poder acessar a sua conta</body></html>");
-
-            return Ok();
         }
 
         private async Task SyncAddedUser(ApplicationUser user)

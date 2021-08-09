@@ -8,5 +8,6 @@ namespace Peep.Wings.Application.ViewModels
         public string Name { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
+        public string AuthenticationMethod { get; set; }
     }
 }
