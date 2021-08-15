@@ -2,6 +2,7 @@
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Caching.Distributed;
 using Peep.Parrot.Domain.Dtos;
 using Peep.Parrot.Domain.Entities;
@@ -24,6 +25,7 @@ namespace Peep.Parrot.Application.Controllers
             this._userRestrictionsRepository = userRestrictionsRepository;
         }
 
+        [Authorize]
         [HttpPut]
         public IActionResult ChangeAccountVisibility([FromQuery] Guid userId)
         {
@@ -34,7 +36,7 @@ namespace Peep.Parrot.Application.Controllers
              return NoContent();
         }
 
-
+        [Authorize]
         [HttpPost]
         [Route("MuteUser")]
         public async Task<IActionResult> MuteUser([FromQuery] Guid mufflerId, [FromQuery] Guid mutedUserId)
@@ -53,6 +55,7 @@ namespace Peep.Parrot.Application.Controllers
             return BadRequest();
         }
 
+        [Authorize]
         [HttpPost]
         [Route("BlockUser")]
         public async Task<IActionResult> BlockUser([FromQuery] Guid blockingUserId, [FromQuery] Guid blockedUserId)
@@ -71,6 +74,7 @@ namespace Peep.Parrot.Application.Controllers
             return BadRequest();
         }
 
+        [Authorize]
         [HttpDelete]
         [Route("UnmuteUser")]
         public async Task<IActionResult> UnmuteUser([FromQuery] Guid mufflerId, [FromQuery] Guid mutedUserId)
@@ -89,6 +93,7 @@ namespace Peep.Parrot.Application.Controllers
             return BadRequest();
         }
 
+        [Authorize]
         [HttpDelete]
         [Route("UnblockUser")]
         public async Task<IActionResult> UnblockUser([FromQuery] Guid blockingUserId, [FromQuery] Guid blockedUserId)

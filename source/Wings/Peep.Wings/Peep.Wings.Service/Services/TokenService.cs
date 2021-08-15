@@ -28,8 +28,7 @@ namespace Peep.Wings.Service.Services
                 {
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                     new Claim(ClaimTypes.Email, user.Email),
-                    new Claim("UserName", user.UserName),
-                    new Claim(ClaimTypes.Name, user.Name)
+                    new Claim("UserName", user.UserName)
                 
                 }),
                 Expires = DateTime.UtcNow.AddHours(24),

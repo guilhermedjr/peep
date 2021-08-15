@@ -27,7 +27,6 @@ namespace Peep.Wings.Application.Controllers
                 {
                     Id = Guid.Parse(HttpContext.User.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value),
                     Username = HttpContext.User.Claims.First(c => c.Type == "UserName").Value,
-                    Name = HttpContext.User.Claims.First(c => c.Type == ClaimTypes.Name).Value,
                     Email = HttpContext.User.Claims.First(c => c.Type == ClaimTypes.Email).Value,
                     AuthenticationMethod = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.AuthenticationMethod)?.Value
                 }

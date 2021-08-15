@@ -37,6 +37,16 @@ namespace Peep.Wings.Infrastructure.IoC
                 });
             }
 
+            /*if (configuration["Authentication:Twitter:ConsumerAPIKey"] != null)
+            {
+                services.AddAuthentication().AddTwitter(twitterOptions =>
+                {
+                    twitterOptions.ConsumerKey = configuration["Authentication:Twitter:ConsumerAPIKey"];
+                    twitterOptions.ConsumerSecret = configuration["Authentication:Twitter:ConsumerAPISecret"];
+                    twitterOptions.RetrieveUserDetails = true;
+                });
+            }*/
+
             if (configuration["Authentication:GitHub:ClientId"] != null)
             {
                 services.AddAuthentication().AddGitHub(gitHubOptions =>

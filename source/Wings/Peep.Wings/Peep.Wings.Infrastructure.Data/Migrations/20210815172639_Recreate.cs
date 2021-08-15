@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Peep.Wings.Infrastructure.Data.Migrations
 {
-    public partial class RecreateDatabaseWithPostgres : Migration
+    public partial class Recreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

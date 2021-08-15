@@ -3,14 +3,14 @@ import axios from 'axios'
 
 const AxiosInstances: IAxiosInstances = {
   Wings: axios.create({
-    baseURL: 'https://localhost:44376/'
+    baseURL: 'https://localhost:44376/',
   }),
   Parrot: axios.create({
-    baseURL: 'https://localhost:44364/'
-  }), 
+    baseURL: 'https://localhost:44364/',
+  }),
   Stork: axios.create({
-    baseURL: 'https://localhost:44327/'
-  })
+    baseURL: 'https://localhost:44327/',
+  }),
 }
 
 export default AxiosInstances

@@ -2,6 +2,7 @@
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Caching.Distributed;
 using Peep.Parrot.Domain.Dtos;
 using Peep.Parrot.Domain.Entities;
@@ -24,6 +25,7 @@ namespace Peep.Parrot.Application.Controllers
             this._usersConnectionsRepository = usersConnectionsRepository;
         }
 
+        [Authorize]
         [HttpPost]
         [Route("RequestFollowUp")]
         public async Task<IActionResult> RequestFollowUp(
@@ -43,6 +45,7 @@ namespace Peep.Parrot.Application.Controllers
             return BadRequest();
         }
 
+        [Authorize]
         [HttpDelete]
         [Route("RemoveFollowUpRequest")]
         public async Task<IActionResult> RemoveFollowUpRequest(
@@ -62,6 +65,7 @@ namespace Peep.Parrot.Application.Controllers
             return BadRequest();
         }
 
+        [Authorize]
         [HttpGet]
         [Route("GetUserFollowUpRequests")]
         public async Task<IActionResult> GetUserFollowUpRequests([FromQuery] Guid userId)
@@ -77,6 +81,7 @@ namespace Peep.Parrot.Application.Controllers
             
         }
 
+        [Authorize]
         [HttpPost]
         [Route("AddFollowUp")]
         public async Task<IActionResult> AddFollowUp(
@@ -96,6 +101,7 @@ namespace Peep.Parrot.Application.Controllers
             return BadRequest();
         }
 
+        [Authorize]
         [HttpDelete]
         [Route("RemoveFollowUp")]
         public async Task<IActionResult> RemoveFollowUp(

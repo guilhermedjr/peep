@@ -10,8 +10,8 @@ using Peep.Wings.Infrastructure.Data;
 namespace Peep.Wings.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210807180544_RecreateDatabaseWithPostgres")]
-    partial class RecreateDatabaseWithPostgres
+    [Migration("20210815172639_Recreate")]
+    partial class Recreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

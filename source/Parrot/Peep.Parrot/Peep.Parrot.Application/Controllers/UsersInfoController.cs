@@ -2,6 +2,7 @@
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Caching.Distributed;
 using Peep.Parrot.Domain.Dtos;
 using Peep.Parrot.Domain.Repository;
@@ -24,6 +25,7 @@ namespace Peep.Parrot.Application.Controllers
             this._userInfoRepository = userInfoRepository;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Index([FromQuery] Guid id)
         {
@@ -49,6 +51,7 @@ namespace Peep.Parrot.Application.Controllers
 
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddUserInfo(AddUserInfoDto addUserInfoDto)
         {
@@ -67,6 +70,7 @@ namespace Peep.Parrot.Application.Controllers
             return BadRequest();
         }
 
+        [Authorize]
         [HttpPut]
         public async Task<IActionResult> UpdateUserInfo(UpdateUserInfoDto updateUserInfoDto)
         {
@@ -85,6 +89,7 @@ namespace Peep.Parrot.Application.Controllers
             return BadRequest();
         }
 
+        [Authorize]
         [HttpDelete]
         public async Task<IActionResult> DeleteUserInfo([FromQuery] Guid id)
         {

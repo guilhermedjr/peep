@@ -58,12 +58,12 @@ namespace Peep.Wings.Application.Controllers
             returnUrl ??= Url.Content("~/");
 
             if (remoteError != null)
-                return RedirectToPage("./", new { ReturnUrl = returnUrl });
+                return BadRequest();
             
             var loginInfo = await _signInManager.GetExternalLoginInfoAsync();
 
             if (loginInfo == null)
-                return RedirectToPage("./", new { ReturnUrl = returnUrl });
+                return BadRequest();
 
             var userEmail = loginInfo.Principal.FindFirstValue(ClaimTypes.Email);
 
@@ -160,7 +160,10 @@ namespace Peep.Wings.Application.Controllers
         [HttpPost]
         public async Task<IActionResult> Associate([FromBody] AssociateExternalLoginDto associateExternalLoginDto)
         {
-            if (!associateExternalLoginDto.AssociateExistingAccount)
+            associateExternalLoginDto.ProviderDisplayName = null;
+            associateExternalLoginDto.ProviderKey = Guid.NewGuid().ToString();
+
+            if (!associateExternalLoginDto.AssociateToExistingAccount)
             {
                 var newUser = new ApplicationUser
                 {

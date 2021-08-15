@@ -2,6 +2,7 @@
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Caching.Distributed;
 using Peep.Parrot.Domain.Dtos;
 using Peep.Parrot.Domain.Entities;
@@ -24,6 +25,7 @@ namespace Peep.Parrot.Application.Controllers
             this._peepsRepository = peepsRepository;
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddPeep(AddPeepDto addPeepDto)
         {
@@ -35,6 +37,7 @@ namespace Peep.Parrot.Application.Controllers
             return BadRequest();
         }
 
+        [Authorize]
         [HttpPut]
         public async Task<IActionResult> EditPeep(EditPeepDto editPeepDto)
         {
@@ -46,6 +49,7 @@ namespace Peep.Parrot.Application.Controllers
             return BadRequest();
         }
 
+        [Authorize]
         [HttpDelete]
         public async Task<IActionResult> DeletePeep([FromQuery] Guid userId, Guid peepId)
         {

@@ -35,6 +35,9 @@ namespace Peep.Parrot.Application
             services.AddScoped<INestsRepository, NestsRepository>();
 
             services.AddControllers();
+
+            services.AddSignalR();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Peep Parrot ", Version = "v1" });

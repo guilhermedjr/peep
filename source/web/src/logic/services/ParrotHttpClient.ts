@@ -2,10 +2,12 @@ import { AxiosResponse } from 'axios'
 import AxiosInstances from './config'
 import { HttpResponse, IParrotHttpClient } from '../contracts/HttpClient'
 
-export class ParrotHttpClient implements IParrotHttpClient {
+export default class ParrotHttpClient implements IParrotHttpClient {
   private readonly baseUrl = AxiosInstances.Parrot
-  private readonly headers =  
-    {'Accept': 'application/json','Content-Type': 'application/json'}
+  private readonly headers = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  }
 
   constructor() {}
 
@@ -13,31 +15,9 @@ export class ParrotHttpClient implements IParrotHttpClient {
     let response: AxiosResponse
 
     try {
-      response = await this.baseUrl.get(
-      url, {
-       headers: this.headers
+      response = await this.baseUrl.get(url, {
+        headers: this.headers,
       })
-    } catch (error) {
-    console.log(error)
-    response = error.response
-    }
-
-    return {
-      status: response.status,
-      data: response.data
-    }
-
-  }
-
-  public async httpPost<T>(url: string, body?: T): Promise<HttpResponse<T>> {
-    let response: AxiosResponse
-
-    try {
-      response = await this.baseUrl.post(
-        url, {
-          body: typeof body != 'undefined' ? body : null,
-          headers: this.headers
-        })
     } catch (error) {
       console.log(error)
       response = error.response
@@ -45,7 +25,26 @@ export class ParrotHttpClient implements IParrotHttpClient {
 
     return {
       status: response.status,
-      data: response.data
+      data: response.data,
+    }
+  }
+
+  public async httpPost<T>(url: string, body?: T): Promise<HttpResponse<T>> {
+    let response: AxiosResponse
+
+    try {
+      response = await this.baseUrl.post(url, {
+        body: typeof body != 'undefined' ? body : null,
+        headers: this.headers,
+      })
+    } catch (error) {
+      console.log(error)
+      response = error.response
+    }
+
+    return {
+      status: response.status,
+      data: response.data,
     }
   }
 
@@ -53,12 +52,10 @@ export class ParrotHttpClient implements IParrotHttpClient {
     let response: AxiosResponse
 
     try {
-      response = await this.baseUrl.put(
-        url, {
-          body: typeof body != 'undefined' ? body : null,
-          headers: this.headers
-        }
-      )
+      response = await this.baseUrl.put(url, {
+        body: typeof body != 'undefined' ? body : null,
+        headers: this.headers,
+      })
     } catch (error) {
       console.log(error)
       response = error.response
@@ -66,8 +63,7 @@ export class ParrotHttpClient implements IParrotHttpClient {
 
     return {
       status: response.status,
-      data: response.data
+      data: response.data,
     }
   }
-
 }

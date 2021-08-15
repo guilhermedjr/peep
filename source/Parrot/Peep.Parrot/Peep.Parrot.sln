@@ -20,9 +20,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peep.Parrot.Domain", "Peep.Parrot.Domain\Peep.Parrot.Domain.csproj", "{6704CF24-0E59-4C58-9DF7-BE8FE3EFCA7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Peep.Parrot.Domain", "Peep.Parrot.Domain\Peep.Parrot.Domain.csproj", "{6704CF24-0E59-4C58-9DF7-BE8FE3EFCA7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peep.Parrot.Repositories", "Peep.Parrot.Repositories\Peep.Parrot.Repositories.csproj", "{D84C509D-3EF0-4021-A48C-90B73089EF7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Peep.Parrot.Repositories", "Peep.Parrot.Repositories\Peep.Parrot.Repositories.csproj", "{D84C509D-3EF0-4021-A48C-90B73089EF7F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hubs", "Hubs", "{787651DD-E349-4EAD-81DD-D8340BD80B11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peep.Parrot.Hubs", "Peep.Parrot.Hubs\Peep.Parrot.Hubs.csproj", "{568C5FA2-96E2-4B58-89CA-142D0AB0A022}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,6 +50,10 @@ Global
 		{D84C509D-3EF0-4021-A48C-90B73089EF7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D84C509D-3EF0-4021-A48C-90B73089EF7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D84C509D-3EF0-4021-A48C-90B73089EF7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{568C5FA2-96E2-4B58-89CA-142D0AB0A022}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{568C5FA2-96E2-4B58-89CA-142D0AB0A022}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{568C5FA2-96E2-4B58-89CA-142D0AB0A022}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{568C5FA2-96E2-4B58-89CA-142D0AB0A022}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +63,7 @@ Global
 		{38ABE4A6-BD24-4290-9C6F-307B57FF8A25} = {3989DE33-D2F8-4A35-9C18-EDB96C822FE4}
 		{6704CF24-0E59-4C58-9DF7-BE8FE3EFCA7F} = {0142EA03-33BD-45AE-849A-423971EAC56B}
 		{D84C509D-3EF0-4021-A48C-90B73089EF7F} = {1501289E-D698-4A60-8205-906E899171C6}
+		{568C5FA2-96E2-4B58-89CA-142D0AB0A022} = {787651DD-E349-4EAD-81DD-D8340BD80B11}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {378FD623-4CE9-47B3-B2C2-D3411B04C521}
