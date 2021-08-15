@@ -106,13 +106,13 @@ export const MenuButton = styled.button`
   border-radius: 25px;
 
   &:hover {
-    background: var(--twitter-dark-hover);
+    background: var(--peep-dark-hover);
   }
 
   &:hover, &.active {
     span, svg {
-      color: var(--twitter);
-      fill: var(--twitter);
+      color: var(--peep);
+      fill: var(--peep);
     }
   }
 `
@@ -159,7 +159,7 @@ export const Bottomside = styled.div`
   align-items: center;
 
   &:hover {
-    background: var(--twitter-dark-hover);
+    background: var(--peep-dark-hover);
   }
 `
 

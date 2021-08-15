@@ -1,4 +1,5 @@
-import { useContext } from 'react'
+import * as React from 'react'
+import { useState } from 'react'
 import Router from 'next/router'
 import { ptBR as resource } from '../../resource'
 import { LoginContext } from '../../contexts/LoginContext'
@@ -13,49 +14,39 @@ import {
   Slogan,
   LoginMessage,
   ButtonsArea,
+  SocialLoginButton,
+  SocialLoginIcon
 } from './styles'
 
 import Button from '../Button'
 
-export function Login() {
-  const { openSignUpModal, openSignInModal } = useContext(LoginContext)
+export function Login() { 
+  const [isNewAccount, setIsNewAccount] = useState<boolean | undefined>(undefined)
+
   const httpClient = new WingsHttpClient()
 
-  let fakeUserId = '0181add2-1775-4f46-a9f0-072852c417f4'
+  // let fakeUserId = '0181add2-1775-4f46-a9f0-072852c417f4'
 
-  const goToHome = () => {
-    // return <Redirect to={{
-    //   pathname: "/home"
-    // }} />
-    // history.push('/home')
-    Router.push(`home/${fakeUserId}`)
-  }
-
-  // const signUpGitHub = async () => {
-  //   let user = {
-  //     username: 'djrdjrjan',
-  //     email: 'guilhermedjrdjrjan@gmail.com',
-  //     associateExistingAccount: false,
-  //     loginProvider: 'GitHub',
-  //     providerDisplayName: 'GitHub',
-  //     providerKey: 'wedesrgfresg',
-  //   }
-  //   await httpClient.httpPost('/api/SocialAccounts/Associate', user)
+  // const goToHome = () => {
+  //   // return <Redirect to={{
+  //   //   pathname: "/home"
+  //   // }} />
+  //   // history.push('/home')
+  //   Router.push(`home/${fakeUserId}`)
   // }
 
-  const signUpGitHub = async () => {
+  const signUp = async(loginProvider: LoginProvider): Promise<void> => {
     const externalLoginDto: AssociateExternalLoginDto = {
       Username: 'djrdjrjan',
       Email: 'guilhermedjrdjrjan@gmail.com',
       AssociateToExistingAccount: false,
-      LoginProvider: 'GitHub'
+      LoginProvider: loginProvider
     }
     await httpClient.SignUpWithSocialAccount(externalLoginDto)
   }
 
-  const signInGitHub = async () => {
-    await httpClient.SignInWithSocialAccount('GitHub')
-  }
+  const signIn = async(loginProvider: LoginProvider): Promise<void> =>
+    await httpClient.SignInWithSocialAccount(loginProvider)
 
   return (
     <Container>
@@ -65,25 +56,42 @@ export function Login() {
         <Slogan>{resource.Login.Slogan}</Slogan>
         <LoginMessage>{resource.Login.Message}</LoginMessage>
         <ButtonsArea>
-          <Button outlined={false} onClick={openSignUpModal}>
-            {resource.Login.SignUp}
-          </Button>
-          <Button
-            outlined={false}
-            onClick={signUpGitHub}
-          >
-            Cadastrar com GitHub
-          </Button>
-          <Button
-            outlined={true}
-            // onClick={openSignInModal}
-            onClick={goToHome}
-          >
-            {resource.Login.SignIn}
-          </Button>
-          <Button outlined={false} onClick={signInGitHub}>
-            Entrar com GitHub
-          </Button>
+          { isNewAccount == undefined
+              ? <>
+                <Button outlined={false} onClick={() => setIsNewAccount(true)}>
+                  {resource.Login.SignUp}
+                </Button>
+                <Button outlined={true} onClick={() => setIsNewAccount(false)}>
+                  {resource.Login.SignIn}
+                </Button>
+                </>
+              : <>
+                <SocialLoginButton onClick={() => isNewAccount ? signUp('Google') : signIn('Google')}>
+                  <SocialLoginIcon 
+                    src="google.svg" 
+                    title={isNewAccount ? resource.Login.SocialAccount.Google.SignUp : resource.Login.SocialAccount.Google.SignIn} 
+                    alt={isNewAccount ? resource.Login.SocialAccount.Google.SignUp : resource.Login.SocialAccount.Google.SignIn} 
+                  />
+                  <p>{isNewAccount ? resource.Login.SocialAccount.Google.SignUp : resource.Login.SocialAccount.Google.SignIn}</p>
+                </SocialLoginButton>
+                <SocialLoginButton onClick={() => isNewAccount ? signUp('Twitter') : signIn('Twitter')}>
+                  <SocialLoginIcon 
+                    src="twitter.svg" 
+                    title={isNewAccount ? resource.Login.SocialAccount.Twitter.SignUp : resource.Login.SocialAccount.Twitter.SignIn}
+                    alt={isNewAccount ? resource.Login.SocialAccount.Twitter.SignUp : resource.Login.SocialAccount.Twitter.SignIn}
+                  />
+                  <p>{isNewAccount ? resource.Login.SocialAccount.Twitter.SignUp : resource.Login.SocialAccount.Twitter.SignIn}</p>
+                </SocialLoginButton>
+                <SocialLoginButton onClick={() => isNewAccount ? signUp('GitHub') : signIn('GitHub')}>
+                  <SocialLoginIcon 
+                    src="github.svg" 
+                    title={isNewAccount ? resource.Login.SocialAccount.GitHub.SignUp : resource.Login.SocialAccount.GitHub.SignIn}
+                    alt={isNewAccount ? resource.Login.SocialAccount.GitHub.SignUp : resource.Login.SocialAccount.GitHub.SignIn}
+                  />
+                  <p>{isNewAccount ? resource.Login.SocialAccount.GitHub.SignUp : resource.Login.SocialAccount.GitHub.SignIn}</p>
+                </SocialLoginButton>
+                </>
+          }
         </ButtonsArea>
       </LoginArea>
     </Container>

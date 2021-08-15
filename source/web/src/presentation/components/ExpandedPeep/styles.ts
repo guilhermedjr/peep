@@ -110,11 +110,11 @@ export const OptionsButton = styled.div`
 
 
   &:hover {
-    background: var(--twitter-dark-hover);
+    background: var(--peep-dark-hover);
 
     svg {
-      color: var(--twitter);
-      fill: var(--twitter);
+      color: var(--peep);
+      fill: var(--peep);
     }
   }
 `
@@ -252,11 +252,11 @@ export const CommentIconArea = styled.div`
   text-align: center;
 
   &:hover {
-    background: var(--twitter-dark-hover);
+    background: var(--peep-dark-hover);
 
     svg {
-      color: var(--twitter);
-      fill: var(--twitter);
+      color: var(--peep);
+      fill: var(--peep);
     }
   }
 `
@@ -271,11 +271,11 @@ export const RetweetIconArea = styled.div`
   text-align: center;
 
   &:hover {
-    background: var(--retweet-light);
+    background: var(--repeep-light);
 
     svg {
-      color: var(--retweet);
-      fill: var(--retweet);
+      color: var(--repeep);
+      fill: var(--repeep);
     }
   }
 `

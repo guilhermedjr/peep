@@ -48,7 +48,7 @@ export function Profile(props: ProfileProps) {
         {/* <p>Cantor e compositor Ednaldo Pereira</p>
         <br />
         <p>Contribua  <a href="http://apoia.se/ednaldopereira" style={{
-          color: 'var(--twitter)'
+          color: 'var(--peep)'
         }}>http://apoia.se/ednaldopereira</a>  para receber  seu vídeo</p> */}
 
         <p>{user.Bio}</p>

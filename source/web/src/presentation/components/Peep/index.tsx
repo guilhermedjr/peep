@@ -123,7 +123,7 @@ export function Peep(props: PeepProps) {
       { props.isRepost 
           ? <Retweeted>
               <RtIcon />
-              Você retweetou
+              Você repostou
             </Retweeted>
           : []
       }

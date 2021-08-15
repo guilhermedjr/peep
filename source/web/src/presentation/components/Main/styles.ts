@@ -34,7 +34,7 @@ export const Header = styled.div`
     cursor: pointer;
 
     &:hover {
-      background: var(--twitter-dark-hover);
+      background: var(--peep-dark-hover);
     }
     
   }
@@ -44,7 +44,7 @@ export const BackIcon = styled(ArrowLeft)`
   width: 24px;
   height: 24px;
 
-  fill: var(--twitter);
+  fill: var(--peep);
 `
 
 export const ProfileInfo = styled.div`
@@ -92,7 +92,7 @@ const iconCSS = css`
 
   &:hover,
   &.active {
-    fill: var(--twitter);
+    fill: var(--peep);
   }
 
 `

@@ -22,7 +22,7 @@ export const Banner = styled.div`
   width: 100%;
   height: min(33vw, 199px);
 
-  background: var(--twitter);
+  background: var(--peep);
 
   position: relative;
 
@@ -167,11 +167,11 @@ export const Tab = styled.div`
   transition: 0.2s;
 
   &:active {
-    border-bottom: 2px solid var(--twitter);
+    border-bottom: 2px solid var(--peep);
   }
 
   &:hover {
-    background: var(--twitter-dark-hover);
-    color: var(--twitter);
+    background: var(--peep-dark-hover);
+    color: var(--peep);
   }
 `

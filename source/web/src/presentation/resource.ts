@@ -5,7 +5,21 @@ export const ptBR: Resource = {
     Slogan: 'Acontecendo agora',
     Message: 'Inscreva-se no Peep hoje mesmo.',
     SignIn: 'Entrar',
-    SignUp: 'Inscrever-se'
+    SignUp: 'Inscrever-se',
+    SocialAccount: {
+      Google: {
+        SignIn: 'Entrar com Google',
+        SignUp: 'Inscrever-se com Google'
+      },
+      Twitter: {
+        SignIn: 'Entrar com Twitter',
+        SignUp: 'Inscrever-se com Twitter'
+      },
+      GitHub: {
+        SignIn: 'Entrar com GitHub',
+        SignUp: 'Inscrever-se com GitHub'
+      }
+    }
   },
   CreateAccount: {
     Steps: {
@@ -82,7 +96,21 @@ export const enUS: Resource = {
     Slogan: 'Happening now',
     Message: 'Sign up to Peep even today.',
     SignIn: 'Login',
-    SignUp: 'Sign Up'
+    SignUp: 'Sign Up',
+    SocialAccount: {
+      Google: {
+        SignIn: 'Login with Google',
+        SignUp: 'Sign up with Google'
+      },
+      Twitter: {
+        SignIn: 'Login with Twitter',
+        SignUp: 'Sign up with Twitter'
+      },
+      GitHub: {
+        SignIn: 'Login with GitHub',
+        SignUp: 'Sign up with GitHub'
+      }
+    }
   },
   CreateAccount: {
     Steps: {

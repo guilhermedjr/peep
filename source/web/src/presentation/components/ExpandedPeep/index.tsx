@@ -48,7 +48,7 @@ export function ExpandedPeep(props: ExpandedPeepProps) {
       { props.isRepost 
           ? <Retweeted>
               <RtIcon />
-              Você retweetou
+              Você repostou
             </Retweeted>
           : []
       }

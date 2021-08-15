@@ -53,8 +53,6 @@ export const PeepSection = styled.div`
   }
 `
 
-
-
 export const Description = styled.textarea`
  min-height: 20px;
  height: auto;
@@ -73,7 +71,7 @@ const iconCSS = css`
   height: 32px;
 
   > svg {
-    fill: var(--twitter-dark-hover);
+    fill: var(--peep-dark-hover);
   }
 `
 

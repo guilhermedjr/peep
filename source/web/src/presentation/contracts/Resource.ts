@@ -3,7 +3,21 @@ type Resource = {
     Slogan: string,
     Message: string,
     SignIn: string,
-    SignUp: string
+    SignUp: string,
+    SocialAccount: {
+      Google: {
+        SignIn: string,
+        SignUp: string
+      },
+      Twitter: {
+        SignIn: string,
+        SignUp: string
+      },
+      GitHub: {
+        SignIn: string,
+        SignUp: string
+      },
+    }
   },
   CreateAccount: {
     Steps: {

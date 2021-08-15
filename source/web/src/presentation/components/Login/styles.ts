@@ -8,7 +8,8 @@ export const Container = styled.div`
 export const Cover = styled.div`
   width: 45%;
   height: 720px;
-  background-image: url('twitter-cover.jpg');
+  background-image: url('twitter-roxo.jpg');
+  background-size: cover;
   background-repeat: space;
 
   @media screen and (max-width: 585px) {
@@ -36,7 +37,7 @@ export const Logo = styled(Twitter)`
   height: 60px;
 
   > path {
-    fill: var(--white);
+    fill: var(--peep);
   }
 `
 
@@ -67,7 +68,7 @@ export const ButtonsArea = styled.div`
     width: 60%;
   }
   
-  > button:nth-child(2) {
+  > button:nth-child(n + 2) {
     margin-top: 20px;
   }
 
@@ -76,4 +77,28 @@ export const ButtonsArea = styled.div`
       width: 100%;
     }
   }
+`
+
+export const SocialLoginButton = styled.button` 
+  width: 12rem;
+  height: 3rem;
+
+  border-radius: 25px;
+  font-weight: bold;
+  font-size: 15px;
+
+  background: transparent;
+  color: var(--peep);
+  border: 1px solid var(--peep);
+
+  cursor: pointer;
+
+  &:hover {
+    background: var(--peep-light-hover);
+  }
+`
+
+export const SocialLoginIcon = styled.img`
+  float: left;
+  margin-left: 20px;
 `
