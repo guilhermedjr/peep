@@ -37,7 +37,7 @@ namespace Peep.Wings.Infrastructure.IoC
                 });
             }
 
-            /*if (configuration["Authentication:Twitter:ConsumerAPIKey"] != null)
+            if (configuration["Authentication:Twitter:ConsumerAPIKey"] != null)
             {
                 services.AddAuthentication().AddTwitter(twitterOptions =>
                 {
@@ -45,7 +45,7 @@ namespace Peep.Wings.Infrastructure.IoC
                     twitterOptions.ConsumerSecret = configuration["Authentication:Twitter:ConsumerAPISecret"];
                     twitterOptions.RetrieveUserDetails = true;
                 });
-            }*/
+            }
 
             if (configuration["Authentication:GitHub:ClientId"] != null)
             {
