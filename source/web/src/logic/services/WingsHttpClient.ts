@@ -12,6 +12,12 @@ export default class WingsHttpClient {
 
   constructor() {}
 
+  public async GetSocialLoginProviders(): Promise<LoginProvider[]> {
+    return this.baseUrl.get('api/SocialAccounts/Providers').then(
+      response => response.data
+    )
+  }
+
   public async SignUpWithSocialAccount(externalLoginDto: AssociateExternalLoginDto): Promise<void> {
     await this.baseUrl.post(
       'api/SocialAccounts/Associate', externalLoginDto)
@@ -22,62 +28,4 @@ export default class WingsHttpClient {
       `api/SocialAccounts/SignIn?provider=${loginProvider}`
     )
   }
-
-  // public async httpGet<T>(url: string): Promise<HttpResponse<T>> {
-  //   let response: AxiosResponse
-
-  //   try {
-  //     response = await this.baseUrl.get(url, {
-  //       headers: this.headers,
-  //     })
-  //   } catch (error) {
-  //     console.log(error)
-  //     response = error.response
-  //   }
-
-  //   return response != undefined
-  //     ? {
-  //         status: response.status,
-  //         data: response.data,
-  //       }
-  //     : null
-  // }
-
-  // public async httpPost<T>(url: string, body?: T): Promise<HttpResponse<T>> {
-  //   let response: AxiosResponse
-
-  //   try {
-  //     response = await this.baseUrl.post(url, {
-  //       body: typeof body != 'undefined' ? body : null,
-  //       headers: this.headers,
-  //     })
-  //   } catch (error) {
-  //     console.log(error)
-  //     response = error.response
-  //   }
-
-  //   return {
-  //     status: response.status,
-  //     data: response.data,
-  //   }
-  // }
-
-  // public async httpPut<T>(url: string, body?: T): Promise<HttpResponse<T>> {
-  //   let response: AxiosResponse
-
-  //   try {
-  //     response = await this.baseUrl.put(url, {
-  //       body: typeof body != 'undefined' ? body : null,
-  //       headers: this.headers,
-  //     })
-  //   } catch (error) {
-  //     console.log(error)
-  //     response = error.response
-  //   }
-
-  //   return {
-  //     status: response.status,
-  //     data: response.data,
-  //   }
-  // }
 }

@@ -1,8 +1,7 @@
 import * as React from 'react'
-import { useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import Router from 'next/router'
 import { ptBR as resource } from '../../resource'
-import { LoginContext } from '../../contexts/LoginContext'
 import WingsHttpClient from '../../../logic/services/WingsHttpClient'
 import { LoginProvider, AssociateExternalLoginDto } from '../../../logic/contracts/Entity'
 
@@ -22,9 +21,9 @@ import Button from '../Button'
 
 export function Login() { 
   const [isNewAccount, setIsNewAccount] = useState<boolean | undefined>(undefined)
+  const [loginProviders, setLoginProviders] = useState<LoginProvider[]>([])
 
   const httpClient = new WingsHttpClient()
-
   // let fakeUserId = '0181add2-1775-4f46-a9f0-072852c417f4'
 
   // const goToHome = () => {
@@ -35,18 +34,56 @@ export function Login() {
   //   Router.push(`home/${fakeUserId}`)
   // }
 
-  const signUp = async(loginProvider: LoginProvider): Promise<void> => {
-    const externalLoginDto: AssociateExternalLoginDto = {
-      Username: 'djrdjrjan',
-      Email: 'guilhermedjrdjrjan@gmail.com',
-      AssociateToExistingAccount: false,
-      LoginProvider: loginProvider
+  useEffect(() => {
+    if (isNewAccount != undefined) {
+      httpClient.GetSocialLoginProviders().then(
+        providers => {
+          console.log(providers)
+          setLoginProviders(providers)
+        }, error => {
+          alert("Não foi possível buscar os provedores de login. Tente novamente mais tarde.")
+          console.log(error)
+        }
+      )
     }
-    await httpClient.SignUpWithSocialAccount(externalLoginDto)
-  }
+  }, [isNewAccount])
 
-  const signIn = async(loginProvider: LoginProvider): Promise<void> =>
+
+  const signUpWithSocialAccount = async(externalLoginDto: AssociateExternalLoginDto): Promise<void> =>
+    await httpClient.SignUpWithSocialAccount(externalLoginDto)
+
+  const signInWithSocialAccount = async(loginProvider: LoginProvider): Promise<void> =>
     await httpClient.SignInWithSocialAccount(loginProvider)
+
+  let socialLoginButtons: JSX.Element[] =
+    loginProviders.length > 0
+      ? loginProviders.map(
+        provider => {
+          var titleResource: string = 
+            isNewAccount
+              ? provider == 'Google'
+                  ? resource.Login.SocialAccount.Google.SignUp
+                  : provider == 'Twitter'
+                    ? resource.Login.SocialAccount.Twitter.SignUp
+                    : resource.Login.SocialAccount.GitHub.SignUp
+              : provider == 'Google'
+                  ? resource.Login.SocialAccount.Google.SignIn
+                  : provider == 'Twitter'
+                    ? resource.Login.SocialAccount.Twitter.SignIn
+                    : resource.Login.SocialAccount.GitHub.SignIn
+          return (
+            <SocialLoginButton onClick={() => isNewAccount ? 
+              //signUpWithSocialAccount(provider) 
+              {}
+              : signInWithSocialAccount(provider)}>
+              <SocialLoginIcon src={`${provider}.svg`} title={titleResource} alt={titleResource} />
+              <p>{titleResource}</p>
+            </SocialLoginButton>
+          )
+        }
+      )
+      : []
+      
 
   return (
     <Container>
@@ -65,32 +102,7 @@ export function Login() {
                   {resource.Login.SignIn}
                 </Button>
                 </>
-              : <>
-                <SocialLoginButton onClick={() => isNewAccount ? signUp('Google') : signIn('Google')}>
-                  <SocialLoginIcon 
-                    src="google.svg" 
-                    title={isNewAccount ? resource.Login.SocialAccount.Google.SignUp : resource.Login.SocialAccount.Google.SignIn} 
-                    alt={isNewAccount ? resource.Login.SocialAccount.Google.SignUp : resource.Login.SocialAccount.Google.SignIn} 
-                  />
-                  <p>{isNewAccount ? resource.Login.SocialAccount.Google.SignUp : resource.Login.SocialAccount.Google.SignIn}</p>
-                </SocialLoginButton>
-                <SocialLoginButton onClick={() => isNewAccount ? signUp('Twitter') : signIn('Twitter')}>
-                  <SocialLoginIcon 
-                    src="twitter.svg" 
-                    title={isNewAccount ? resource.Login.SocialAccount.Twitter.SignUp : resource.Login.SocialAccount.Twitter.SignIn}
-                    alt={isNewAccount ? resource.Login.SocialAccount.Twitter.SignUp : resource.Login.SocialAccount.Twitter.SignIn}
-                  />
-                  <p>{isNewAccount ? resource.Login.SocialAccount.Twitter.SignUp : resource.Login.SocialAccount.Twitter.SignIn}</p>
-                </SocialLoginButton>
-                <SocialLoginButton onClick={() => isNewAccount ? signUp('GitHub') : signIn('GitHub')}>
-                  <SocialLoginIcon 
-                    src="github.svg" 
-                    title={isNewAccount ? resource.Login.SocialAccount.GitHub.SignUp : resource.Login.SocialAccount.GitHub.SignIn}
-                    alt={isNewAccount ? resource.Login.SocialAccount.GitHub.SignUp : resource.Login.SocialAccount.GitHub.SignIn}
-                  />
-                  <p>{isNewAccount ? resource.Login.SocialAccount.GitHub.SignUp : resource.Login.SocialAccount.GitHub.SignIn}</p>
-                </SocialLoginButton>
-                </>
+              : socialLoginButtons
           }
         </ButtonsArea>
       </LoginArea>

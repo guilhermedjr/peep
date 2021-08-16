@@ -10,7 +10,7 @@ export default function Index() {
   return (
     <>
       <Head>
-        <title>Peep - Entre ou cadastre-se</title>
+        <title>Peep - Entre ou cadastre-se</title>.
       </Head>
       <body>
         <Container>
