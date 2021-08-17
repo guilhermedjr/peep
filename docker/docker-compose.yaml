@@ -9,9 +9,31 @@ services:
     ports: 
       - 5000:5000
     build: 
-      context: .
-      dockerfile: "../source/Wings/Peep.Wings/Dockerfile"
-      
+      context: ../source/Peep.Wings
+      dockerfile: Dockerfile
+
+  parrot:
+    image: peep-parrot
+    container_name: "parrot"
+    environment:
+      - PORT=5001
+    ports:
+      - 5001:5001
+    build:
+      context: ../source/Peep.Parrot
+      dockerfile: Dockerfile
+
+  stork:
+    image: peep-stork
+    container_name: "stork"
+    environment:
+      - PORT=5002
+    ports:
+      - 5002:5002
+    build:
+      context: ../source/Peep.Stork
+      dockerfile: Dockerfile
+
   wings-postgres:
     image: postgres
     container_name: "wings-postgres"

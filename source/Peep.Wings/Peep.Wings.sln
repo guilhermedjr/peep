@@ -21,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Peep.Wings.Service", "Peep.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Peep.Wings.Infrastructure.Data", "Peep.Wings.Infrastructure.Data\Peep.Wings.Infrastructure.Data.csproj", "{F028E31D-4349-45FC-98EB-EF96B9C0F251}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peep.Wings.Infrastructure.IoC", "Peep.Wings.Infrastructure.IoC\Peep.Wings.Infrastructure.IoC.csproj", "{C27927AC-C2A6-4855-9960-CDAEAE316489}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Peep.Wings.Infrastructure.IoC", "Peep.Wings.Infrastructure.IoC\Peep.Wings.Infrastructure.IoC.csproj", "{C27927AC-C2A6-4855-9960-CDAEAE316489}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{28A3EB88-F26B-4040-B69F-854647A8D344}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +51,10 @@ Global
 		{C27927AC-C2A6-4855-9960-CDAEAE316489}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C27927AC-C2A6-4855-9960-CDAEAE316489}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C27927AC-C2A6-4855-9960-CDAEAE316489}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28A3EB88-F26B-4040-B69F-854647A8D344}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28A3EB88-F26B-4040-B69F-854647A8D344}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28A3EB88-F26B-4040-B69F-854647A8D344}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28A3EB88-F26B-4040-B69F-854647A8D344}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

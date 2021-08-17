@@ -36,7 +36,7 @@ namespace Peep.Stork.Application
               .AddEntityFrameworkStores<AppDbContext>()
               .AddDefaultTokenProviders();
 
-            //services.ConfigureServices(Configuration);
+            services.ConfigureServices(Configuration);
 
             services.AddSignalR();
         }
