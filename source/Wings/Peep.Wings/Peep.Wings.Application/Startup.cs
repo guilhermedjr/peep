@@ -43,11 +43,11 @@ namespace Peep.Wings.Application
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Peep.Wings.Application", Version = "v1" });
             });
 
-            /*services
+            services
                 .AddDefaultIdentity<ApplicationUser>(ServiceCollectionExtensions.ConfigureIdentity)
                 .AddRoles<ApplicationRole>()
                 .AddEntityFrameworkStores<AppDbContext>()
-                .AddDefaultTokenProviders();*/
+                .AddDefaultTokenProviders();
 
             services.ConfigureServices(Configuration)
                 .ConfigureExternalLoginProviders(Configuration)
