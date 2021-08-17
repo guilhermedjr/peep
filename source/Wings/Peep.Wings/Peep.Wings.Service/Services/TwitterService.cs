@@ -1,13 +1,14 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text.Json;
 using Microsoft.Extensions.Configuration;
 using Peep.Wings.Domain.Services;
+using Peep.Wings.Domain.Dtos;
 
 namespace Peep.Wings.Service.Services
 {
-    public class TwitterService : IOAuthService
+    public class TwitterService : IOAuthService<TwitterUserInfo>
     {
         private readonly HttpClient _httpClient;
         private readonly IConfiguration _config;
@@ -23,17 +24,15 @@ namespace Peep.Wings.Service.Services
                 new AuthenticationHeaderValue("Bearer", _config["Twitter:BearerToken"]);
         }
 
-        public async Task RetrieveLoggedUserInformation(string username)
+        public async Task<TwitterUserInfo> RetrieveLoggedUserInformation(string username)
         {
-            var httpRequest = new HttpRequestMessage()
-            {
-                RequestUri = new Uri($"{Url}/users/by/username/{username}"),
-                Method = HttpMethod.Get
-            };
-            httpRequest.Headers.Add("user.fields", "description,profile_image_url");
+            var httpResponse = 
+                await _httpClient.GetAsync($"{Url}/users/by/username/{username}?user.fields=description,profile_image_url");
 
-            var httpResponse = await _httpClient.SendAsync(httpRequest);
-            //return httpResponse.Content;
+            var content = await httpResponse.Content.ReadAsStreamAsync();
+
+            var json = await JsonSerializer.DeserializeAsync<TwitterUserInfo>(content);
+            return json;
         }
     }
 }

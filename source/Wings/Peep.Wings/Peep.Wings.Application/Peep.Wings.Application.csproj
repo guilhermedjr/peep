@@ -16,14 +16,19 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Peep.Wings.Domain\Peep.Wings.Domain.csproj" />
-    <ProjectReference Include="..\Peep.Wings.Infrastructure.CrossCutting\Peep.Wings.Infrastructure.IoC.csproj" />
     <ProjectReference Include="..\Peep.Wings.Infrastructure.Data\Peep.Wings.Infrastructure.Data.csproj" />
+    <ProjectReference Include="..\Peep.Wings.Infrastructure.IoC\Peep.Wings.Infrastructure.IoC.csproj" />
     <ProjectReference Include="..\Peep.Wings.Service\Peep.Wings.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="App_Data\" />
   </ItemGroup>
 
 </Project>

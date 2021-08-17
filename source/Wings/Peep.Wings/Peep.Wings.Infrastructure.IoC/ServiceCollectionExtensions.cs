@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
 using Peep.Wings.Domain.Services;
+using Peep.Wings.Domain.Dtos;
 using Peep.Wings.Infrastructure.Data;
 using Peep.Wings.Service.Services;
 
@@ -20,11 +21,14 @@ namespace Peep.Wings.Infrastructure.IoC
 
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IOAuthService<GoogleUserInfo>, GoogleService>();
+            services.AddScoped<IOAuthService<TwitterUserInfo>, TwitterService>();
+            services.AddScoped<IOAuthService<GitHubUserInfo>, GitHubService>();
 
             return services;
         }
 
-        public static IServiceCollection ConfigureExternalLoginProviders(this IServiceCollection services, 
+        public static IServiceCollection ConfigureExternalLoginProviders(this IServiceCollection services,
             IConfiguration configuration)
         {
 

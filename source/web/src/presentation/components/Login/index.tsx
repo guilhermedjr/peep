@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useContext, useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import Router from 'next/router'
 import { ptBR as resource } from '../../resource'
 import WingsHttpClient from '../../../logic/services/WingsHttpClient'

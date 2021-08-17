@@ -31,7 +31,8 @@ namespace Peep.Wings.Application
                     {
                         builder.WithOrigins("http://localhost:3000",
                                             "http://localhost:44364",
-                                            "http://localhost:44327")
+                                            "http://localhost:44327",
+                                            "https://21d60bac4b33.ngrok.io")
                                .AllowAnyHeader().AllowAnyMethod();
                     });
             });
@@ -42,18 +43,20 @@ namespace Peep.Wings.Application
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Peep.Wings.Application", Version = "v1" });
             });
 
-            services
+            /*services
                 .AddDefaultIdentity<ApplicationUser>(ServiceCollectionExtensions.ConfigureIdentity)
                 .AddRoles<ApplicationRole>()
                 .AddEntityFrameworkStores<AppDbContext>()
-                .AddDefaultTokenProviders();
+                .AddDefaultTokenProviders();*/
 
             services.ConfigureServices(Configuration)
                 .ConfigureExternalLoginProviders(Configuration)
                 .ConfigureAuthentication(Configuration);
 
             services.AddHttpClient<PeepStorkService>();
-
+            services.AddHttpClient<GoogleService>();
+            services.AddHttpClient<TwitterService>();
+            services.AddHttpClient<GitHubService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

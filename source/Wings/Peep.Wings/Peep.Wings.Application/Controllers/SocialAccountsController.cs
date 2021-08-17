@@ -11,6 +11,7 @@ using Peep.Wings.Domain.Dtos;
 using Peep.Wings.Domain.Entities;
 using Peep.Wings.Domain.Services;
 using Peep.Wings.Application.ViewModels;
+using Peep.Wings.Service.Services;
 
 
 namespace Peep.Wings.Application.Controllers
@@ -23,18 +24,27 @@ namespace Peep.Wings.Application.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ITokenService _tokenService;
         private readonly IEmailService _emailService;
+        private readonly IOAuthService<GoogleUserInfo> _googleService;
+        private readonly IOAuthService<TwitterUserInfo> _twitterService;
+        private readonly IOAuthService<GitHubUserInfo> _gitHubService;
 
         public SocialAccountsController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ITokenService tokenService,
-            IEmailService emailService)
+            IEmailService emailService,
+            IOAuthService<GoogleUserInfo> googleService,
+            IOAuthService<TwitterUserInfo> twitterService,
+            IOAuthService<GitHubUserInfo> gitHubService)
             : base(userManager)
         {
             this._userManager = userManager;
             this._signInManager = signInManager;
             this._tokenService = tokenService;
             this._emailService = emailService;
+            this._googleService = googleService;
+            this._twitterService = twitterService;
+            this._gitHubService = gitHubService;
         }
 
         [HttpGet]
@@ -45,7 +55,7 @@ namespace Peep.Wings.Application.Controllers
         }
 
         [HttpGet]
-        public IActionResult SignIn(string provider, string returnUrl = null)
+        public IActionResult SignIn(string provider)
         {
             var redirectUrl = Url.Action("Callback", "SocialAccounts");
             var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
@@ -188,6 +198,7 @@ namespace Peep.Wings.Application.Controllers
                     if (associateExternalLoginResult.Succeeded)
                     {
                         newUser.EmailConfirmed = true;
+
                         await _userManager.UpdateAsync(newUser);
 
                         await _signInManager.ExternalLoginSignInAsync(
@@ -247,6 +258,16 @@ namespace Peep.Wings.Application.Controllers
 
             return Ok( new { Message = "E-mail de confirmação enviado" });
 
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Twitter(string username)
+        {
+            var twitterUserInfo = await _twitterService.RetrieveLoggedUserInformation(username);
+
+            if (twitterUserInfo == null)
+                return BadRequest();
+            return Ok(twitterUserInfo);
         }
 
     }

@@ -2,8 +2,8 @@
 
 namespace Peep.Wings.Domain.Services
 {
-    public interface IOAuthService
+    public interface IOAuthService<T> where T : class
     {
-        Task RetrieveLoggedUserInformation(string userIdentifier);
+        Task<T> RetrieveLoggedUserInformation(string userIdentifier);
     }
 }

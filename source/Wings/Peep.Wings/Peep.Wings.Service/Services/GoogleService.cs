@@ -2,10 +2,11 @@
 using System.Threading.Tasks;
 using System.Net.Http;
 using Peep.Wings.Domain.Services;
+using Peep.Wings.Domain.Dtos;
 
 namespace Peep.Wings.Service.Services
 {
-    public class GoogleService : IOAuthService
+    public class GoogleService : IOAuthService<GoogleUserInfo>
     {
         private readonly HttpClient _httpClient;
         private const string Url = "https://www.googleapis.com/oauth2/v3";
@@ -15,7 +16,7 @@ namespace Peep.Wings.Service.Services
             this._httpClient = httpClient;
         }
 
-        public Task RetrieveLoggedUserInformation(string userIdentifier)
+        public Task<GoogleUserInfo> RetrieveLoggedUserInformation(string userIdentifier)
         {
             throw new NotImplementedException();
         }
