@@ -59,7 +59,7 @@ export function ExpandedPeep(props: ExpandedPeepProps) {
             <ProfileImage src={
               typeof props.userProfileImagePath != 'undefined'
                 ? props.userProfileImagePath
-                : 'defaultProfileImage.png'
+                : '../../../../public/defaultProfileImage.png'
             }/>
           </Avatar>
 

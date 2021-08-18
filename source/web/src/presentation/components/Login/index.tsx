@@ -76,7 +76,7 @@ export function Login() {
               //signUpWithSocialAccount(provider) 
               {}
               : signInWithSocialAccount(provider)}>
-              <SocialLoginIcon src={`${provider}.svg`} title={titleResource} alt={titleResource} />
+              <SocialLoginIcon src={`../../../../public/${provider}.svg`} title={titleResource} alt={titleResource} />
               <p>{titleResource}</p>
             </SocialLoginButton>
           )
