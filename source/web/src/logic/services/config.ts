@@ -3,7 +3,7 @@ import axios from 'axios'
 
 const AxiosInstances: IAxiosInstances = {
   Wings: axios.create({
-    baseURL: process.env.WINGS_URL,
+    baseURL: 'https://peep-wings.herokuapp.com/',
   }),
   Parrot: axios.create({
     baseURL: process.env.PARROT_URL,
