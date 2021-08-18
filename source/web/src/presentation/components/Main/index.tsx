@@ -21,7 +21,7 @@ import {
 } from './styles'
 
 const Main = ({ timeline, dispatch }) => {
-  const { userId } = useParams() as { userId: string }
+  // const { userId } = useParams() as { userId: string }
 
   let user: User = {
     Name: 'Ednaldo Pereira',
