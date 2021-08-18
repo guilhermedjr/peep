@@ -3,13 +3,13 @@ import axios from 'axios'
 
 const AxiosInstances: IAxiosInstances = {
   Wings: axios.create({
-    baseURL: 'https://localhost:5001/',
+    baseURL: process.env.WINGS_URL,
   }),
   Parrot: axios.create({
-    baseURL: 'https://localhost:44364/',
+    baseURL: process.env.PARROT_URL,
   }),
   Stork: axios.create({
-    baseURL: 'https://localhost:44327/',
+    baseURL: process.env.STORK_URL,
   }),
 }
 
