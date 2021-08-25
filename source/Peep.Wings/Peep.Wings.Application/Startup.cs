@@ -32,7 +32,7 @@ namespace Peep.Wings.Application
                         builder.WithOrigins("http://localhost:3000",
                                             "http://localhost:44364",
                                             "http://localhost:44327",
-                                            "https://21d60bac4b33.ngrok.io")
+                                            "https://peep.vercel.app")
                                .AllowAnyHeader().AllowAnyMethod();
                     });
             });

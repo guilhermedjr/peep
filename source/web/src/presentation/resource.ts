@@ -1,6 +1,10 @@
 import Resource from '../presentation/contracts/Resource'
 
 export const ptBR: Resource = {
+  PageTitles: {
+    Login: 'Peep - Entre ou cadastre-se',
+    Home: 'Peep - Home'
+  },
   Login: {
     Slogan: 'Acontecendo agora',
     Message: 'Inscreva-se no Peep hoje mesmo.',
@@ -92,6 +96,10 @@ export const ptBR: Resource = {
 }
 
 export const enUS: Resource = {
+  PageTitles: {
+    Login: 'Peep - Login or sign-up',
+    Home: 'Peep - Home'
+  },
   Login: {
     Slogan: 'Happening now',
     Message: 'Sign up to Peep even today.',

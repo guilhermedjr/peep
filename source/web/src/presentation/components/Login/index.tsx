@@ -38,7 +38,6 @@ export function Login() {
     if (isNewAccount != undefined) {
       httpClient.GetSocialLoginProviders().then(
         providers => {
-          console.log(providers)
           setLoginProviders(providers)
         }, error => {
           alert("Não foi possível buscar os provedores de login. Tente novamente mais tarde.")
@@ -76,7 +75,7 @@ export function Login() {
               //signUpWithSocialAccount(provider) 
               {}
               : signInWithSocialAccount(provider)}>
-              <SocialLoginIcon src={`../../../../public/${provider}.svg`} title={titleResource} alt={titleResource} />
+              <SocialLoginIcon src={`${provider}.svg`} title={titleResource} alt={titleResource} />
               <p>{titleResource}</p>
             </SocialLoginButton>
           )

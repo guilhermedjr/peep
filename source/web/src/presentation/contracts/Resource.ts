@@ -1,4 +1,8 @@
 type Resource = {
+  PageTitles: {
+    Login: string,
+    Home: string
+  }
   Login: {
     Slogan: string,
     Message: string,

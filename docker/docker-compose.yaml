@@ -1,6 +1,13 @@
 version: "3.8"
 
 services:
+  next-app:
+    image: peep-web-app
+    container_name: "web-app"
+    build: 
+      context: ../source/web
+      dockerfile: Dockerfile
+
   wings: 
     image: peep-wings
     container_name: "wings"
