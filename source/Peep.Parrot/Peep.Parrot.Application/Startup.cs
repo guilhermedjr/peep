@@ -7,6 +7,7 @@ using Microsoft.OpenApi.Models;
 using Peep.Parrot.Domain.Repository;
 using Peep.Parrot.Repositories;
 using Peep.Parrot.Infrastructure.Data;
+using Peep.Parrot.Application.Consumers;
 
 namespace Peep.Parrot.Application
 {
@@ -47,6 +48,8 @@ namespace Peep.Parrot.Application
             services.AddControllers();
 
             services.AddSignalR();
+
+            services.AddHostedService<ProcessMessageConsumer>();
 
             services.AddSwaggerGen(c =>
             {
