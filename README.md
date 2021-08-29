@@ -18,8 +18,8 @@ My goal with this project, which will be the biggest and best designed in my por
 | App                                                         |  Description              |
 | ----------------------------------------------------------- | ------------------------- |
 | [Peep for Web](source/web)          | React SPA (Next.js)                               | 
-| [Wings](source/Wings)               | .NET Gateway API (Auth) + RabbitMQ to pub/sub     |
-| [Parrot](source/Parrot)             | .NET Main server + Redis to data storing and cache|
+| [Wings](source/Wings)               | .NET Gateway API (Auth) + RabbitMQ for pub/sub     |
+| [Parrot](source/Parrot)             | .NET Main server + Redis for data storing and cache|
 | [Stork](source/Stork)               | .NET Direct Messages Server + SignalR             |
 
 
@@ -42,11 +42,10 @@ See [here](CONTRIBUTING.md) how you can contribute to this project
 <div align="center">
    <img alt="Csharp" src="https://img.shields.io/badge/-C%23-7022DC?style=flat-square&logo=c-sharp&logoColor=white" />
    <img alt="dotnet" src="https://img.shields.io/badge/-.NET-702D91?style=flat-square&logo=.net&logoColor=white" />
-   <img alt="Elixir" src="https://img.shields.io/badge/elixir-%234B275F.svg?style=for-the-badge&logo=elixir&logoColor=white"/>
    <img alt="TypeScript" src="https://img.shields.io/badge/-TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white" />
    <img alt="React" src="https://img.shields.io/badge/-React-45b8d8?style=flat-square&logo=react&logoColor=white" />
    <img alt="Nextjs" src="https://img.shields.io/badge/-Nextjs-191929?style=flat-square&logo=next.js&logoColor=white" />
    <img alt="redux" src="https://img.shields.io/badge/-Redux-6c3995?style=flat-square&logo=redux&logoColor=white" />
-   <img alt="MySQL" src="https://img.shields.io/badge/-MySQL-1a202c?style=flat-square&logo=MySQL&logoColor=white" /> 
+   <img alt="RabbitMQ" src="https://img.shields.io/badge/rabbitmq-%23FF6600.svg?&style=for-the-badge&logo=rabbitmq&logoColor=white" />
    <img alt="Redis" src="https://img.shields.io/badge/-Redis-e93940?style=flat-square&logo=redis&logoColor=white" />
 </div>
