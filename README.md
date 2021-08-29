@@ -17,11 +17,10 @@ My goal with this project, which will be the biggest and best designed in my por
 
 | App                                                         |  Description              |
 | ----------------------------------------------------------- | ------------------------- |
-| [Peep for Web](source/web)          | React SPA                                         | 
-| [Wings](source/Wings)               | .NET Auth Server                                  |
-| [Parrot](source/Parrot)             | .NET Main server + Redis                          |
-| [Media server](source/media_server) | Elixir Phoenix Media Server (GraphQL)             |
-| [Stork](source/Stork)               | .NET Direct Messages Server (SignalR)             |
+| [Peep for Web](source/web)          | React SPA (Next.js)                               | 
+| [Wings](source/Wings)               | .NET Gateway API (Auth) + RabbitMQ to pub/sub     |
+| [Parrot](source/Parrot)             | .NET Main server + Redis to data storing and cache|
+| [Stork](source/Stork)               | .NET Direct Messages Server + SignalR             |
 
 
 ### DDD (Domain-Driven Development)
