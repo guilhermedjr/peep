@@ -2625,10 +2625,10 @@ natural-compare@^1.4.0:
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=
 
-next-redux-wrapper@^6.0.2:
-  version "6.0.2"
-  resolved "https://registry.yarnpkg.com/next-redux-wrapper/-/next-redux-wrapper-6.0.2.tgz#b8dcd214e7b5cedd7a2a611ddb60422384d24374"
-  integrity sha512-I9CnIYhQwI/qEoNdc9VAPjIyuq4rFFhCTa4rKhoDHWEVHGB1DXZy8TAyGpwvWizESd8IoTI/OKlP6bFpCbXsOw==
+next-redux-wrapper@^7.0.4:
+  version "7.0.4"
+  resolved "https://registry.yarnpkg.com/next-redux-wrapper/-/next-redux-wrapper-7.0.4.tgz#df10b03077c03dc2bb17986c45d528ebdfcffed0"
+  integrity sha512-AYMS3mZCsdqRP1TpKxzPmwCSKOe1Koq/bklUZG6inLUGQQWsbHRogr0N8BHGms6Bh3HTCsic53ztAnbwopQagg==
 
 next@11.0.1:
   version "11.0.1"
