@@ -1,9 +1,9 @@
-﻿namespace Peep.Parrot.Domain.Enums
+﻿namespace Peep.Parrot.Domain.Enums;
+
+public enum EPeepReplyRestriction
 {
-    public enum EPeepReplyRestriction
-    {
-        Everyone,
-        Followed,
-        Mentioned
-    }
+    Everyone,
+    Followed,
+    Mentioned
 }
+

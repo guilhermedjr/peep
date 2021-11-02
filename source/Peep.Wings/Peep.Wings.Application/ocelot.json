@@ -1,0 +1,16 @@
+{
+  "Routes": [
+    // Parrot Service
+    {
+      "DownstreamPathTemplate": "/api/Peeps",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44364
+        }
+      ],
+      "UpstreamPathTemplate": "/parrot-service/catalog"
+    }
+  ]
+}

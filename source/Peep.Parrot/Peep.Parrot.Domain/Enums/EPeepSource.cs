@@ -1,12 +1,12 @@
-﻿namespace Peep.Parrot.Domain.Enums
+﻿namespace Peep.Parrot.Domain.Enums;
+
+public enum EPeepSource
 {
-    public enum EPeepSource
-    {
-        PeepWebApp,
-        PeepForAndroid,
-        PeepForIPhone,
-        PeepForAlexia,
-        PeepForElectrolux,
-        PeepForSpaceXSuperHeavy
-    }
+    PeepWebApp,
+    PeepForAndroid,
+    PeepForIPhone,
+    PeepForAlexia,
+    PeepForElectrolux,
+    PeepForSpaceXSuperHeavy
 }
+

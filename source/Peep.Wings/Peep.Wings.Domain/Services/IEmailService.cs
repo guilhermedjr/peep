@@ -1,9 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿namespace Peep.Wings.Domain.Services;
 
-namespace Peep.Wings.Domain.Services
+public interface IEmailService
 {
-    public interface IEmailService
-    {
-        Task SendEmailAsync(string to, string subject, string body, bool isHTML = true);
-    }
+    Task SendEmailAsync(string to, string subject, string body, bool isHTML = true);
 }
+

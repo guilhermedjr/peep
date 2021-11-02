@@ -1,9 +1,9 @@
 ﻿using Peep.Wings.Domain.Entities;
 
-namespace Peep.Wings.Domain.Services
+namespace Peep.Wings.Domain.Services;
+
+public interface ITokenService
 {
-    public interface ITokenService
-    {
-        string GenerateJsonWebToken(ApplicationUser user);
-    }
+    string GenerateJsonWebToken(ApplicationUser user);
 }
+

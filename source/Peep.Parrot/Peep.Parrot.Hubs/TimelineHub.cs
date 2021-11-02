@@ -3,24 +3,24 @@ using Microsoft.AspNetCore.SignalR;
 using Peep.Parrot.Domain.Entities;
 using Peep.Parrot.Domain.Hub;
 
-namespace Peep.Parrot.Hubs
+namespace Peep.Parrot.Hubs;
+
+public class TimelineHub : Hub, ITimelineHub 
 {
-    public class TimelineHub : Hub, ITimelineHub 
+    public async override Task OnConnectedAsync()
     {
-        public async override Task OnConnectedAsync()
-        {
-            await base.OnConnectedAsync();
-            await Clients.Caller.SendAsync("Message", "Connected successfully!");
-        }
+        await base.OnConnectedAsync();
+        await Clients.Caller.SendAsync("Message", "Connected successfully!");
+    }
 
-        public Task StartTimelineLive(User user)
-        {
-            throw new System.NotImplementedException();
-        }
+    public Task StartTimelineLive(User user)
+    {
+        throw new System.NotImplementedException();
+    }
 
-        public Task StopTimelineLive(User user)
-        {
-            throw new System.NotImplementedException();
-        }
+    public Task StopTimelineLive(User user)
+    {
+        throw new System.NotImplementedException();
     }
 }
+

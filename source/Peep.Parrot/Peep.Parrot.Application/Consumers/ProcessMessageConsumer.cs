@@ -1,61 +1,59 @@
 ﻿using Microsoft.Extensions.Hosting;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Text;
-using System.Text.Json;
 using Microsoft.Extensions.Configuration;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using Peep.Parrot.Application.ViewModels;
 
-namespace Peep.Parrot.Application.Consumers
+namespace Peep.Parrot.Application.Consumers;
+
+public class MessageConsumptionService : BackgroundService
 {
-    public class ProcessMessageConsumer : BackgroundService
+    private readonly IConfiguration _config;
+    private readonly IConnection _connection;
+    private readonly IModel _channel;
+
+    private readonly string queue;
+
+    public MessageConsumptionService(IConfiguration config)
     {
-        private readonly IConfiguration _config;
-        private readonly IConnection _connection;
-        private readonly IModel _channel;
-
-        private readonly string queue;
-
-        public ProcessMessageConsumer(IConfiguration config)
+        this._config = config;
+        var factory = new ConnectionFactory
         {
-            this._config = config;
-            var factory = new ConnectionFactory
-            {
-                HostName = _config.GetSection("RabbitMQ")["Host"]
-            };
+            HostName = _config.GetSection("RabbitMQ")["Host"]
+        };
 
-            _connection = factory.CreateConnection();
-            _channel = _connection.CreateModel();
+        _connection = factory.CreateConnection();
+        _channel = _connection.CreateModel();
 
-            queue = _config.GetSection("RabbitMQ")["Queue"];
+        queue = _config.GetSection("RabbitMQ")["Queue"];
 
-            _channel.QueueDeclare(
-               queue: queue,
-               durable: false,
-               exclusive: false,
-               autoDelete: false,
-               arguments: null);
+        _channel.QueueDeclare(
+            queue: queue,
+            durable: false,
+            exclusive: false,
+            autoDelete: false,
+            arguments: null);
 
-        }
+    }
 
-        protected override Task ExecuteAsync(CancellationToken stoppingToken)
+    protected override Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+        var consumer = new EventingBasicConsumer(_channel);
+
+        consumer.Received += (sender, eventArgs) =>
         {
-            var consumer = new EventingBasicConsumer(_channel);
+            var arrayContent = eventArgs.Body.ToArray();
+            var stringContent = Encoding.UTF8.GetString(arrayContent);
+            var message = JsonSerializer.Deserialize<ApplicationUserViewModel>(stringContent);
 
-            consumer.Received += (sender, eventArgs) =>
-            {
-                var arrayContent = eventArgs.Body.ToArray();
-                var stringContent = Encoding.UTF8.GetString(arrayContent);
-                var message = JsonSerializer.Deserialize<ApplicationUserViewModel>(stringContent);
+            _channel.BasicAck(eventArgs.DeliveryTag, false);
+        };
 
-                _channel.BasicAck(eventArgs.DeliveryTag, false);
-            };
+        _channel.BasicConsume(queue, false, consumer);
 
-            _channel.BasicConsume(queue, false, consumer);
-
-            return Task.CompletedTask;
-        }
+        return Task.CompletedTask;
     }
 }
+

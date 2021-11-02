@@ -10,97 +10,99 @@ using Peep.Wings.Domain.Dtos;
 using Peep.Wings.Infrastructure.Data;
 using Peep.Wings.Service.Services;
 
-namespace Peep.Wings.Infrastructure.IoC
+namespace Peep.Wings.Infrastructure.IoC;
+
+public static class ServiceCollectionExtensions
 {
-    public static class ServiceCollectionExtensions
+    public static IServiceCollection ConfigureServices(this IServiceCollection services, IConfiguration configuration)
     {
-        public static IServiceCollection ConfigureServices(this IServiceCollection services, IConfiguration configuration)
+        services.AddDbContext<AppDbContext>(options =>
+            options.UseNpgsql(configuration.GetConnectionString("postgres")));
+
+        services.AddScoped<IEmailService, EmailService>();
+        services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IOAuthService<GoogleUserInfo>, GoogleService>();
+        services.AddScoped<IOAuthService<TwitterUserInfo>, TwitterService>();
+        services.AddScoped<IOAuthService<GitHubUserInfo>, GitHubService>();
+        services.AddScoped<IPeepParrotService, PeepParrotService>();
+        services.AddScoped<IPeepStorkService, PeepStorkService>();
+
+        return services;
+    }
+
+    public static IServiceCollection ConfigureExternalLoginProviders(this IServiceCollection services,
+        IConfiguration configuration)
+    {
+
+        if (configuration["Authentication:Google:ClientId"] != null)
         {
-            services.AddDbContext<AppDbContext>(options =>
-                options.UseNpgsql(configuration.GetConnectionString("postgres")));
-
-            services.AddScoped<IEmailService, EmailService>();
-            services.AddScoped<ITokenService, TokenService>();
-            services.AddScoped<IOAuthService<GoogleUserInfo>, GoogleService>();
-            services.AddScoped<IOAuthService<TwitterUserInfo>, TwitterService>();
-            services.AddScoped<IOAuthService<GitHubUserInfo>, GitHubService>();
-
-            return services;
-        }
-
-        public static IServiceCollection ConfigureExternalLoginProviders(this IServiceCollection services,
-            IConfiguration configuration)
-        {
-
-            if (configuration["Authentication:Google:ClientId"] != null)
+            services.AddAuthentication().AddGoogle(googleOptions =>
             {
-                services.AddAuthentication().AddGoogle(googleOptions =>
-                {
-                    googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
-                    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
-                });
-            }
-
-            if (configuration["Authentication:Twitter:ConsumerAPIKey"] != null)
-            {
-                services.AddAuthentication().AddTwitter(twitterOptions =>
-                {
-                    twitterOptions.ConsumerKey = configuration["Authentication:Twitter:ConsumerAPIKey"];
-                    twitterOptions.ConsumerSecret = configuration["Authentication:Twitter:ConsumerAPISecret"];
-                    twitterOptions.RetrieveUserDetails = true;
-                });
-            }
-
-            if (configuration["Authentication:GitHub:ClientId"] != null)
-            {
-                services.AddAuthentication().AddGitHub(gitHubOptions =>
-                {
-                    gitHubOptions.ClientId = configuration["Authentication:GitHub:ClientId"];
-                    gitHubOptions.ClientSecret = configuration["Authentication:GitHub:ClientSecret"];
-                });
-            }
-
-            return services;
-        }
-
-        public static void ConfigureIdentity(IdentityOptions options)
-        {
-            options.Password.RequiredLength = 6;
-            options.Password.RequireDigit = true;
-            options.Password.RequireLowercase = true;
-            options.Password.RequireUppercase = true;
-            options.Password.RequireNonAlphanumeric = false;
-            options.Password.RequiredUniqueChars = 0;
-
-            options.User.RequireUniqueEmail = true;
-
-            options.SignIn.RequireConfirmedEmail = true;
-            options.SignIn.RequireConfirmedPhoneNumber = false;
-            options.SignIn.RequireConfirmedAccount = true;
-        }
-
-        public static IServiceCollection ConfigureAuthentication(this IServiceCollection services, IConfiguration configuration)
-        {
-            var key = Encoding.ASCII.GetBytes(configuration["Jwt:Key"]);
-            services.AddAuthentication(x =>
-            {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(x =>
-            {
-                x.RequireHttpsMetadata = false;
-                x.SaveToken = true;
-                x.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false
-                };
+                googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
+                googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
             });
-
-            return services;
         }
+
+        if (configuration["Authentication:Twitter:ConsumerAPIKey"] != null)
+        {
+            services.AddAuthentication().AddTwitter(twitterOptions =>
+            {
+                twitterOptions.ConsumerKey = configuration["Authentication:Twitter:ConsumerAPIKey"];
+                twitterOptions.ConsumerSecret = configuration["Authentication:Twitter:ConsumerAPISecret"];
+                twitterOptions.RetrieveUserDetails = true;
+            });
+        }
+
+        if (configuration["Authentication:GitHub:ClientId"] != null)
+        {
+            services.AddAuthentication().AddGitHub(gitHubOptions =>
+            {
+                gitHubOptions.ClientId = configuration["Authentication:GitHub:ClientId"];
+                gitHubOptions.ClientSecret = configuration["Authentication:GitHub:ClientSecret"];
+            });
+        }
+
+        return services;
+    }
+
+    public static void ConfigureIdentity(IdentityOptions options)
+    {
+        options.Password.RequiredLength = 6;
+        options.Password.RequireDigit = true;
+        options.Password.RequireLowercase = true;
+        options.Password.RequireUppercase = true;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequiredUniqueChars = 0;
+
+        options.User.RequireUniqueEmail = true;
+
+        options.SignIn.RequireConfirmedEmail = true;
+        options.SignIn.RequireConfirmedPhoneNumber = false;
+        options.SignIn.RequireConfirmedAccount = true;
+    }
+
+    public static IServiceCollection ConfigureAuthentication(this IServiceCollection services, IConfiguration configuration)
+    {
+        var key = Encoding.ASCII.GetBytes(configuration["Jwt:Key"]);
+        services.AddAuthentication(x =>
+        {
+            x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
+        .AddJwtBearer(x =>
+        {
+            x.RequireHttpsMetadata = false;
+            x.SaveToken = true;
+            x.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ValidateIssuer = false,
+                ValidateAudience = false
+            };
+        });
+
+        return services;
     }
 }
+
