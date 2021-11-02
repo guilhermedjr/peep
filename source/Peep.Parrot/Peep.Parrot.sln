@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31019.35
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31825.309
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{B23151C8-F8E7-40E7-9672-B49B0C494D46}"
 EndProject
@@ -26,7 +26,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Peep.Parrot.Repositories", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hubs", "Hubs", "{787651DD-E349-4EAD-81DD-D8340BD80B11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peep.Parrot.Hubs", "Peep.Parrot.Hubs\Peep.Parrot.Hubs.csproj", "{568C5FA2-96E2-4B58-89CA-142D0AB0A022}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Peep.Parrot.Hubs", "Peep.Parrot.Hubs\Peep.Parrot.Hubs.csproj", "{568C5FA2-96E2-4B58-89CA-142D0AB0A022}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{691FA0B9-CE9F-48A1-8D20-A4E762632978}"
+	ProjectSection(SolutionItems) = preProject
+		Usings.cs = Usings.cs
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peep.Parrot.Shared", "Peep.Parrot.Shared\Peep.Parrot.Shared.csproj", "{FB3E97D7-3D60-4DD8-B4B8-9AB24ACFB578}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,6 +61,10 @@ Global
 		{568C5FA2-96E2-4B58-89CA-142D0AB0A022}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{568C5FA2-96E2-4B58-89CA-142D0AB0A022}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{568C5FA2-96E2-4B58-89CA-142D0AB0A022}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB3E97D7-3D60-4DD8-B4B8-9AB24ACFB578}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB3E97D7-3D60-4DD8-B4B8-9AB24ACFB578}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB3E97D7-3D60-4DD8-B4B8-9AB24ACFB578}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB3E97D7-3D60-4DD8-B4B8-9AB24ACFB578}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +75,7 @@ Global
 		{6704CF24-0E59-4C58-9DF7-BE8FE3EFCA7F} = {0142EA03-33BD-45AE-849A-423971EAC56B}
 		{D84C509D-3EF0-4021-A48C-90B73089EF7F} = {1501289E-D698-4A60-8205-906E899171C6}
 		{568C5FA2-96E2-4B58-89CA-142D0AB0A022} = {787651DD-E349-4EAD-81DD-D8340BD80B11}
+		{FB3E97D7-3D60-4DD8-B4B8-9AB24ACFB578} = {691FA0B9-CE9F-48A1-8D20-A4E762632978}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {378FD623-4CE9-47B3-B2C2-D3411B04C521}
