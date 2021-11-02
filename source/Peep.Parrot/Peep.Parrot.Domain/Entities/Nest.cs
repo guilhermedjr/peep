@@ -1,15 +1,43 @@
 ﻿namespace Peep.Parrot.Domain.Entities;
 
-public class Nest
+public class Nest : Entity
 {
-    public Guid Id { get; set; }
-    public Guid OwnerId { get; set; }
-    public bool IsPublic { get; set; }
-    public string Name { get; set; }
-    public string Description { get; set; }
-    public List<User> Members { get; set; }
-    public List<User> Followers { get; set; }
-    public DateTime CreatedAt { get; set; }
+    private readonly IList<User> _members;
+    private readonly IList<User> _followers;
+
+    public Nest(User owner, bool isPublic, string name, string description, DateTime createdAt)
+    {
+        Owner = owner;
+        IsPublic = isPublic;
+        Name = name;
+        Description = description;
+        _members = new List<User>();
+        _followers = new List<User>();
+        CreatedAt = createdAt;
+    }
+
+    public readonly User Owner;
+    public bool IsPublic { get; private set; }
+    public string Name { get; private set; }
+    public string Description { get; private set; }
+    public IReadOnlyCollection<User> Members { get { return _members.ToArray(); } }
+    public IReadOnlyCollection<User> Followers { get { return _followers.ToArray(); } }
+    public DateTime CreatedAt { get; private set; }
+
+    public void ChangeVisibility() =>
+        IsPublic = !IsPublic;
+
+    public void AddMember(User member) =>
+        _members.Add(member);
+
+    public void RemoveMember(User member) =>
+        _members.Remove(member);
+
+    public void AddFollower(User follower) =>
+        _followers.Add(follower);
+
+    public void RemoveFollower(User follower) =>
+        _followers.Remove(follower);
 
 }
 
