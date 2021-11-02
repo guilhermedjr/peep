@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@microsoft/signalr": "^5.0.8",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "history": "^5.0.0",
     "next": "11.0.1",
     "next-redux-wrapper": "^6.0.2",
