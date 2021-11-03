@@ -75,19 +75,26 @@ export enum EPeepReplyRestriction {
   Mentioned,
 }
 
-export type Peep = {
+export interface Peep {
   readonly PeepId?: string
-  UserId: string
+  User: User
   readonly Date?: string
   readonly Time?: string
-  Source: EPeepSource
   Description: string
-  IsQuote: boolean
-  QuotedPeepId?: string
-  readonly Quotes?: Peep[]
+  Source: EPeepSource
+  ReplyRescriction: EPeepReplyRestriction
+  readonly Quotes?: Quote[]
   readonly Reposts?: Account[]
   readonly Likes?: Account[]
-  readonly Replies?: Peep[]
+  readonly Replies?: Reply[]
+}
+
+export interface Quote extends Peep {
+  QuotedPeep: Peep
+}
+
+export interface Reply extends Peep {
+  RepliedPeep: Peep
 }
 
 export type Nest = {

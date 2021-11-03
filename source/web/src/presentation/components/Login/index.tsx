@@ -4,6 +4,7 @@ import Router from 'next/router'
 import { ptBR as resource } from '../../resource'
 import WingsHttpClient from '../../../logic/services/WingsHttpClient'
 import { LoginProvider, AssociateExternalLoginDto } from '../../../logic/contracts/Entity'
+import { signInWithGoogle, signInWithTwitter, signInWithGithub } from '../../../logic/services/FirebaseAuth'
 
 import {
   Container,
@@ -47,12 +48,14 @@ export function Login() {
     }
   }, [isNewAccount])
 
-
-  const signUpWithSocialAccount = async(externalLoginDto: AssociateExternalLoginDto): Promise<void> =>
-    await httpClient.SignUpWithSocialAccount(externalLoginDto)
-
-  const signInWithSocialAccount = async(loginProvider: LoginProvider): Promise<void> =>
-    await httpClient.SignInWithSocialAccount(loginProvider)
+  const signIn = (provider: LoginProvider) => {
+    if (provider == 'Google')
+      signInWithGoogle()
+    else if (provider == 'Twitter')
+      signInWithTwitter()
+    else if (provider == 'GitHub')
+      signInWithGithub()
+  }
 
   let socialLoginButtons: JSX.Element[] =
     loginProviders.length > 0
@@ -71,10 +74,7 @@ export function Login() {
                     ? resource.Login.SocialAccount.Twitter.SignIn
                     : resource.Login.SocialAccount.GitHub.SignIn
           return (
-            <SocialLoginButton onClick={() => isNewAccount ? 
-              //signUpWithSocialAccount(provider) 
-              {}
-              : signInWithSocialAccount(provider)}>
+            <SocialLoginButton onClick={() => signIn(provider)}>
               <SocialLoginIcon src={`${provider}.svg`} title={titleResource} alt={titleResource} />
               <p>{titleResource}</p>
             </SocialLoginButton>
