@@ -1,10 +1,14 @@
-﻿namespace Peep.Parrot.Domain.Entities;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
-public class User : Entity
+namespace Peep.Parrot.Domain.Entities;
+
+/* Attributes that can be used in both NoSQL and SQL databases, and entity methods */
+public partial class User : Entity
 {
+    private readonly IList<Peep> _peeps;
+
     private readonly IList<User> _following;
     private readonly IList<User> _followers;
-    private readonly IList<Peep> _peeps;
     private readonly IList<Nest> _userNests;
     private readonly IList<Nest> _nests;
     private readonly IList<User> _followRequests;
@@ -27,6 +31,10 @@ public class User : Entity
         _followRequests = new List<User>();
         _blockedUsers = new List<User>();
         _mutedUsers = new List<User>();
+
+        _followships = new List<Followship>();
+        _mutes = new List<Mute>();
+        _blocks = new List<Block>();
     }
 
     public bool IsPrivateAccount { get; private set; } 
@@ -35,14 +43,8 @@ public class User : Entity
     public string Bio { get; private set; }
     public string Location { get; private set; }
     public string Website { get; private set; }
-    public IReadOnlyCollection<User> Following { get { return _following.ToList(); } }
-    public ICollection<User> Followers { get { return _followers.ToArray(); } }
+    
     public IReadOnlyCollection<Peep> Peeps { get { return _peeps.ToArray(); } }
-    public IReadOnlyCollection<Nest> UserNests { get { return _userNests.ToArray(); } }
-    public IReadOnlyCollection<Nest> Nests { get { return _nests.ToArray(); } }
-    public IReadOnlyCollection<User> FollowRequests { get { return _followRequests.ToArray(); } }
-    public IReadOnlyCollection<User> BlockedUsers { get { return _blockedUsers.ToArray(); } }
-    public IReadOnlyCollection<User> MutedUsers { get { return _mutedUsers.ToArray(); } }
 
     public void ChangeAccountPrivacy() =>
         IsPrivateAccount = !IsPrivateAccount;
@@ -70,5 +72,25 @@ public class User : Entity
 
     public void DeleteNest(Nest nest) =>
         _userNests.Remove(nest);
+}
+
+/* Attributes that do not map to SQL databases */
+/* Surrogate attrs for mapping are in the partial class declaration present in "DbModels" */
+public partial class User
+{
+    [NotMapped]
+    public IReadOnlyCollection<User> Following { get { return _following.ToList(); } }
+    [NotMapped]
+    public ICollection<User> Followers { get { return _followers.ToArray(); } }
+    [NotMapped]
+    public IReadOnlyCollection<Nest> UserNests { get { return _userNests.ToArray(); } }
+    [NotMapped]
+    public IReadOnlyCollection<Nest> Nests { get { return _nests.ToArray(); } }
+    [NotMapped]
+    public IReadOnlyCollection<User> FollowRequests { get { return _followRequests.ToArray(); } }
+    [NotMapped]
+    public IReadOnlyCollection<User> BlockedUsers { get { return _blockedUsers.ToArray(); } }
+    [NotMapped]
+    public IReadOnlyCollection<User> MutedUsers { get { return _mutedUsers.ToArray(); } }
 }
 

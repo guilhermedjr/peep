@@ -2,14 +2,19 @@
 
 public class Reply : Peep
 {
-    public Reply(User user, DateTime publicationDateTime, string description, EPeepSource source,
+    /// <summary>
+    /// ORM constructor
+    /// </summary>
+    private Reply() { }
+
+    public Reply(User user, string description, EPeepSource source,
        EPeepReplyRestriction replyRestriction, Peep repliedPeep)
-   : base(user, publicationDateTime, description, source, replyRestriction)
+    : base(user, description, source, replyRestriction)
 
     {
         RepliedPeep = repliedPeep;
     }
 
-    public Peep RepliedPeep { get; private set; }
+    public readonly Peep RepliedPeep;
 }
 

@@ -7,12 +7,17 @@ public class Peep : Entity
     private readonly IList<User> _likes;
     private readonly IList<Reply> _replies;
 
-    public Peep(User user, DateTime publicationDateTime, string description, 
+    /// <summary>
+    /// ORM constructor
+    /// </summary>
+    protected Peep() { }
+
+    public Peep(User user, string description, 
         EPeepSource source, EPeepReplyRestriction replyRestriction)
     {
         User = user;
-        PublicationDateTime = publicationDateTime;
         Description = description;
+        PublicationDateTime = DateTime.Now;
         Source = source;
         ReplyRestriction = replyRestriction;
         _quotes = new List<Quote>();
@@ -21,10 +26,11 @@ public class Peep : Entity
         _replies = new List<Reply>();
     }
 
-    public User User { get; private set; }
-    public DateTime PublicationDateTime { get; private set; }
+    public readonly User User;
+    public readonly Guid UserId;
+    public readonly DateTime PublicationDateTime;
     public string Description { get; private set; }
-    public EPeepSource Source { get; private set; }
+    public readonly EPeepSource Source;
     public EPeepReplyRestriction ReplyRestriction { get; private set; }
     public IReadOnlyCollection<Quote> Quotes { get { return _quotes.ToArray(); } }
     public IReadOnlyCollection<User> Rps { get { return _rps.ToArray(); } }

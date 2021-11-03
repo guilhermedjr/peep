@@ -5,7 +5,7 @@ public class Nest : Entity
     private readonly IList<User> _members;
     private readonly IList<User> _followers;
 
-    public Nest(User owner, bool isPublic, string name, string description, DateTime createdAt)
+    public Nest(User owner, bool isPublic, string name, string description)
     {
         Owner = owner;
         IsPublic = isPublic;
@@ -13,7 +13,7 @@ public class Nest : Entity
         Description = description;
         _members = new List<User>();
         _followers = new List<User>();
-        CreatedAt = createdAt;
+        CreatedAt = DateTime.Now;
     }
 
     public readonly User Owner;
@@ -22,7 +22,7 @@ public class Nest : Entity
     public string Description { get; private set; }
     public IReadOnlyCollection<User> Members { get { return _members.ToArray(); } }
     public IReadOnlyCollection<User> Followers { get { return _followers.ToArray(); } }
-    public DateTime CreatedAt { get; private set; }
+    public readonly DateTime CreatedAt;
 
     public void ChangeVisibility() =>
         IsPublic = !IsPublic;

@@ -2,14 +2,19 @@
 
 public class Quote : Peep
 {
-    public Quote(User user, DateTime publicationDateTime, string description, EPeepSource source, 
+    /// <summary>
+    /// ORM constructor
+    /// </summary>
+    private Quote() { }
+
+    public Quote(User user, string description, EPeepSource source, 
         EPeepReplyRestriction replyRestriction, Peep quotedPeep) 
-    : base(user, publicationDateTime, description, source, replyRestriction)
+    : base(user, description, source, replyRestriction)
 
     {
         QuotedPeep = quotedPeep;
     }
 
-    public Peep QuotedPeep { get; private set; }
+    public readonly Peep QuotedPeep;
 }
 
