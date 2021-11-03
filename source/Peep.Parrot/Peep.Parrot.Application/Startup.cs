@@ -4,9 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Peep.Parrot.Repositories;
-using Peep.Parrot.Infrastructure.Data;
 using Peep.Parrot.Application.Consumers;
+using Peep.Parrot.Infrastructure.IoC;
 
 namespace Peep.Parrot.Application;
 
@@ -31,26 +30,13 @@ public class Startup
                 });
         });
 
-        services.AddSingleton<RedisDbConnection>();
-
-        services.AddStackExchangeRedisCache(options =>
-        {
-            options.Configuration = Configuration.GetConnectionString("redis");
-        });
-
-        services.AddScoped<IUserInfoRepository, UserInfoRepository>();
-        services.AddScoped<IUsersConnectionsRepository, UsersConnectionsRepository>();
-        services.AddScoped<IUserRestrictionsRepository, UserRestrictionsRepository>();
-        services.AddScoped<IPeepsRepository, PeepsRepository>();
-        services.AddScoped<INestsRepository, NestsRepository>();
-
-        services.AddControllers();
-
-        services.AddSignalR();
+        services.ConfigureServices(Configuration);
 
         services.AddHostedService<MessageConsumptionService>();
 
         services.AddSingleton<MessageConsumptionService>();
+
+        services.AddControllers();
 
         services.AddSwaggerGen(c =>
         {
