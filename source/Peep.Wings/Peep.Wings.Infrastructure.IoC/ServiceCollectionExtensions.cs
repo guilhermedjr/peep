@@ -9,6 +9,7 @@ using Peep.Wings.Domain.Services;
 using Peep.Wings.Domain.Dtos;
 using Peep.Wings.Infrastructure.Data;
 using Peep.Wings.Service.Services;
+using System.Linq;
 
 namespace Peep.Wings.Infrastructure.IoC;
 
@@ -19,48 +20,9 @@ public static class ServiceCollectionExtensions
         services.AddDbContext<AppDbContext>(options =>
             options.UseNpgsql(configuration.GetConnectionString("postgres")));
 
-        services.AddScoped<IEmailService, EmailService>();
-        services.AddScoped<ITokenService, TokenService>();
-        services.AddScoped<IOAuthService<GoogleUserInfo>, GoogleService>();
-        services.AddScoped<IOAuthService<TwitterUserInfo>, TwitterService>();
-        services.AddScoped<IOAuthService<GitHubUserInfo>, GitHubService>();
+        services.AddScoped<IOAuthService<GoogleUserInfoDto>, GoogleService>();
         services.AddScoped<IPeepParrotService, PeepParrotService>();
         services.AddScoped<IPeepStorkService, PeepStorkService>();
-
-        return services;
-    }
-
-    public static IServiceCollection ConfigureExternalLoginProviders(this IServiceCollection services,
-        IConfiguration configuration)
-    {
-
-        if (configuration["Authentication:Google:ClientId"] != null)
-        {
-            services.AddAuthentication().AddGoogle(googleOptions =>
-            {
-                googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
-                googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
-            });
-        }
-
-        if (configuration["Authentication:Twitter:ConsumerAPIKey"] != null)
-        {
-            services.AddAuthentication().AddTwitter(twitterOptions =>
-            {
-                twitterOptions.ConsumerKey = configuration["Authentication:Twitter:ConsumerAPIKey"];
-                twitterOptions.ConsumerSecret = configuration["Authentication:Twitter:ConsumerAPISecret"];
-                twitterOptions.RetrieveUserDetails = true;
-            });
-        }
-
-        if (configuration["Authentication:GitHub:ClientId"] != null)
-        {
-            services.AddAuthentication().AddGitHub(gitHubOptions =>
-            {
-                gitHubOptions.ClientId = configuration["Authentication:GitHub:ClientId"];
-                gitHubOptions.ClientSecret = configuration["Authentication:GitHub:ClientSecret"];
-            });
-        }
 
         return services;
     }
@@ -83,22 +45,23 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection ConfigureAuthentication(this IServiceCollection services, IConfiguration configuration)
     {
-        var key = Encoding.ASCII.GetBytes(configuration["Jwt:Key"]);
-        services.AddAuthentication(x =>
+        services.AddAuthentication(options =>
         {
-            x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
         })
-        .AddJwtBearer(x =>
+        .AddJwtBearer(options =>
         {
-            x.RequireHttpsMetadata = false;
-            x.SaveToken = true;
-            x.TokenValidationParameters = new TokenValidationParameters
+            options.Authority = "https://securetoken.google.com/peep-61ac0";
+            options.RequireHttpsMetadata = false;
+            options.SaveToken = true;
+            options.TokenValidationParameters = new TokenValidationParameters
             {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateIssuer = false,
-                ValidateAudience = false
+                ValidateIssuer = true,
+                ValidIssuer = "https://securetoken.google.com/peep-61ac0",
+                ValidateAudience = true,
+                ValidAudience = "peep-61ac0",
+                ValidateLifetime = true,
             };
         });
 

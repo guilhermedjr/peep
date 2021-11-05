@@ -1,10 +1,9 @@
 ﻿namespace Peep.Wings.Domain.Dtos;
 
-public class GitHubUserInfo
+public class GoogleUserInfoDto
 {
-    public readonly string Name;
-    public readonly string Username;
     public readonly string Email;
+    public readonly string Name;
+    public readonly DateTime BirthDate;
     public readonly string ProfileImageUrl;
 }
-

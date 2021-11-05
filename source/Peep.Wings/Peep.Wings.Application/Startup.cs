@@ -49,19 +49,16 @@ public class Startup
             .AddDefaultTokenProviders();
 
         services.ConfigureServices(Configuration)
-            .ConfigureExternalLoginProviders(Configuration)
             .ConfigureAuthentication(Configuration);
 
         services.AddHttpClient<PeepParrotService>();
         services.AddHttpClient<PeepStorkService>();
         services.AddHttpClient<GoogleService>();
-        services.AddHttpClient<TwitterService>();
-        services.AddHttpClient<GitHubService>();
 
         services.AddOcelot(Configuration);
     }
 
-    public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
         if (env.IsDevelopment())
         {

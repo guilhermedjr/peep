@@ -6,8 +6,8 @@ public class SyncUserDto
     public string Email { get; set; }
     public string Name { get; set; }
     public string Username { get; set; }
-    public string Password { get; set; }
-    public string BirthDate { get; set; }
+    public DateTime BirthDate { get; set; }
+    public string ProfileImageUrl { get; set; }
     public DateTime JoinedAt { get; set; }
 }
 

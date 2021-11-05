@@ -2,9 +2,7 @@
 
 public class LoginDto
 {
-    public string Email { get; set; }
-    public string Username { get; set; }
-    [Required]
-    public string Password { get; set; }
+    public readonly string Token;
+    public readonly string IdToken;
 }
 
