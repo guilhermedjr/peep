@@ -41,7 +41,22 @@ services:
       context: ../source/Peep.Stork
       dockerfile: Dockerfile
 
-  wings-postgres:
+  # wings-postgres:
+  #   image: postgres
+  #   container_name: "wings-postgres"
+  #   restart: always
+  #   ports:
+  #     - 4001:5432
+  #   environment:
+  #     - POSTGRES_PASSWORD=root
+  #     - POSTGRES_USER=root
+  #     - POSTGRES_DB=peepwingsdb
+  #   volumes:
+  #     - "/var/lib/postgresql/data"
+  #   networks:
+  #     - peep-network
+
+  parrot-postgres:
     image: postgres
     container_name: "wings-postgres"
     restart: always
@@ -50,7 +65,7 @@ services:
     environment:
       - POSTGRES_PASSWORD=root
       - POSTGRES_USER=root
-      - POSTGRES_DB=peepwingsdb
+      - POSTGRES_DB=peepparrotdb
     volumes:
       - "/var/lib/postgresql/data"
     networks:

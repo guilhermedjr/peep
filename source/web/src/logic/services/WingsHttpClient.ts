@@ -14,7 +14,7 @@ export default class WingsHttpClient {
   constructor() {}
 
   public async GetSocialLoginProviders(): Promise<LoginProvider[]> {
-    return this.baseUrl.get('api/SocialAccounts/Providers').then(
+    return this.baseUrl.get('api/Accounts/Providers').then(
       response => response.data
     )
   }

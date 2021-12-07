@@ -32,12 +32,12 @@ export const signInWithGoogle = () => {
       .getIdToken()
       .then(idToken => {
         // Token a ser enviado para a API
-        console.log(idToken);
+        alert(idToken);
       }).catch(error => {
-        console.log(error);
+        alert(error);
       });
   }).catch(error => {
-    console.log(error);
+    alert(error);
     });
 }
 

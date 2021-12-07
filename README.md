@@ -18,9 +18,9 @@ My goal with this project, which will be the biggest and best designed in my por
 | App                                                         |  Description              |
 | ----------------------------------------------------------- | ------------------------- |
 | [Peep for Web](source/web)          | React SPA (Next.js)                               | 
-| [Wings](source/Wings)               | .NET Gateway API (Auth) + RabbitMQ for pub/sub     |
-| [Parrot](source/Parrot)             | .NET Main server + Redis for data storing and cache|
-| [Stork](source/Stork)               | .NET Direct Messages Server + SignalR             |
+| [Wings](source/Peep.Wings)               | .NET Gateway API (Auth) + RabbitMQ for pub/sub     |
+| [Parrot](source/Peep.Parrot)             | .NET Main server + Redis for data storing and cache|
+| [Stork](source/Peep.Stork)               | .NET Direct Messages Server + SignalR             |
 
 
 ### DDD (Domain-Driven Development)
@@ -46,6 +46,6 @@ See [here](CONTRIBUTING.md) how you can contribute to this project
    <img alt="React" src="https://img.shields.io/badge/-React-45b8d8?style=flat-square&logo=react&logoColor=white" />
    <img alt="Nextjs" src="https://img.shields.io/badge/-Nextjs-191929?style=flat-square&logo=next.js&logoColor=white" />
    <img alt="redux" src="https://img.shields.io/badge/-Redux-6c3995?style=flat-square&logo=redux&logoColor=white" />
-   <img alt="RabbitMQ" src="https://img.shields.io/badge/rabbitmq-%23FF6600.svg?&style=for-the-badge&logo=rabbitmq&logoColor=white" />
+   <img alt="RabbitMQ" src="https://img.shields.io/badge/rabbitmq-%23FF6600.svg?&style=flat-square&logo=RabbitMQ&logoColor=white" />
    <img alt="Redis" src="https://img.shields.io/badge/-Redis-e93940?style=flat-square&logo=redis&logoColor=white" />
 </div>

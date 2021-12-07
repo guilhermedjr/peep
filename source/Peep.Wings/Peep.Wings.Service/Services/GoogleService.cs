@@ -3,7 +3,7 @@
 public class GoogleService : IOAuthService<GoogleUserInfoDto>
 {
     private readonly HttpClient _httpClient;
-    private const string Url = "https://www.googleapis.com/oauth2/v3";
+    private string Url = "https://www.googleapis.com/oauth2/v3";
  
     public GoogleService(HttpClient httpClient)
     {
