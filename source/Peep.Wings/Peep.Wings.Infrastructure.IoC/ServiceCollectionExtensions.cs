@@ -1,5 +1,4 @@
-﻿using System.Text;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -9,7 +8,6 @@ using Peep.Wings.Domain.Services;
 using Peep.Wings.Domain.Dtos;
 using Peep.Wings.Infrastructure.Data;
 using Peep.Wings.Service.Services;
-using System.Linq;
 
 namespace Peep.Wings.Infrastructure.IoC;
 
@@ -23,6 +21,21 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IOAuthService<GoogleUserInfoDto>, GoogleService>();
         services.AddScoped<IPeepParrotService, PeepParrotService>();
         services.AddScoped<IPeepStorkService, PeepStorkService>();
+
+        return services;
+    }
+
+    public static IServiceCollection ConfigureExternalLoginProviders(this IServiceCollection services,
+        IConfiguration configuration)
+    {
+        if (configuration["Authentication:Google:ClientId"] != null)
+        {
+            services.AddAuthentication().AddGoogle(googleOptions =>
+            {
+                googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
+                googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+            });
+        }
 
         return services;
     }

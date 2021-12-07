@@ -3,8 +3,7 @@ import { useState, useEffect } from 'react'
 import Router from 'next/router'
 import { ptBR as resource } from '../../resource'
 import WingsHttpClient from '../../../logic/services/WingsHttpClient'
-import { LoginProvider, AssociateExternalLoginDto } from '../../../logic/contracts/Entity'
-import { signInWithGoogle, signInWithTwitter, signInWithGithub } from '../../../logic/services/FirebaseAuth'
+import { LoginProvider } from '../../../logic/contracts/Entity'
 
 import {
   Container,
@@ -49,12 +48,15 @@ export function Login() {
   }, [isNewAccount])
 
   const signIn = (provider: LoginProvider) => {
-    if (provider == 'Google')
-      signInWithGoogle()
-    else if (provider == 'Twitter')
-      signInWithTwitter()
-    else if (provider == 'GitHub')
-      signInWithGithub()
+    if (provider == 'Google') {
+      httpClient.SignInWithGoogle().then(
+        user => console.log(user)
+      )
+    }
+    // else if (provider == 'Twitter')
+    //   signInWithTwitter()
+    // else if (provider == 'GitHub')
+    //   signInWithGithub()
   }
 
   let socialLoginButtons: JSX.Element[] =
@@ -94,9 +96,6 @@ export function Login() {
         <ButtonsArea>
           { isNewAccount == undefined
               ? <>
-                <Button outlined={false} onClick={() => setIsNewAccount(true)}>
-                  {resource.Login.SignUp}
-                </Button>
                 <Button outlined={true} onClick={() => setIsNewAccount(false)}>
                   {resource.Login.SignIn}
                 </Button>

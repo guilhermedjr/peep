@@ -36,6 +36,7 @@ public class AccountsController : ControllerBase
     }
 
     [HttpGet]
+    [AllowAnonymous]
     public async Task<IActionResult> Providers()
     {
         var authSchemes = await _signInManager.GetExternalAuthenticationSchemesAsync();
@@ -44,6 +45,7 @@ public class AccountsController : ControllerBase
 
     [HttpPost]
     [Route("SignIn")]
+    [Authorize]
     public async Task<IActionResult> Login(LoginDto loginDto)
     {
         var userInfo = await _googleService.RetrieveLoggedUserInformation(loginDto.IdToken);

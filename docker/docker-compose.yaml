@@ -1,21 +1,21 @@
 version: "3.8"
 
 services:
-  next-app:
-    image: peep-web-app
-    container_name: "web-app"
-    build: 
-      context: ../source/web
-      dockerfile: Dockerfile
+  # next-app:
+  #   image: peep-web-app
+  #   container_name: "web-app"
+  #   build:
+  #     context: ../source/web
+  #     dockerfile: Dockerfile
 
-  wings: 
+  wings:
     image: peep-wings
     container_name: "wings"
-    environment: 
+    environment:
       - PORT=5000
-    ports: 
+    ports:
       - 5000:5000
-    build: 
+    build:
       context: ../source/Peep.Wings
       dockerfile: Dockerfile
 
@@ -41,22 +41,7 @@ services:
       context: ../source/Peep.Stork
       dockerfile: Dockerfile
 
-  # wings-postgres:
-  #   image: postgres
-  #   container_name: "wings-postgres"
-  #   restart: always
-  #   ports:
-  #     - 4001:5432
-  #   environment:
-  #     - POSTGRES_PASSWORD=root
-  #     - POSTGRES_USER=root
-  #     - POSTGRES_DB=peepwingsdb
-  #   volumes:
-  #     - "/var/lib/postgresql/data"
-  #   networks:
-  #     - peep-network
-
-  parrot-postgres:
+  wings-postgres:
     image: postgres
     container_name: "wings-postgres"
     restart: always
@@ -65,11 +50,68 @@ services:
     environment:
       - POSTGRES_PASSWORD=root
       - POSTGRES_USER=root
-      - POSTGRES_DB=peepparrotdb
+      - POSTGRES_DB=peepwingsdb
     volumes:
       - "/var/lib/postgresql/data"
     networks:
       - peep-network
+
+  # parrot-postgres:
+
+
+
+  #   image: postgres
+
+
+
+  #   container_name: "wings-postgres"
+
+
+
+  #   restart: always
+
+
+
+  #   ports:
+
+
+
+  #     - 4001:5432
+
+
+
+  #   environment:
+
+
+
+  #     - POSTGRES_PASSWORD=root
+
+
+
+  #     - POSTGRES_USER=root
+
+
+
+  #     - POSTGRES_DB=peepparrotdb
+
+
+
+  #   volumes:
+
+
+
+  #     - "/var/lib/postgresql/data"
+
+
+
+  #   networks:
+
+
+
+  #     - peep-network
+
+
+
 
   parrot-redis:
     image: redis:alpine
@@ -82,7 +124,6 @@ services:
       - "./volumes/redis"
     networks:
       - peep-network
-
   # stork-postgres:
   #   image: postgres
   #   container_name: "stork-postgres"

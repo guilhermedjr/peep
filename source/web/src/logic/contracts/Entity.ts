@@ -1,11 +1,18 @@
 export type LoginProvider = 'GitHub' | 'Google' | 'Twitter'
 
-export type AssociateExternalLoginDto = {
-  Username: string
-  Email: string
-  AssociateToExistingAccount: boolean
-  ExistingAccountEmail?: string
-  LoginProvider: LoginProvider
+export type LoginDto = {
+  Token: string
+  IdToken: string
+}
+
+export type ApplicationUser = {
+  readonly Id: string
+  readonly Email: string
+  readonly Name: string
+  readonly Username: string
+  readonly BirthDate: string
+  readonly ProfileImageUrl: string
+  readonly JoinedAt: string
 }
 
 export type Account = {
@@ -27,15 +34,6 @@ export type AccountUserInfo = {
   Location?: string
   BirthDate?: string
   Website?: string
-}
-
-export type CreateAccountDto = {
-  Name: string
-  Email?: string
-  PhoneNumber?: string
-  BirthDate: string
-  Username: string
-  Password: string
 }
 
 export type User = {

@@ -1,6 +1,6 @@
-import { GoogleAuthProvider, TwitterAuthProvider, GithubAuthProvider, 
-  getAuth, signInWithRedirect, getRedirectResult } from 'firebase/auth'
+import { GoogleAuthProvider, getAuth, signInWithRedirect, getRedirectResult } from 'firebase/auth'
 import { initializeApp } from 'firebase/app'
+import { LoginDto } from '../contracts/Entity'
 
 const firebaseConfig = {
   apiKey: "AIzaSyD_54T8GXnq89MN6Fp3v698-o4tzUuC024",
@@ -16,68 +16,26 @@ const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
 
 var googleProvider = new GoogleAuthProvider()
-var twitterProvider = new TwitterAuthProvider()
-var githubProvider = new GithubAuthProvider()
 
 googleProvider.addScope("https://www.googleapis.com/auth/contacts.readonly")
 
-export const signInWithGoogle = () => {
+
+export const getGoogleTokens = (): LoginDto => {
+  var loginDto: LoginDto
   signInWithRedirect(auth, googleProvider)
   getRedirectResult(auth)
   .then(result => {
     const credential = GoogleAuthProvider.credentialFromResult(result)
     const token = credential.accessToken
     const user = result.user
+    console.log(user)
     auth.currentUser
       .getIdToken()
       .then(idToken => {
-        // Token a ser enviado para a API
-        alert(idToken);
-      }).catch(error => {
-        alert(error);
-      });
-  }).catch(error => {
-    alert(error);
-    });
-}
-
-export const signInWithTwitter = () => {
-  signInWithRedirect(auth, twitterProvider)
-  getRedirectResult(auth)
-  .then(result => {
-    const credential = TwitterAuthProvider.credentialFromResult(result)
-    const token = credential.accessToken
-    const user = result.user
-    auth.currentUser
-      .getIdToken()
-      .then(idToken => {
-        // Token a ser enviado para a API
-        console.log(idToken);
-      }).catch(error => {
-        console.log(error);
-      });
-  }).catch(error => {
-    console.log(error);
-    });
-}
-
-export const signInWithGithub = () => {
-  signInWithRedirect(auth, githubProvider)
-  getRedirectResult(auth)
-  .then(result => {
-    const credential = GithubAuthProvider.credentialFromResult(result)
-    const token = credential.accessToken
-    const user = result.user
-    auth.currentUser
-      .getIdToken()
-      .then(idToken => {
-        // Token a ser enviado para a API
-        console.log(idToken);
-      }).catch(error => {
-        console.log(error);
-      });
-  }).catch(error => {
-    console.log(error);
-    });
+        loginDto.Token = token
+        loginDto.IdToken = idToken
+      })
+    })
+  return loginDto
 }
 
