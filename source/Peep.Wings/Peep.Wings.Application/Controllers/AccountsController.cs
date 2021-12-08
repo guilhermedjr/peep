@@ -45,7 +45,7 @@ public class AccountsController : ControllerBase
             {
                 Email = userInfo.email,
                 Name = userInfo.name,
-                UserName = userInfo.name,
+                UserName = userInfo.email.Substring(0, userInfo.email.IndexOf("@")),
                 BirthDate = DateTime.MinValue,
                 ProfileImageUrl = userInfo.picture,
                 JoinedAt = DateTime.Now,
@@ -60,20 +60,21 @@ public class AccountsController : ControllerBase
             {
                 Email = userInfo.email,
                 Name = userInfo.name,
-                UserName = userInfo.name,
+                UserName = userInfo.email.Substring(0, userInfo.email.IndexOf("@")),
                 BirthDate = DateTime.MinValue,
                 ProfileImageUrl = userInfo.picture,
                 JoinedAt = peepUser.JoinedAt,
                 EmailConfirmed = true
             };
 
+            await _userManager.UpdateSecurityStampAsync(user);
             await _userManager.UpdateAsync(user);
         }
 
         peepUser = await _userManager.FindByEmailAsync(userInfo.email);
 
         var userView = new ApplicationUserViewModel(peepUser.Id, peepUser.Email, peepUser.Name,
-            peepUser.Username, peepUser.BirthDate, peepUser.ProfileImageUrl, peepUser.JoinedAt);
+            peepUser.UserName, peepUser.BirthDate, peepUser.ProfileImageUrl, peepUser.JoinedAt);
 
         Response.Cookies.Append("peep_token", loginDto.Token, new CookieOptions
         {
@@ -96,7 +97,7 @@ public class AccountsController : ControllerBase
             return NotFound();
 
         var userView = new ApplicationUserViewModel(peepUser.Id, peepUser.Email, peepUser.Name,
-            peepUser.Username, peepUser.BirthDate, peepUser.ProfileImageUrl, peepUser.JoinedAt);
+            peepUser.UserName, peepUser.BirthDate, peepUser.ProfileImageUrl, peepUser.JoinedAt);
 
         return Ok(userView);
     }

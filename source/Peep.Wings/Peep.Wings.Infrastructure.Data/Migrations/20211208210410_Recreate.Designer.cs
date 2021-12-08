@@ -10,8 +10,8 @@ using Peep.Wings.Infrastructure.Data;
 namespace Peep.Wings.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20211105212207_NewMigration")]
-    partial class NewMigration
+    [Migration("20211208210410_Recreate")]
+    partial class Recreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
