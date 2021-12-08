@@ -35,14 +35,6 @@ public class AccountsController : ControllerBase
         _storkService = storkService;
     }
 
-    [HttpGet]
-    [AllowAnonymous]
-    public async Task<IActionResult> Providers()
-    {
-        var authSchemes = await _signInManager.GetExternalAuthenticationSchemesAsync();
-        return Ok(authSchemes.Select(s => s.DisplayName).ToList());
-    }
-
     [HttpPost]
     [Route("SignIn")]
     [Authorize]

@@ -25,21 +25,6 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-    public static IServiceCollection ConfigureExternalLoginProviders(this IServiceCollection services,
-        IConfiguration configuration)
-    {
-        if (configuration["Authentication:Google:ClientId"] != null)
-        {
-            services.AddAuthentication().AddGoogle(googleOptions =>
-            {
-                googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
-                googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
-            });
-        }
-
-        return services;
-    }
-
     public static void ConfigureIdentity(IdentityOptions options)
     {
         options.Password.RequiredLength = 6;

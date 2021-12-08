@@ -3,7 +3,8 @@ import { useState, useEffect } from 'react'
 import Router from 'next/router'
 import { ptBR as resource } from '../../resource'
 import WingsHttpClient from '../../../logic/services/WingsHttpClient'
-import { LoginProvider } from '../../../logic/contracts/Entity'
+import { getGoogleTokens } from '../../../logic/services/FirebaseAuth'
+import { ApplicationUser, LoginDto, LoginProvider } from '../../../logic/contracts/Entity'
 
 import {
   Container,
@@ -17,12 +18,7 @@ import {
   SocialLoginIcon
 } from './styles'
 
-import Button from '../Button'
-
 export function Login() { 
-  const [isNewAccount, setIsNewAccount] = useState<boolean | undefined>(undefined)
-  const [loginProviders, setLoginProviders] = useState<LoginProvider[]>([])
-
   const httpClient = new WingsHttpClient()
   // let fakeUserId = '0181add2-1775-4f46-a9f0-072852c417f4'
 
@@ -34,57 +30,13 @@ export function Login() {
   //   Router.push(`home/${fakeUserId}`)
   // }
 
-  useEffect(() => {
-    if (isNewAccount != undefined) {
-      httpClient.GetSocialLoginProviders().then(
-        providers => {
-          setLoginProviders(providers)
-        }, error => {
-          alert("Não foi possível buscar os provedores de login. Tente novamente mais tarde.")
-          console.log(error)
-        }
-      )
-    }
-  }, [isNewAccount])
-
-  const signIn = (provider: LoginProvider) => {
+  const signIn = async(provider: LoginProvider) => {
     if (provider == 'Google') {
-      httpClient.SignInWithGoogle().then(
-        user => console.log(user)
-      )
+      var loginDto: LoginDto = await getGoogleTokens()
+      var user: ApplicationUser = await httpClient.SignInWithGoogle(loginDto)
+      alert(`Usuário vindo da API: ${user}`)
     }
-    // else if (provider == 'Twitter')
-    //   signInWithTwitter()
-    // else if (provider == 'GitHub')
-    //   signInWithGithub()
   }
-
-  let socialLoginButtons: JSX.Element[] =
-    loginProviders.length > 0
-      ? loginProviders.map(
-        provider => {
-          var titleResource: string = 
-            isNewAccount
-              ? provider == 'Google'
-                  ? resource.Login.SocialAccount.Google.SignUp
-                  : provider == 'Twitter'
-                    ? resource.Login.SocialAccount.Twitter.SignUp
-                    : resource.Login.SocialAccount.GitHub.SignUp
-              : provider == 'Google'
-                  ? resource.Login.SocialAccount.Google.SignIn
-                  : provider == 'Twitter'
-                    ? resource.Login.SocialAccount.Twitter.SignIn
-                    : resource.Login.SocialAccount.GitHub.SignIn
-          return (
-            <SocialLoginButton onClick={() => signIn(provider)}>
-              <SocialLoginIcon src={`${provider}.svg`} title={titleResource} alt={titleResource} />
-              <p>{titleResource}</p>
-            </SocialLoginButton>
-          )
-        }
-      )
-      : []
-      
 
   return (
     <Container>
@@ -94,14 +46,14 @@ export function Login() {
         <Slogan>{resource.Login.Slogan}</Slogan>
         <LoginMessage>{resource.Login.Message}</LoginMessage>
         <ButtonsArea>
-          { isNewAccount == undefined
-              ? <>
-                <Button outlined={true} onClick={() => setIsNewAccount(false)}>
-                  {resource.Login.SignIn}
-                </Button>
-                </>
-              : socialLoginButtons
-          }
+          <SocialLoginButton onClick={() => signIn('Google')}>
+            <SocialLoginIcon 
+              src={'google.svg'} 
+              title={resource.Login.SocialAccount.Google.SignIn} 
+              alt={resource.Login.SocialAccount.Google.SignIn} 
+            />
+            <p>{resource.Login.SocialAccount.Google.SignIn}</p>
+          </SocialLoginButton>
         </ButtonsArea>
       </LoginArea>
     </Container>

@@ -36,7 +36,6 @@ builder.Services
     .AddDefaultTokenProviders();
 
 builder.Services.ConfigureServices(builder.Configuration)
-    .ConfigureExternalLoginProviders(builder.Configuration)
     .ConfigureAuthentication(builder.Configuration);
 
 builder.Services.AddHttpClient<PeepParrotService>();

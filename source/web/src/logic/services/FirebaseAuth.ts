@@ -1,4 +1,4 @@
-import { GoogleAuthProvider, getAuth, signInWithRedirect, getRedirectResult } from 'firebase/auth'
+import { GoogleAuthProvider, getAuth, signInWithRedirect, getRedirectResult, UserCredential } from 'firebase/auth'
 import { initializeApp } from 'firebase/app'
 import { LoginDto } from '../contracts/Entity'
 
@@ -19,23 +19,38 @@ var googleProvider = new GoogleAuthProvider()
 
 googleProvider.addScope("https://www.googleapis.com/auth/contacts.readonly")
 
+// export const getGoogleTokens = (): LoginDto => {
+//   var loginDto: LoginDto
+//   signInWithRedirect(auth, googleProvider)
+//   getRedirectResult(auth)
+//   .then(result => {
+//     const credential = GoogleAuthProvider.credentialFromResult(result)
+//     loginDto.Token = credential.accessToken
+//     const user = result.user
+//     alert(`Usuário: ${user}`)
+//     auth.currentUser
+//       .getIdToken()
+//       .then(idToken => {
+//         loginDto.IdToken = idToken
+//       })
+//     })
+//   return loginDto
+// }
 
-export const getGoogleTokens = (): LoginDto => {
-  var loginDto: LoginDto
+export const getGoogleTokens = async(): Promise<LoginDto> => {
+  alert("CARALHO")
+  let loginDto: LoginDto
+
   signInWithRedirect(auth, googleProvider)
-  getRedirectResult(auth)
-  .then(result => {
-    const credential = GoogleAuthProvider.credentialFromResult(result)
-    const token = credential.accessToken
-    const user = result.user
-    console.log(user)
-    auth.currentUser
-      .getIdToken()
-      .then(idToken => {
-        loginDto.Token = token
-        loginDto.IdToken = idToken
-      })
-    })
+  let userCredential: UserCredential = await getRedirectResult(auth)
+  const credential = GoogleAuthProvider.credentialFromResult(userCredential)
+  loginDto.Token = credential.accessToken
+  const user = userCredential.user
+  alert(`Usuário: ${user}`)
+
+  let idToken: string = await auth.currentUser.getIdToken()
+  loginDto.IdToken = idToken
+
   return loginDto
 }
 
