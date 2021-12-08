@@ -7,7 +7,6 @@ namespace Peep.Wings.Application.Controllers;
 public class AccountsController : ControllerBase
 {
     private readonly UserManager<ApplicationUser> _userManager;
-    private readonly SignInManager<ApplicationUser> _signInManager;
 
     private readonly ConnectionFactory _factory;
     private const string QUEUE_NAME = "wings_messages";
@@ -18,7 +17,6 @@ public class AccountsController : ControllerBase
 
     public AccountsController(
         UserManager<ApplicationUser> userManager,
-        SignInManager<ApplicationUser> signInManager,
         IOAuthService<GoogleUserInfoDto> googleService,
         IPeepParrotService parrotService,
         IPeepStorkService storkService) 
@@ -29,7 +27,6 @@ public class AccountsController : ControllerBase
         };
 
         _userManager = userManager;
-        _signInManager = signInManager;
         _googleService = googleService;
         _parrotService = parrotService;
         _storkService = storkService;
@@ -37,21 +34,20 @@ public class AccountsController : ControllerBase
 
     [HttpPost]
     [Route("SignIn")]
-    [Authorize]
-    public async Task<IActionResult> Login(LoginDto loginDto)
+    public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
     {
-        var userInfo = await _googleService.RetrieveLoggedUserInformation(loginDto.IdToken);
-        var peepUser = await _userManager.FindByEmailAsync(userInfo.Email);
+        var userInfo = await _googleService.RetrieveLoggedUserInformation(loginDto.Token);
+        var peepUser = await _userManager.FindByEmailAsync(userInfo.email);
 
         if (peepUser == null)
         {
             var user = new ApplicationUser
             {
-                Email = userInfo.Email,
-                Name = userInfo.Name,
-                UserName = userInfo.Name,
-                BirthDate = userInfo.BirthDate,
-                ProfileImageUrl = userInfo.ProfileImageUrl,
+                Email = userInfo.email,
+                Name = userInfo.name,
+                UserName = userInfo.name,
+                BirthDate = DateTime.MinValue,
+                ProfileImageUrl = userInfo.picture,
                 JoinedAt = DateTime.Now,
                 EmailConfirmed = true
             };
@@ -62,11 +58,11 @@ public class AccountsController : ControllerBase
         {
             var user = new ApplicationUser
             {
-                Email = userInfo.Email,
-                Name = userInfo.Name,
-                UserName = userInfo.Name,
-                BirthDate = userInfo.BirthDate,
-                ProfileImageUrl = userInfo.ProfileImageUrl,
+                Email = userInfo.email,
+                Name = userInfo.name,
+                UserName = userInfo.name,
+                BirthDate = DateTime.MinValue,
+                ProfileImageUrl = userInfo.picture,
                 JoinedAt = peepUser.JoinedAt,
                 EmailConfirmed = true
             };
@@ -74,7 +70,7 @@ public class AccountsController : ControllerBase
             await _userManager.UpdateAsync(user);
         }
 
-        peepUser = await _userManager.FindByEmailAsync(userInfo.Email);
+        peepUser = await _userManager.FindByEmailAsync(userInfo.email);
 
         var userView = new ApplicationUserViewModel(peepUser.Id, peepUser.Email, peepUser.Name,
             peepUser.Username, peepUser.BirthDate, peepUser.ProfileImageUrl, peepUser.JoinedAt);

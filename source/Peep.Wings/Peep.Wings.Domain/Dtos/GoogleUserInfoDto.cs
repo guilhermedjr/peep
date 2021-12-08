@@ -2,8 +2,7 @@
 
 public class GoogleUserInfoDto
 {
-    public readonly string Email;
-    public readonly string Name;
-    public readonly DateTime BirthDate;
-    public readonly string ProfileImageUrl;
+    public string email { get; set; }
+    public string name { get; set; }
+    public string picture { get; set; }
 }

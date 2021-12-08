@@ -2,7 +2,7 @@
 
 public class LoginDto
 {
-    public readonly string Token;
-    public readonly string IdToken;
+    public string Token { get; init; }
+    public string IdToken { get; init; }
 }
 
