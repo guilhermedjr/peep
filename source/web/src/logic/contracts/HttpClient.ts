@@ -14,13 +14,7 @@ export type HttpResponse<T> = {
   data?: T
 }
 
-export interface IWingsHttpClient {
-  httpGet<T>(url: string): Promise<HttpResponse<T>>
-  httpPost<T>(url: string, body?: T): Promise<HttpResponse<T>>
-  httpPut<T>(url: string, body?: T): Promise<HttpResponse<T>>
-}
-
-export interface IParrotHttpClient {
+export interface IHttpClient {
   httpGet<T>(url: string): Promise<HttpResponse<T>>
   httpPost<T>(url: string, body?: T): Promise<HttpResponse<T>>
   httpPut<T>(url: string, body?: T): Promise<HttpResponse<T>>

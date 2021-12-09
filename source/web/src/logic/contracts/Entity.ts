@@ -40,7 +40,8 @@ export type User = {
   readonly UserId?: string
   Name?: string
   Username?: string
-  Bio: string
+  ProfileImageUrl?: string
+  Bio?: string
   Location?: string
   BirthDate?: string
   Website?: string
@@ -55,7 +56,6 @@ export type User = {
   readonly FollowRequests?: User[]
   readonly BlockedUsers?: User[]
   readonly MutedUsers?: User[]
-  ProfileImagePath?: string
 }
 
 export enum EPeepSource {

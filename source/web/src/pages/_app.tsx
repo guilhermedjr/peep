@@ -1,14 +1,17 @@
 import { Provider } from 'react-redux'
+import { CookiesProvider } from 'react-cookie'
 import { PeepsContext } from '../logic/contexts/PeepsContext'
 import store from '../store'
 import GlobalStyles from '../presentation/styles/GlobalStyles'
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Provider store={store}>
-      <Component {...pageProps} />
-      <GlobalStyles />
-    </Provider>
+    <CookiesProvider>
+      <Provider store={store}>
+        <Component {...pageProps} />
+        <GlobalStyles />
+      </Provider>
+    </CookiesProvider>
   )
 }
 

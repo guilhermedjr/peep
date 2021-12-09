@@ -39,17 +39,15 @@ import {
 
 export function Login() { 
   const httpClient = new WingsHttpClient()
-  // let fakeUserId = '0181add2-1775-4f46-a9f0-072852c417f4'
+  const [cookies, setCookie] = useCookies(['peep-token', 'user-id'])
 
-  // const goToHome = () => {
-  //   // return <Redirect to={{
-  //   //   pathname: "/home"
-  //   // }} />
-  //   // history.push('/home')
-  //   Router.push(`home/${fakeUserId}`)
-  // }
-
- 
+  const goToHome = () => {
+    // return <Redirect to={{
+    //   pathname: "/home"
+    // }} />
+    // history.push('/home')
+    Router.push('home')
+  }
 
   const signIn = async(provider: LoginProvider) => {
     if (provider == 'Google') {
@@ -58,10 +56,13 @@ export function Login() {
           const credential = GoogleAuthProvider.credentialFromResult(result)
           const token = credential.accessToken
           auth.currentUser.getIdToken().then(
-            idToken => {
-              document.cookie = `peep_token=${idToken}`
+            idToken => {  
+              setCookie('peep-token', idToken)
               httpClient.SignInWithGoogle({ Token: token, IdToken: idToken }).then(
-                user => { alert('BLZ') }
+                user => { 
+                  setCookie('user-id', user.Id)
+                  goToHome() 
+                }
               )
             }
           )

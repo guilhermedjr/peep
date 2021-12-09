@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ptBR as resource } from '../../resource'
 
 import { 
@@ -23,17 +23,20 @@ type ProfileProps = {
   user: User
 }
 
-
 export function Profile(props: ProfileProps) {
   const [user, setUser] = useState<User>(props.user)
+
+  useEffect(() => {
+    setUser(props.user)
+  }, [props.user])
 
   return (
     <ProfileContainer>
       <Banner>
         <Avatar>
           <ProfileImage src={
-            typeof user.ProfileImagePath != 'undefined' 
-              ? user.ProfileImagePath
+            typeof user.ProfileImageUrl != 'undefined' 
+              ? user.ProfileImageUrl
               : 'defaultProfileImage.png'
             }/>
         </Avatar> 
@@ -60,7 +63,7 @@ export function Profile(props: ProfileProps) {
           </li>
           <li>
             <CakeIcon />
-            {resource.User.Info.BirthDate} 1 Jan 1800
+            {resource.User.Info.BirthDate} {user.BirthDate}
           </li>
         </ul>
 

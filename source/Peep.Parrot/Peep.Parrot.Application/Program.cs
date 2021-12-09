@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json.Serialization;
 using Microsoft.OpenApi.Models;
 using Peep.Parrot.Application.Consumers;
 using Peep.Parrot.Infrastructure.IoC;
@@ -25,6 +26,12 @@ builder.Services.AddHostedService<MessageConsumptionService>();
 builder.Services.AddSingleton<MessageConsumptionService>();
 
 builder.Services.AddControllers();
+
+builder.Services.AddMvc()
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+    });
 
 builder.Services.AddSwaggerGen(c =>
 {
