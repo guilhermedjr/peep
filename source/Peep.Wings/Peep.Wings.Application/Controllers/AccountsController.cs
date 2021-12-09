@@ -76,7 +76,7 @@ public class AccountsController : ControllerBase
         var userView = new ApplicationUserViewModel(peepUser.Id, peepUser.Email, peepUser.Name,
             peepUser.UserName, peepUser.BirthDate, peepUser.ProfileImageUrl, peepUser.JoinedAt);
 
-        Response.Cookies.Append("peep_token", loginDto.Token, new CookieOptions
+        Response.Cookies.Append("peep_token", loginDto.IdToken, new CookieOptions
         {
             HttpOnly = true,
             IsEssential = true,
