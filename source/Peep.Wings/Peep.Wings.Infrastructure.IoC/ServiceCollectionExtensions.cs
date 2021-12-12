@@ -16,7 +16,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection ConfigureServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDbContext<AppDbContext>(options =>
-            options.UseNpgsql(configuration.GetConnectionString("postgres")));
+            options.UseSqlServer(configuration.GetConnectionString("sqlServer")));
 
         services.AddScoped<IOAuthService<GoogleUserInfoDto>, GoogleService>();
         services.AddScoped<IPeepParrotService, PeepParrotService>();

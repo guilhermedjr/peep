@@ -46,7 +46,7 @@ public class AccountsController : ControllerBase
                 Email = userInfo.email,
                 Name = userInfo.name,
                 UserName = userInfo.email.Substring(0, userInfo.email.IndexOf("@")),
-                BirthDate = DateTime.MinValue,
+                BirthDate = new DateTime(2000, 01, 01),
                 ProfileImageUrl = userInfo.picture,
                 JoinedAt = DateTime.Now,
                 EmailConfirmed = true
@@ -61,7 +61,7 @@ public class AccountsController : ControllerBase
                 Email = userInfo.email,
                 Name = userInfo.name,
                 UserName = userInfo.email.Substring(0, userInfo.email.IndexOf("@")),
-                BirthDate = DateTime.MinValue,
+                BirthDate = new DateTime(2000, 01, 01),
                 ProfileImageUrl = userInfo.picture,
                 JoinedAt = peepUser.JoinedAt,
                 EmailConfirmed = true
