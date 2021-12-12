@@ -21,7 +21,6 @@ export default createGlobalStyle`
     margin: 0; 
     padding: 0;
     box-sizing: border-box;
-
     color: var(--white);
   }
   html, body, #root {
@@ -38,6 +37,10 @@ export default createGlobalStyle`
   }
   html {
     background: var(--primary);
+  }
+  @font-face {
+    font-family: 'Segoe UI';
+    src: url('/fonts/segoe-ui.otf') format('otf');
   }
 `
 

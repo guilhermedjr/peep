@@ -1,6 +1,6 @@
+import useTranslation from '../../hooks/useTranslation'
 import { PeepProps } from '../../contracts/components'
 import { EPeepSource } from '../../../logic/contracts/Entity'
-import { ptBR as resource } from '../../resource'
 
 import { useParams } from 'react-router-dom'
 
@@ -41,6 +41,7 @@ type ExpandedPeepProps = PeepProps & {
 }
 
 export function ExpandedPeep(props: ExpandedPeepProps) {
+  const { t } = useTranslation()
   let { peepUsername, peepId } = useParams() as { peepUsername: string, peepId: string }
 
   return (
@@ -120,19 +121,19 @@ export function ExpandedPeep(props: ExpandedPeepProps) {
           <InteractionsInfo>
             <div>
               <span>111</span>
-              <span>{resource.Peep.Interactions.Replies}</span>
+              <span>{t("Peep.Interactions.Replies")}</span>
             </div>
             <div>
               <span>111</span>
-              <span>{resource.Peep.Interactions.Reposts}</span>
+              <span>{t("Peep.Interactions.Reposts")}</span>
             </div>
             <div>
               <span>111</span>
-              <span>{resource.Peep.Interactions.Quotes}</span>
+              <span>{t("Peep.Interactions.Quotes")}</span>
             </div>
             <div>
               <span>111</span>
-              <span>{resource.Peep.Interactions.Likes}</span>
+              <span>{t("Peep.Interactions.Likes")}</span>
             </div>
           </InteractionsInfo>
 

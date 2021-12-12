@@ -1,45 +1,46 @@
-import { ptBR as resource } from '../presentation/resource'
+import useTranslation from './hooks/useTranslation'
 
 export const getMonthText = (monthNumber: number) => {
+  const { t } = useTranslation()
   let monthCode = String(monthNumber)
   let monthText: string
 
   switch (monthCode) {
     case '1':
-      monthText = resource.Peep.Publication.Month.January
+      monthText = t("Peep.Publication.Month.January")
       break
     case '2':
-      monthText = resource.Peep.Publication.Month.February
+      monthText = t("Peep.Publication.Month.February")
       break
     case '3':
-      monthText = resource.Peep.Publication.Month.March
+      monthText = t("Peep.Publication.Month.March")
       break
     case '4':
-      monthText = resource.Peep.Publication.Month.April
+      monthText = t("Peep.Publication.Month.April")
       break
     case '5':
-      monthText = resource.Peep.Publication.Month.May
+    monthText = t("Peep.Publication.Month.May")
       break
     case '6':
-      monthText = resource.Peep.Publication.Month.June
+    monthText = t("Peep.Publication.Month.June")
       break
     case '7':
-      monthText = resource.Peep.Publication.Month.July
+      monthText = t("Peep.Publication.Month.July")
       break
     case '8':
-      monthText = resource.Peep.Publication.Month.August
+      monthText = t("Peep.Publication.Month.August")
       break
     case '9':
-      monthText = resource.Peep.Publication.Month.September
+      monthText = t("Peep.Publication.Month.September")
       break
     case '10':
-      monthText = resource.Peep.Publication.Month.October
+      monthText = t("Peep.Publication.Month.October")
       break
     case '11':
-      monthText = resource.Peep.Publication.Month.November
+      monthText = t("Peep.Publication.Month.November")
       break
     case '12':
-      monthText = resource.Peep.Publication.Month.December
+      monthText = t("Peep.Publication.Month.December")
       break
   }
   return monthText

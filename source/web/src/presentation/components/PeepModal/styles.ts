@@ -12,66 +12,170 @@ import {
 
 import Button from '../Button'
 
-export const Container = styled.div`
+export const Modal = styled.div`
+  background-color: var(--primary);
+  border-radius: 16px;
+
+  margin-top: 2.5%;
+
+  flex-shrink: 1;
+  flex-grow: 1;
+  align-items: stretch;
+  flex-direction: column;
+
+  max-width: 48vw;
+  max-height: 90vh;
+
+  height: max-content;
+ 
+  overflow: hidden;
+`
+
+export const Header = styled.div`
+  position: sticky;
+  top: 0;
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  height: 53px;
+  font-size: 15px;
+  border-bottom: 1px solid var(--outline);
+`
+
+export const Body = styled.div`
+  overflow: auto;
+  width: 100%;
+
+  align-items: stretch;
   display: flex;
   flex-direction: row;
 
-  position: fixed;
-  margin: auto;
-  margin-top: 15px;
+  padding-top: 4px;
+  padding-bottom: 4px;
 
-  width: 40%;
-  min-height: 12rem;
-  max-height: 90%;
-
-  overflow: auto;
- 
-  z-index: 2;
+  padding-left: 16px;
+  padding-right: 16px;
 `
+
 export const ProfileSection = styled.div`
-  width: 5%;
-`
-export const PeepSection = styled.div`
-  width: 95%;
+  padding-top: 4px;
+  margin-right: 12px;
+
+  width: 10%;
 
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  flex-basis: 48px;
+`
 
-  > div:first-child {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 15px; 
-  }
-  
-  > div:nth-child(2) {
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    justify-content: space-between;
-  }
+export const Avatar = styled.div`
+  height: 48px;
+  width: 100%;
+  display: block;
+  border-radius: 40px;
+`
+
+export const ProfileImage = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: 40px;
+`
+
+export const PeepSection = styled.div`
+  padding-top: 4px;
+
+  position: static;
+  width: 90%;
+
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  /* background: pink; */
 `
 
 export const Description = styled.textarea`
- min-height: 20px;
- height: auto;
+  align-items: center;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  outline: 0;
+  resize: none;
+
+  padding-top: 12px;
+  padding-bottom: 12px;
+
+  flex-shrink: 1;
+  flex-grow: 1;
+
+  font-size: 20px;
+  font-family: 'Segoe UI', -apple-system, Roboto, Helvetica, Arial, sans-serif;
+  line-height: 24px;
+
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  overflow: auto;
+
+  color: rgba(217, 217 ,217, 1.00);
+
+  /* background: blue; */
+
+  max-height: 720px;
+  min-height: 120px;
+  width: 100%;
+  position: relative;
+`
+
+export const ReplyRestriction = styled.div`
+  border-bottom: 1px solid var(--outline);
+`
+
+export const PeepFooter = styled.div`
+  align-items: stretch;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  flex-wrap: wrap;
+
+  margin-left: 2px;
+  margin-right: 2px;
 `
 
 export const ContentOptions = styled.div`
-  padding: 1rem;
+  margin-top: 12px;
+
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+
 `
 
 export const AddPeepButton = styled(Button)`
-  padding-top: 6px 17px;
+  margin-top: 12px;
+
+  min-width: 36px;
+  min-height: 36px;
+
+  padding-left: 16px;
+  padding-right: 16px;
+
+  /* opacity: 0.5; */
+
+
+
+  /* padding-top: 6px 17px; */
 `
 
 const iconCSS = css`
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
 
   > svg {
     fill: var(--peep-dark-hover);
+    color: var(--peep-dark-hover);
   }
 `
 

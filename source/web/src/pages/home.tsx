@@ -16,15 +16,17 @@ export default function Home() {
       <title>Peep</title>
     </Head>
     <body>
-      <Container>
+      <Container style={{
+        position: isModalOpen ? 'sticky' : 'absolute'
+      }}>
         <Wrapper>
           <MenuBar />
           <Main />
           <SideBar />
-          <PeepModal isVisible={isModalOpen} />
         </Wrapper>
       </Container>
+      <PeepModal isVisible={isModalOpen} />
     </body>
     </>
-)
+  )
 }

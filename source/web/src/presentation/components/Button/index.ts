@@ -18,7 +18,12 @@ export default styled.button<ButtonProps>`
   cursor: pointer;
   outline: 0;
 
-  &:hover {
+  &:disabled {
+    opacity: 0.5;
+    cursor: auto;
+  }
+
+  &:not([disabled]):hover {
     background: ${props => 
                   props.outlined 
                     ? 'var(--peep-light-hover)' 

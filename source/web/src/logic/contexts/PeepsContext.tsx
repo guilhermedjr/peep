@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 import { Peep } from '../contracts/Entity'
-import { IParrotHttpClient, HttpStatusCode } from '../contracts/HttpClient'
+import { IHttpClient, HttpStatusCode } from '../contracts/HttpClient'
 
 type PeepsContextData = {
   isModalOpen: boolean,
@@ -12,13 +12,13 @@ type PeepsContextData = {
 
 type PeepsProviderProps = {
   children: ReactNode
-  parrotHttpClient: IParrotHttpClient
+  parrotHttpClient: IHttpClient
 }
 
 export const PeepsContext = createContext({} as PeepsContextData)
 
 export default function PeepsProvider({parrotHttpClient, children}: PeepsProviderProps) {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(true)
   const [peepToEdit, setPeepToEdit] = useState<Peep>()
   
   const openModal = (): void => {

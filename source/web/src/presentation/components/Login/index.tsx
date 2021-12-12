@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useState, useEffect } from 'react'
 import { useCookies } from 'react-cookie'
 import Router from 'next/router'
-import { ptBR as resource } from '../../resource'
+import useTranslation from '../../hooks/useTranslation'
 import WingsHttpClient from '../../../logic/services/WingsHttpClient'
 import { LoginProvider } from '../../../logic/contracts/Entity'
 import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth'
@@ -38,6 +38,7 @@ import {
 } from './styles'
 
 export function Login() { 
+  const { t } = useTranslation()
   const httpClient = new WingsHttpClient()
   const [cookies, setCookie] = useCookies(['peep-token', 'user-id'])
 
@@ -76,16 +77,16 @@ export function Login() {
       <Cover />
       <LoginArea>
         <Logo />
-        <Slogan>{resource.Login.Slogan}</Slogan>
-        <LoginMessage>{resource.Login.Message}</LoginMessage>
+        <Slogan>{t("Login.Slogan")}</Slogan>
+        <LoginMessage>{t("Login.Message")}</LoginMessage>
         <ButtonsArea>
           <SocialLoginButton onClick={() => signIn('Google')}>
             <SocialLoginIcon 
               src={'google.svg'} 
-              title={resource.Login.SocialAccount.Google.SignIn} 
-              alt={resource.Login.SocialAccount.Google.SignIn} 
+              title={t("Login.SocialAccount.Google.SignIn")} 
+              alt={t("Login.SocialAccount.Google.SignIn")} 
             />
-            <p>{resource.Login.SocialAccount.Google.SignIn}</p>
+            <p>{t("Login.SocialAccount.Google.SignIn")}</p>
           </SocialLoginButton>
         </ButtonsArea>
       </LoginArea>

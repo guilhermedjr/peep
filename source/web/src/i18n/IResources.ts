@@ -1,8 +1,8 @@
-type Resource = {
+export type IResource = {
   PageTitles: {
     Login: string,
     Home: string
-  }
+  },
   Login: {
     Slogan: string,
     Message: string,
@@ -91,6 +91,12 @@ type Resource = {
       Likes: string
     }
   }
+  PeepModal: {
+    Placeholder: string
+  }
 }
 
-export default Resource 
+export type IResources = {
+  ptBR: IResource,
+  enUS: IResource
+}

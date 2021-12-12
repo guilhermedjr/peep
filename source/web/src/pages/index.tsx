@@ -1,16 +1,15 @@
 import Head from 'next/head'
-import { useContext } from 'react'
+import useTranslation from '../presentation/hooks/useTranslation'
 import { Container } from '../presentation/styles/main'
 import { Login } from '../presentation/components/Login'
 import { LoginContext } from '../presentation/contexts/LoginContext'
-import { ptBR as resource } from '../presentation/resource'
 
 export default function Index() {
-  const { isSignUpModalOpen } = useContext(LoginContext)
+  const { t } = useTranslation()
   return (
     <>
       <Head>
-        <title>{resource.PageTitles.Login}</title>
+        <title>{t("PageTitles.Login")}</title>
       </Head>
       <body>
         <Container>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { ptBR as resource } from '../../resource'
+import useTranslation from '../../hooks/useTranslation'
 
 import { 
   ProfileContainer, 
@@ -24,6 +24,7 @@ type ProfileProps = {
 }
 
 export function Profile(props: ProfileProps) {
+  const { t } = useTranslation()
   const [user, setUser] = useState<User>(props.user)
 
   useEffect(() => {
@@ -63,13 +64,13 @@ export function Profile(props: ProfileProps) {
           </li>
           <li>
             <CakeIcon />
-            {resource.User.Info.BirthDate} {user.BirthDate}
+            {t("User.Info.BirthDate")} {user.BirthDate}
           </li>
         </ul>
 
         <Followage>
-          <span><strong>0</strong> {resource.User.Connections.Following}</span>
-          <span><strong>0</strong> {resource.User.Connections.Followers}</span>
+          <span><strong>0</strong> {t("User.Connections.Following")}</span>
+          <span><strong>0</strong> {t("resource.User.Connections.Followers")}</span>
         </Followage>
       </ProfileData>
 
