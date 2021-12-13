@@ -1,4 +1,5 @@
-﻿namespace Peep.Parrot.Shared.Entities;
+﻿using System;
+namespace Peep.Parrot.Shared.Entities;
 
 public abstract class Entity
 {

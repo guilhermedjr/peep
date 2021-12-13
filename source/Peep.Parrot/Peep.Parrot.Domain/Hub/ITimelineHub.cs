@@ -2,7 +2,7 @@
 
 public interface ITimelineHub
 {
-    Task StartTimelineLive(User user);
-    Task StopTimelineLive(User user);
+    Task StartTimelineLive(ApplicationUser user);
+    Task StopTimelineLive(ApplicationUser user);
 }
 

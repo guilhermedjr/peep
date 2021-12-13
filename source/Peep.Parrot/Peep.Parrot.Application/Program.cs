@@ -25,17 +25,20 @@ builder.Services.AddHostedService<MessageConsumptionService>();
 
 builder.Services.AddSingleton<MessageConsumptionService>();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options => options.UseDateOnlyTimeOnlyStringConverters())
+                .AddJsonOptions(options => options.UseDateOnlyTimeOnlyStringConverters());
 
-builder.Services.AddMvc()
+/*builder.Services.AddMvc()
     .AddNewtonsoftJson(options =>
     {
         options.SerializerSettings.ContractResolver = new DefaultContractResolver();
-    });
+    });*/
 
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Peep Parrot ", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Peep.Wings.Application", Version = "v1" });
+    c.UseDateOnlyTimeOnlyStringConverters();
+
 });
 
 var app = builder.Build();

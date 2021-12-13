@@ -3,9 +3,9 @@
 public class Followship
 {
     public readonly Guid FollowerId;
-    public readonly User Follower;
+    public readonly ApplicationUser Follower;
     public readonly Guid FollowedId;
-    public readonly User Followed;
+    public readonly ApplicationUser Followed;
     public bool Accepted { get; private set; }
 
     public void Accept() => Accepted = true;

@@ -12,6 +12,6 @@ public class AddNestDto
     public string Description { get; set; }
 
     [Required]
-    public List<User> Members { get; set; }
+    public List<ApplicationUser> Members { get; set; }
 }
 

@@ -7,18 +7,25 @@ public class AppDbContext : DbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-    public DbSet<User> User { get; set; }
+    public DbSet<ApplicationUser> User { get; set; }
     public DbSet<Domain.Entities.Peep> Peep { get; set; }
     public DbSet<Followship> Followship { get; set; }
     public DbSet<Mute> Mute { get; set; }
     public DbSet<Block> Block { get; set; }
 
+    /*protected override void ConfigureConventions(ModelConfigurationBuilder builder)
+    {
+        builder.Properties<DateOnly>()
+            .HaveConversion<DateOnlyConverter>()
+            .HaveColumnType("date");
+    }*/
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        builder.Entity<User>()
+        /*builder.Entity<ApplicationUser>()
             .HasKey(u => u.Id);
 
-        builder.Entity<User>()
+        builder.Entity<ApplicationUser>()
             .HasMany(u => u.Peeps)
             .WithOne(p => p.User);
 
@@ -48,7 +55,7 @@ public class AppDbContext : DbContext
 
         builder.Entity<Domain.Entities.Peep>()
             .Property(p => p.Description)
-                .HasMaxLength(280);    
+                .HasMaxLength(280); */    
     }
 }
 

@@ -3,8 +3,8 @@
 public class Mute
 {
     public readonly Guid MuterId;
-    public readonly User Muter;
+    public readonly ApplicationUser Muter;
     public readonly Guid MutedId;
-    public readonly User Muted;
+    public readonly ApplicationUser Muted;
 }
 

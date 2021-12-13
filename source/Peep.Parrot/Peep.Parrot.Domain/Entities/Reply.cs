@@ -7,7 +7,7 @@ public class Reply : Peep
     /// </summary>
     private Reply() { }
 
-    public Reply(User user, string description, EPeepSource source,
+    public Reply(ApplicationUser user, string description, EPeepSource source,
        EPeepReplyRestriction replyRestriction, Peep repliedPeep)
     : base(user, description, source, replyRestriction)
 

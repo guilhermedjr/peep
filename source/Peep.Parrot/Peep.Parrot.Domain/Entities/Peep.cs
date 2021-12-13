@@ -3,8 +3,8 @@
 public class Peep : Entity
 {
     private readonly IList<Quote> _quotes;
-    private readonly IList<User> _rps;
-    private readonly IList<User> _likes;
+    private readonly IList<ApplicationUser> _rps;
+    private readonly IList<ApplicationUser> _likes;
     private readonly IList<Reply> _replies;
 
     /// <summary>
@@ -12,29 +12,30 @@ public class Peep : Entity
     /// </summary>
     protected Peep() { }
 
-    public Peep(User user, string description, 
+    public Peep(ApplicationUser applicationUser, string textContent, 
         EPeepSource source, EPeepReplyRestriction replyRestriction)
     {
-        User = user;
-        Description = description;
-        PublicationDateTime = DateTime.Now;
+        ApplicationUser = applicationUser;
+        TextContent = textContent;
+        //PublicationDate = DateTime;
         Source = source;
         ReplyRestriction = replyRestriction;
         _quotes = new List<Quote>();
-        _rps = new List<User>();
-        _likes = new List<User>();
+        _rps = new List<ApplicationUser>();
+        _likes = new List<ApplicationUser>();
         _replies = new List<Reply>();
     }
 
-    public readonly User User;
-    public readonly Guid UserId;
-    public readonly DateTime PublicationDateTime;
-    public string Description { get; private set; }
+    public readonly ApplicationUser ApplicationUser;
+    public readonly Guid ApplicationUserId;
+    public readonly DateOnly PublicationDate;
+    public readonly TimeOnly PublicationTime;
+    public string TextContent { get; private set; }
     public readonly EPeepSource Source;
     public EPeepReplyRestriction ReplyRestriction { get; private set; }
     public IReadOnlyCollection<Quote> Quotes { get { return _quotes.ToArray(); } }
-    public IReadOnlyCollection<User> Rps { get { return _rps.ToArray(); } }
-    public IReadOnlyCollection<User> Likes { get { return _likes.ToArray(); } }
+    public IReadOnlyCollection<ApplicationUser> Rps { get { return _rps.ToArray(); } }
+    public IReadOnlyCollection<ApplicationUser> Likes { get { return _likes.ToArray(); } }
     public IReadOnlyCollection<Reply> Replies { get { return _replies.ToArray(); } }
 
     public void ChangeReplyRestriction(EPeepReplyRestriction replyRestriction) =>
@@ -46,17 +47,17 @@ public class Peep : Entity
     public void DeleteQuote(Quote quote) =>
         _quotes.Remove(quote);
 
-    public void AddRepeep(User user) =>
-        _rps.Add(user);
+    public void AddRepeep(ApplicationUser ApplicationUser) =>
+        _rps.Add(ApplicationUser);
 
-    public void RemoveRepeep(User user) =>
-        _rps.Remove(user);
+    public void RemoveRepeep(ApplicationUser ApplicationUser) =>
+        _rps.Remove(ApplicationUser);
 
-    public void AddLike(User user) =>
-        _likes.Add(user);
+    public void AddLike(ApplicationUser ApplicationUser) =>
+        _likes.Add(ApplicationUser);
 
-    public void RemoveLike(User user) =>
-        _likes.Remove(user);
+    public void RemoveLike(ApplicationUser ApplicationUser) =>
+        _likes.Remove(ApplicationUser);
 
     public void AddReply(Reply reply) =>
         _replies.Add(reply);

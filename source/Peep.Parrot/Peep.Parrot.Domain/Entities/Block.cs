@@ -3,8 +3,8 @@
 public class Block
 {
     public readonly Guid BlockerId;
-    public readonly User Blocker;
+    public readonly ApplicationUser Blocker;
     public readonly Guid BlockedId;
-    public readonly User Blocked;
+    public readonly ApplicationUser Blocked;
 }
 

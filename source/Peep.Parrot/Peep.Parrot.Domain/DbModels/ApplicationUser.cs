@@ -1,7 +1,7 @@
 ﻿namespace Peep.Parrot.Domain.Entities;
 
 /* Attributes created for correct mapping of data to SQL databases */
-public partial class User
+public partial class ApplicationUser
 {
     private readonly IList<Followship> _followships;
     private readonly IList<Mute> _mutes;
@@ -10,7 +10,7 @@ public partial class User
     /// <summary>
     /// ORM constructor
     /// </summary>
-    private User() { }
+    private ApplicationUser() { }
 
     public IReadOnlyCollection<Followship> Followships { get { return _followships.ToArray(); } }
     public IReadOnlyCollection<Mute> Mutes { get { return _mutes.ToArray(); } }

@@ -7,7 +7,7 @@ public class Quote : Peep
     /// </summary>
     private Quote() { }
 
-    public Quote(User user, string description, EPeepSource source, 
+    public Quote(ApplicationUser user, string description, EPeepSource source, 
         EPeepReplyRestriction replyRestriction, Peep quotedPeep) 
     : base(user, description, source, replyRestriction)
 
