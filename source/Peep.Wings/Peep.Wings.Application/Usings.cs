@@ -12,4 +12,5 @@ global using RabbitMQ.Client;
 global using Peep.Wings.Domain.Dtos;
 global using Peep.Wings.Domain.Entities;
 global using Peep.Wings.Domain.Services;
+global using Peep.Wings.Infrastructure.Data;
 global using Peep.Wings.Application.ViewModels;

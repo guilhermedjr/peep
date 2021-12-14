@@ -1,9 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Azure.Cosmos;
 using Peep.Wings.Domain.Services;
 using Peep.Wings.Domain.Dtos;
 using Peep.Wings.Infrastructure.Data;
@@ -21,6 +23,9 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IOAuthService<GoogleUserInfoDto>, GoogleService>();
         services.AddScoped<IPeepParrotService, PeepParrotService>();
         services.AddScoped<IPeepStorkService, PeepStorkService>();
+
+        services.AddSingleton<CosmosDbConnection>(InitializeCosmosClientInstanceAsync(
+            configuration.GetSection("CosmosDb")).GetAwaiter().GetResult());
 
         return services;
     }
@@ -64,6 +69,32 @@ public static class ServiceCollectionExtensions
         });
 
         return services;
+    }
+
+    /// <summary>
+    /// Creates a Cosmos DB database and a container with the specified partition key. 
+    /// </summary>
+    /// <returns></returns>
+    private static async Task<CosmosDbConnection> InitializeCosmosClientInstanceAsync(IConfigurationSection configurationSection)
+    {
+        string databaseName = configurationSection.GetSection("DatabaseName").Value;
+        string containerName = configurationSection.GetSection("ContainerName").Value;
+        string account = configurationSection.GetSection("Account").Value;
+        string key = configurationSection.GetSection("Key").Value;
+
+        CosmosClientOptions clientOptions = new()
+        {
+            SerializerOptions = new CosmosSerializationOptions
+            { PropertyNamingPolicy = CosmosPropertyNamingPolicy.CamelCase }
+        };
+
+        CosmosClient client = new(account, key, clientOptions);
+        CosmosDbConnection cosmosDbService = new(client, databaseName, containerName);
+
+        DatabaseResponse database = await client.CreateDatabaseIfNotExistsAsync(databaseName);
+        await database.Database.CreateContainerIfNotExistsAsync(containerName, "/id");
+
+        return cosmosDbService;
     }
 }
 

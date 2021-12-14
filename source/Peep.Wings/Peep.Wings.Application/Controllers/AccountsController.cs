@@ -7,6 +7,7 @@ namespace Peep.Wings.Application.Controllers;
 public class AccountsController : ControllerBase
 {
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly CosmosDbConnection _cosmosDbConnection;
 
     private readonly ConnectionFactory _factory;
     private const string QUEUE_NAME = "wings_messages";
@@ -17,6 +18,7 @@ public class AccountsController : ControllerBase
 
     public AccountsController(
         UserManager<ApplicationUser> userManager,
+        CosmosDbConnection cosmosDbConnection,
         IOAuthService<GoogleUserInfoDto> googleService,
         IPeepParrotService parrotService,
         IPeepStorkService storkService) 
@@ -27,6 +29,7 @@ public class AccountsController : ControllerBase
         };
 
         _userManager = userManager;
+        _cosmosDbConnection = cosmosDbConnection;
         _googleService = googleService;
         _parrotService = parrotService;
         _storkService = storkService;
@@ -53,6 +56,7 @@ public class AccountsController : ControllerBase
             };
 
             await _userManager.CreateAsync(user);
+            await _cosmosDbConnection.AddItemAsync<ApplicationUser>(user);
         }
         else
         {
@@ -69,6 +73,7 @@ public class AccountsController : ControllerBase
 
             await _userManager.UpdateSecurityStampAsync(user);
             await _userManager.UpdateAsync(user);
+            await _cosmosDbConnection.UpdateItemAsync<ApplicationUser>(user.Id, user);
         }
 
         peepUser = await _userManager.FindByEmailAsync(userInfo.email);

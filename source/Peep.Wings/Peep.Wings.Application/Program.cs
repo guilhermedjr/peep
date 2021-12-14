@@ -34,7 +34,7 @@ builder.Services.AddMvc()
 
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Peep.Wings.Application", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Peep.Parrot.Application", Version = "v1" });
 });
 
 builder.Services
