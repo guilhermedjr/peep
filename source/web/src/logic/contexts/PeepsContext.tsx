@@ -1,23 +1,24 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
-import { Peep } from '../contracts/Entity'
-import { IHttpClient, HttpStatusCode } from '../contracts/HttpClient'
+import { Peep, AddPeepDto } from '../contracts/Entity'
+import { HttpStatusCode } from '../contracts/HttpClient'
+import ParrotHttpClient from '../services/ParrotHttpClient'
 
 type PeepsContextData = {
   isModalOpen: boolean,
   openModal: () => void,
   closeModal: () => void,
-  addPeep: (peep: Peep) => Promise<boolean>
+  addPeep: (addPeepDto: AddPeepDto) => Promise<boolean>
   editPeep: (peep: Peep) => Promise<boolean>
 }
 
 type PeepsProviderProps = {
   children: ReactNode
-  parrotHttpClient: IHttpClient
 }
 
 export const PeepsContext = createContext({} as PeepsContextData)
 
-export default function PeepsProvider({parrotHttpClient, children}: PeepsProviderProps) {
+export default function PeepsProvider({children}: PeepsProviderProps) {
+  const httpClient = new ParrotHttpClient()
   const [isModalOpen, setIsModalOpen] = useState<boolean>(true)
   const [peepToEdit, setPeepToEdit] = useState<Peep>()
   
@@ -29,13 +30,13 @@ export default function PeepsProvider({parrotHttpClient, children}: PeepsProvide
     setIsModalOpen(false)
   }
 
-  async function addPeep(peep: Peep): Promise<boolean> {
-    const response = await parrotHttpClient.httpPost('peeps', peep)
-    return response.status == HttpStatusCode.CREATED
+  async function addPeep(addPeepDto: AddPeepDto): Promise<boolean> {
+    const response = await httpClient.httpPost('api/Peeps', addPeepDto)
+    return response.status == HttpStatusCode.OK
   }
 
   async function editPeep(peep: Peep): Promise<boolean> {
-    const response = await parrotHttpClient.httpPost('peeps', peep)
+    const response = await httpClient.httpPut('api/Peeps', peep)
     return response.status == HttpStatusCode.NOCONTENT
   }
 
@@ -49,7 +50,7 @@ export default function PeepsProvider({parrotHttpClient, children}: PeepsProvide
         editPeep
       }}
     >
-      children
+      { children }
     </PeepsContext.Provider>
   )
 }

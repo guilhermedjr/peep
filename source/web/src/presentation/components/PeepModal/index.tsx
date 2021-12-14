@@ -1,7 +1,9 @@
 import * as React from 'react'
 import { useContext, useState, useEffect } from 'react'
 import useTranslation from '../../hooks/useTranslation'
+import { getCookieFromKeyName } from '../../../logic/utils'
 import { PeepsContext } from '../../../logic/contexts/PeepsContext'
+import { AddPeepDto } from '../../../logic/contracts/Entity'
 
 import {
   Modal,
@@ -13,18 +15,10 @@ import {
   PeepSection,
   Description,
   ReplyRestriction,
-  // ReplyRestrictionOptions,
-  EveryoneIcon,
-  FollowedIcon,
-  MentionedIcon,
   PeepFooter,
   ContentOptions,
-  MediaIcon,
-  GifIcon,
-  PollIcon,
-  EmojiIcon,
-  ScheduleIcon,
-  AddPeepButton
+  RightSide,
+  SendButton
 } from './styles'
 
 import Container from '../Container'
@@ -43,9 +37,20 @@ export function PeepModal(props: PeepModalProps) {
   }
 
   const sendPeep = () => {
-    alert("caralho!")
-    closeModal()
-    clear()
+    let peepDto: AddPeepDto = {
+      UserId: getCookieFromKeyName('user-id'),
+      TextContent: textContent
+    }
+    addPeep(peepDto).then(
+      ok => {
+        if (ok) {
+          closeModal()
+          clear()
+        } else {
+          alert('Houve um erro ao tentar salvar o Peep. Tente novamente')
+        }
+      }
+    )
   }
 
   const clear = () => {
@@ -72,18 +77,24 @@ export function PeepModal(props: PeepModalProps) {
             <ReplyRestriction />
             <PeepFooter>
               <ContentOptions>
-                <MediaIcon />
+                {/* <MediaIcon />
                 <GifIcon />
                 <PollIcon />
                 <EmojiIcon />
-                <ScheduleIcon />
+                <ScheduleIcon /> */}
               </ContentOptions>
-              <AddPeepButton 
-                disabled={textContent == ""}
-                onClick={sendPeep}
-              >
-                Peep
-              </AddPeepButton>
+              <RightSide>
+                {/* <CharacterCounterContainer>
+                  <CharacterCounter />
+                </CharacterCounterContainer> */}
+                {/* <ThreadedPeepButton /> */}
+                <SendButton 
+                  disabled={textContent == ""}
+                  onClick={() => sendPeep()}
+                >
+                  Peep
+                </SendButton>
+              </RightSide>
             </PeepFooter>
           </PeepSection>
         </Body>

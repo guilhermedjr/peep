@@ -6,7 +6,7 @@ export default function useTranslation() {
   const { locale } = useContext(i18nContext)    
 
   const t = (key: string) => {
-    return Resources[locale][key] || Resources[defaultLocale][key] || ""
+    return Resources[locale.replace('-', '')][key] || Resources[defaultLocale.replace('-', '')][key] || ""
   }
 
   return { t, locale }

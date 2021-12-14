@@ -73,6 +73,15 @@ export enum EPeepReplyRestriction {
   Mentioned,
 }
 
+export interface AddPeepDto {
+  UserId: string
+  TextContent: string
+  Source?: EPeepSource
+  ReplyRestriction?: EPeepReplyRestriction
+  QuotedPeepId?: string
+  RepliedPeepId?: string
+}
+
 export interface Peep {
   readonly PeepId?: string
   User: User

@@ -1,12 +1,14 @@
 import { AxiosResponse } from 'axios'
 import AxiosInstances from './config'
 import { HttpResponse, IHttpClient } from '../contracts/HttpClient'
+import { getCookieFromKeyName } from '../utils'
 
 export default class ParrotHttpClient implements IHttpClient {
   private readonly baseUrl = AxiosInstances.Parrot
   private readonly headers = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
+    // 'Authorization': `Bearer ${getCookieFromKeyName('peep-token')}` 
   }
 
   constructor() {}
@@ -20,7 +22,7 @@ export default class ParrotHttpClient implements IHttpClient {
       })
     } catch (error) {
       console.log(error)
-      response = error.response
+      return;
     }
 
     return {
@@ -34,12 +36,12 @@ export default class ParrotHttpClient implements IHttpClient {
 
     try {
       response = await this.baseUrl.post(url, {
-        body: typeof body != 'undefined' ? body : null,
+        body: typeof body != 'undefined' ? JSON.stringify(body) : null,
         headers: this.headers,
       })
     } catch (error) {
       console.log(error)
-      response = error.response
+      return;
     }
 
     return {
@@ -58,7 +60,7 @@ export default class ParrotHttpClient implements IHttpClient {
       })
     } catch (error) {
       console.log(error)
-      response = error.response
+      return;
     }
 
     return {

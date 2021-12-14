@@ -18,7 +18,7 @@ export default function I18nProvider({children}: i18nProviderProps) {
   const [locale, setLocale] = useState<string>(navigator.language)
 
   useEffect(() => {
-    if (['en-US', 'pt-BR'].includes(navigator.language)) {
+    if (locales.includes(navigator.language)) {
       setLocale(navigator.language)
     } else {
       setLocale(defaultLocale)
@@ -34,7 +34,7 @@ export default function I18nProvider({children}: i18nProviderProps) {
         changeLocale
       }}
     >
-      children
+      { children }
     </i18nContext.Provider>
   )
 }

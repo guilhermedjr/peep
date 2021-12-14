@@ -23,7 +23,7 @@ export const Modal = styled.div`
   align-items: stretch;
   flex-direction: column;
 
-  max-width: 48vw;
+  max-width: 44vw;
   max-height: 90vh;
 
   height: max-content;
@@ -59,6 +59,7 @@ export const Body = styled.div`
 
 export const ProfileSection = styled.div`
   padding-top: 4px;
+  padding-bottom: 4px;
   margin-right: 12px;
 
   width: 10%;
@@ -83,6 +84,7 @@ export const ProfileImage = styled.img`
 
 export const PeepSection = styled.div`
   padding-top: 4px;
+  padding-bottom: 4px;
 
   position: static;
   width: 90%;
@@ -91,8 +93,6 @@ export const PeepSection = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  /* background: pink; */
 `
 
 export const Description = styled.textarea`
@@ -102,7 +102,9 @@ export const Description = styled.textarea`
   justify-content: space-between;
 
   outline: 0;
+
   resize: none;
+  overflow-y: hidden;
 
   padding-top: 12px;
   padding-bottom: 12px;
@@ -116,14 +118,12 @@ export const Description = styled.textarea`
 
   white-space: pre-wrap;
   overflow-wrap: break-word;
-  overflow: auto;
 
   color: rgba(217, 217 ,217, 1.00);
 
-  /* background: blue; */
-
   max-height: 720px;
-  min-height: 120px;
+  min-height: 130px;
+  height: auto;
   width: 100%;
   position: relative;
 `
@@ -150,23 +150,56 @@ export const ContentOptions = styled.div`
   align-items: center;
   display: flex;
   flex-direction: row;
-
 `
 
-export const AddPeepButton = styled(Button)`
+export const RightSide = styled.div`
   margin-top: 12px;
+  width: 35%;
+  float: right;
 
-  min-width: 36px;
-  min-height: 36px;
+  padding: 4px;
+
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+`
+
+export const CharacterCounterContainer = styled.div`
+  width: 30%;
+
+  align-items: center;
+  justify-content: center;
+
+  border-right: 1px solid var(--outline);
+`
+
+export const CharacterCounter = styled.div`
+  /* width: 22px;
+  height: 22px; */
+
+  width: 80%;
+  height: 80%;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 80px;
+
+  border: 1px solid red;
+`
+
+export const SendButton = styled(Button)`
+  width: 42.85%;
+  height: 35px;
+
+  float: right;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   padding-left: 16px;
   padding-right: 16px;
-
-  /* opacity: 0.5; */
-
-
-
-  /* padding-top: 6px 17px; */
 `
 
 const iconCSS = css`

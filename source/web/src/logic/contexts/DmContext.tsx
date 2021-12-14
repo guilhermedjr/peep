@@ -63,7 +63,7 @@ export default function DmProvider({ children }: DmProviderProps) {
         sendMessage,
       }}
     >
-      children
+      { children }
     </DmContext.Provider>
   )
 }
