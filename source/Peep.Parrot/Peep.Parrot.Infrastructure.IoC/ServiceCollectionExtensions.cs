@@ -5,6 +5,9 @@ using Microsoft.Azure.Cosmos;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Peep.Parrot.Domain.Repository;
+using Peep.Parrot.Domain.Entities;
+using Peep.Parrot.Domain.Handler;
+using Peep.Parrot.Handlers;
 using Peep.Parrot.Infrastructure.Data;
 using Peep.Parrot.Repositories;
 
@@ -17,11 +20,12 @@ public static class ServiceCollectionExtensions
         services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("sqlServer")));
 
-        /*services.AddScoped<IUserInfoRepository, UserInfoRepository>();
-        services.AddScoped<IUsersConnectionsRepository, UsersConnectionsRepository>();
-        services.AddScoped<IUserRestrictionsRepository, UserRestrictionsRepository>();*/
         services.AddScoped<IPeepsRepository, PeepsRepository>();
-        /*services.AddScoped<INestsRepository, NestsRepository>();*/
+        services.AddScoped<ISearchRepository<ApplicationUser>, UsersSearchRepository>();
+
+        services.AddScoped<ISearchHandler, SearchHandler>();
+
+        /*services.AddScoped<IUserInfoRepository, UserInfoRepository>();*/
 
         services.AddSingleton<CosmosDbConnection>(InitializeCosmosClientInstanceAsync(
             configuration.GetSection("CosmosDb")).GetAwaiter().GetResult());

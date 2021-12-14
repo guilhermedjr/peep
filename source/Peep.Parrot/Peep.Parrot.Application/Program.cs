@@ -5,7 +5,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using Peep.Parrot.Application.Consumers;
 using Peep.Parrot.Infrastructure.IoC;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,10 +24,6 @@ builder.Services.AddCors(options =>
 
 builder.Services.ConfigureServices(builder.Configuration)
     .ConfigureAuthentication(builder.Configuration);
-
-builder.Services.AddHostedService<MessageConsumptionService>();
-
-builder.Services.AddSingleton<MessageConsumptionService>();
 
 builder.Services.AddControllers(options => options.UseDateOnlyTimeOnlyStringConverters())
                 .AddJsonOptions(options => options.UseDateOnlyTimeOnlyStringConverters());
