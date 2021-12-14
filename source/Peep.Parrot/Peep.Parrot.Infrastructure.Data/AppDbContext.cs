@@ -7,11 +7,11 @@ public class AppDbContext : DbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-    public DbSet<ApplicationUser> User { get; set; }
+    public DbSet<ApplicationUser> AspNetUsers { get; set; }
     public DbSet<Domain.Entities.Peep> Peep { get; set; }
-    public DbSet<Followship> Followship { get; set; }
-    public DbSet<Mute> Mute { get; set; }
-    public DbSet<Block> Block { get; set; }
+    public DbSet<Followship> Followships { get; set; }
+    public DbSet<Mute> Mutes { get; set; }
+    public DbSet<Block> Blocks { get; set; }
 
     /*protected override void ConfigureConventions(ModelConfigurationBuilder builder)
     {
@@ -22,7 +22,7 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        /*builder.Entity<ApplicationUser>()
+        builder.Entity<ApplicationUser>()
             .HasKey(u => u.Id);
 
         builder.Entity<ApplicationUser>()
@@ -54,8 +54,8 @@ public class AppDbContext : DbContext
             .HasForeignKey(b => b.BlockerId);
 
         builder.Entity<Domain.Entities.Peep>()
-            .Property(p => p.Description)
-                .HasMaxLength(280); */    
+            .HasKey(p => p.Id);
+       
     }
 }
 

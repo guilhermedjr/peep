@@ -1,4 +1,4 @@
-﻿using Peep.Parrot.Domain.ViewModels;
+﻿/*using Peep.Parrot.Domain.ViewModels;
 
 namespace Peep.Parrot.Application.Controllers;
 
@@ -6,14 +6,11 @@ namespace Peep.Parrot.Application.Controllers;
 [ApiController]
 public class UsersInfoController : ControllerBase
 {
-    private readonly IDistributedCache _cache;
     private readonly IUserInfoRepository _userInfoRepository;
 
     public UsersInfoController(
-        IDistributedCache cache,
         IUserInfoRepository userInfoRepository)
     {
-        this._cache = cache;
         this._userInfoRepository = userInfoRepository;
     }
 
@@ -25,7 +22,7 @@ public class UsersInfoController : ControllerBase
             return BadRequest(new { Message = "User Id not specified" });
 
         var cacheKey = $"cache_user:{id}";
-        var cache = await _cache.GetStringAsync(cacheKey);
+        //var cache = await _cache.GetStringAsync(cacheKey);
         UserInfoViewModel userInfo;
 
         if (cache != null)
@@ -35,7 +32,7 @@ public class UsersInfoController : ControllerBase
         else
         {
             userInfo = await _userInfoRepository.GetUserInfo(id);
-            cache = JsonSerializer.Serialize<UserInfoViewModel>(userInfo);
+            //cache = JsonSerializer.Serialize<UserInfoViewModel>(userInfo);
             await _cache.SetStringAsync(cacheKey, cache);
         }
 
@@ -97,5 +94,5 @@ public class UsersInfoController : ControllerBase
         return BadRequest();
     }
         
-}
+}*/
 

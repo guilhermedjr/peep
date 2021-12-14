@@ -2,24 +2,12 @@
 
 public class AddPeepDto
 {
-    public Guid PeepId { get; set; }
-
-    [Required]
     public Guid UserId { get; set; }
-
-    public DateTime Date { get; set; }
-    public TimeSpan Time { get; set; }
-
-    [Required]
-    public EPeepSource Source { get; set; }
-    [Required]
-    public string Description { get; set; }
-    [Required]
-    public bool IsQuote { get; set; }
-
-    public Guid QuotedPeepId { get; set; }
-
-    [Required]
+    [MaxLength(280)]
+    public string TextContent { get; set; }
+    /*public EPeepSource Source { get; set; }
     public EPeepReplyRestriction ReplyRestriction { get; set; }
+    public Guid QuotedPeepId { get; set; }
+    public Guid RepliedPeepId { get; set; }*/
 }
 

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Peep.Parrot.Domain.Repository;
 using Peep.Parrot.Infrastructure.Data;
-//using Peep.Parrot.Repositories;
+using Peep.Parrot.Repositories;
 
 namespace Peep.Parrot.Infrastructure.IoC;
 
@@ -19,12 +19,12 @@ public static class ServiceCollectionExtensions
 
         /*services.AddScoped<IUserInfoRepository, UserInfoRepository>();
         services.AddScoped<IUsersConnectionsRepository, UsersConnectionsRepository>();
-        services.AddScoped<IUserRestrictionsRepository, UserRestrictionsRepository>();
+        services.AddScoped<IUserRestrictionsRepository, UserRestrictionsRepository>();*/
         services.AddScoped<IPeepsRepository, PeepsRepository>();
-        services.AddScoped<INestsRepository, NestsRepository>();*/
+        /*services.AddScoped<INestsRepository, NestsRepository>();*/
 
-        /*services.AddSingleton<CosmosDbConnection>(InitializeCosmosClientInstanceAsync(
-            configuration.GetSection("CosmosDb")).GetAwaiter().GetResult());*/
+        services.AddSingleton<CosmosDbConnection>(InitializeCosmosClientInstanceAsync(
+            configuration.GetSection("CosmosDb")).GetAwaiter().GetResult());
 
         services.AddSignalR();
 
@@ -67,7 +67,13 @@ public static class ServiceCollectionExtensions
         string account = configurationSection.GetSection("Account").Value;
         string key = configurationSection.GetSection("Key").Value;
 
-        CosmosClient client = new CosmosClient(account, key);
+        CosmosClientOptions clientOptions = new()
+        {
+            SerializerOptions = new CosmosSerializationOptions
+            { PropertyNamingPolicy = CosmosPropertyNamingPolicy.CamelCase }
+        };
+
+        CosmosClient client = new(account, key, clientOptions);
         CosmosDbConnection cosmosDbService = new(client, databaseName, containerName);
 
         DatabaseResponse database = await client.CreateDatabaseIfNotExistsAsync(databaseName);

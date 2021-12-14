@@ -4,14 +4,11 @@
 [ApiController]
 public class UsersConnectionsController : ControllerBase
 {
-    private readonly IDistributedCache _cache;
     private readonly IUsersConnectionsRepository _usersConnectionsRepository;
 
     public UsersConnectionsController(
-        IDistributedCache cache,
         IUsersConnectionsRepository usersConnectionsRepository)
     {
-        this._cache = cache;
         this._usersConnectionsRepository = usersConnectionsRepository;
     }
 

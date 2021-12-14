@@ -13,12 +13,12 @@ public class TimelineHub : Hub, ITimelineHub
         await Clients.Caller.SendAsync("Message", "Connected successfully!");
     }
 
-    public Task StartTimelineLive(User user)
+    public Task StartTimelineLive(ApplicationUser user)
     {
         throw new System.NotImplementedException();
     }
 
-    public Task StopTimelineLive(User user)
+    public Task StopTimelineLive(ApplicationUser user)
     {
         throw new System.NotImplementedException();
     }

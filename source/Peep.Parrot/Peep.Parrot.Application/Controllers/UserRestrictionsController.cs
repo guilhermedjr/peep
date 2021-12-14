@@ -4,14 +4,11 @@
 [ApiController]
 public class UserRestrictionsController : ControllerBase
 {
-    private readonly IDistributedCache _cache;
     private readonly IUserRestrictionsRepository _userRestrictionsRepository;
 
     public UserRestrictionsController(
-        IDistributedCache cache,
         IUserRestrictionsRepository userRestrictionsRepository)
     {
-        this._cache = cache;
         this._userRestrictionsRepository = userRestrictionsRepository;
     }
 

@@ -4,52 +4,48 @@
 [ApiController]
 public class PeepsController : ControllerBase
 {
-    private readonly IDistributedCache _cache;
     private readonly IPeepsRepository _peepsRepository;
 
     public PeepsController(
-        IDistributedCache cache,
         IPeepsRepository peepsRepository)
     {
-        this._cache = cache;
-        this._peepsRepository = peepsRepository;
+        _peepsRepository = peepsRepository;
     }
 
-    [Authorize]
+    //[Authorize]
     [HttpPost]
-    public async Task<IActionResult> AddPeep(AddPeepDto addPeepDto)
+    public async Task<IActionResult> AddPeep([FromBody] AddPeepDto addPeepDto)
     {
         if (String.IsNullOrEmpty(addPeepDto.UserId.ToString()))
             return BadRequest(new { Message = "User Id not specified" });
 
-        if (await _peepsRepository.AddPeep(addPeepDto))
-            return Ok();
-        return BadRequest();
+        await _peepsRepository.AddPeep(addPeepDto);
+        return Ok();
     }
 
-    [Authorize]
-    [HttpPut]
-    public async Task<IActionResult> EditPeep(EditPeepDto editPeepDto)
+    //[Authorize]
+    [HttpGet]
+    public async Task<IActionResult> GetPeep([FromQuery] Guid peepId) 
     {
-        if (String.IsNullOrEmpty(editPeepDto.UserId.ToString()))
-            return BadRequest(new { Message = "User Id not specified" });
+        var peep = await _peepsRepository.GetPeep(peepId);
 
-        if (await _peepsRepository.EditPeep(editPeepDto))
-            return NoContent();
-        return BadRequest();
+        if (peep == null)
+            return BadRequest(new { Message = "There is no peep with the specified id" });
+
+        return Ok(peep);
     }
 
-    [Authorize]
+    //[Authorize]
     [HttpDelete]
-    public async Task<IActionResult> DeletePeep([FromQuery] Guid userId, Guid peepId)
+    public async Task<IActionResult> DeletePeep([FromQuery] Guid peepId)
     {
-        if (String.IsNullOrEmpty(userId.ToString()))
-            return BadRequest(new { Message = "User Id not specified" });
+        var peep = await _peepsRepository.GetPeep(peepId);
 
-        if (await _peepsRepository.DeletePeep(userId, peepId))
-            return NoContent();
-        return BadRequest();
+        if (peep == null)
+            return BadRequest(new { Message = "There is no peep with the specified id" });
+
+        await _peepsRepository.DeletePeep(peep);
+        return NoContent();
     }
-
 }
 

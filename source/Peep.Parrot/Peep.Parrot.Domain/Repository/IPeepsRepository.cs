@@ -2,8 +2,8 @@
 
 public interface IPeepsRepository
 {
-    Task<bool> AddPeep(AddPeepDto addPeepDto);
-    Task<bool> EditPeep(EditPeepDto editPeepDto);
-    Task<bool> DeletePeep(Guid userId, Guid peepId);
+    Task AddPeep(AddPeepDto addPeepDto);
+    Task<Entities.Peep> GetPeep(Guid id);
+    Task DeletePeep(Entities.Peep peep);
 }
 

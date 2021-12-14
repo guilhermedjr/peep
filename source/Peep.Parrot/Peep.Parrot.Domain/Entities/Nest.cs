@@ -1,6 +1,6 @@
 ﻿namespace Peep.Parrot.Domain.Entities;
 
-public class Nest : Entity
+public class Nest
 {
     private readonly IList<ApplicationUser> _members;
     private readonly IList<ApplicationUser> _followers;
@@ -16,6 +16,7 @@ public class Nest : Entity
         CreatedAt = DateTime.Now;
     }
 
+    public Guid Id { get; private set; }
     public readonly ApplicationUser Owner;
     public bool IsPublic { get; private set; }
     public string Name { get; private set; }

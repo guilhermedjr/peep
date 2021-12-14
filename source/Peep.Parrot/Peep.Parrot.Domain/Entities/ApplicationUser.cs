@@ -3,7 +3,7 @@
 namespace Peep.Parrot.Domain.Entities;
 
 /* Attributes that can be used in both NoSQL and SQL databases, and entity methods */
-public partial class ApplicationUser : Entity
+public partial class ApplicationUser
 {
     private readonly IList<Peep> _peeps;
 
@@ -37,6 +37,7 @@ public partial class ApplicationUser : Entity
         _blocks = new List<Block>();
     }
 
+    public Guid Id { get; private set; }
     public bool IsPrivateAccount { get; private set; } 
     public string Name { get; private set; }
     public string Username { get; private set; }
