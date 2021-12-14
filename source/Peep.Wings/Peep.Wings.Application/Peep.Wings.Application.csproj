@@ -19,8 +19,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
-    <PackageReference Include="Ocelot" Version="17.0.0" />
-    <PackageReference Include="RabbitMQ.Client" Version="6.2.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
@@ -29,10 +27,6 @@
     <ProjectReference Include="..\Peep.Wings.Infrastructure.Data\Peep.Wings.Infrastructure.Data.csproj" />
     <ProjectReference Include="..\Peep.Wings.Infrastructure.IoC\Peep.Wings.Infrastructure.IoC.csproj" />
     <ProjectReference Include="..\Peep.Wings.Service\Peep.Wings.Service.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="App_Data\" />
   </ItemGroup>
 
 </Project>

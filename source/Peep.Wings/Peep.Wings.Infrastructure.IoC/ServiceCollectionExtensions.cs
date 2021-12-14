@@ -21,8 +21,6 @@ public static class ServiceCollectionExtensions
             options.UseSqlServer(configuration.GetConnectionString("sqlServer")));
 
         services.AddScoped<IOAuthService<GoogleUserInfoDto>, GoogleService>();
-        services.AddScoped<IPeepParrotService, PeepParrotService>();
-        services.AddScoped<IPeepStorkService, PeepStorkService>();
 
         services.AddSingleton<CosmosDbConnection>(InitializeCosmosClientInstanceAsync(
             configuration.GetSection("CosmosDb")).GetAwaiter().GetResult());

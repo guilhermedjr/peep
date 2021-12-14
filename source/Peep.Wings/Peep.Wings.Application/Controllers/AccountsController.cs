@@ -9,30 +9,16 @@ public class AccountsController : ControllerBase
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly CosmosDbConnection _cosmosDbConnection;
 
-    private readonly ConnectionFactory _factory;
-    private const string QUEUE_NAME = "wings_messages";
-
     private readonly IOAuthService<GoogleUserInfoDto> _googleService;
-    private readonly IPeepParrotService _parrotService;
-    private readonly IPeepStorkService _storkService;
 
     public AccountsController(
         UserManager<ApplicationUser> userManager,
         CosmosDbConnection cosmosDbConnection,
-        IOAuthService<GoogleUserInfoDto> googleService,
-        IPeepParrotService parrotService,
-        IPeepStorkService storkService) 
+        IOAuthService<GoogleUserInfoDto> googleService) 
     {
-        _factory = new ConnectionFactory
-        {
-            HostName = "localhost"
-        };
-
         _userManager = userManager;
         _cosmosDbConnection = cosmosDbConnection;
         _googleService = googleService;
-        _parrotService = parrotService;
-        _storkService = storkService;
     }
 
     [HttpPost]
@@ -81,13 +67,6 @@ public class AccountsController : ControllerBase
         var userView = new ApplicationUserViewModel(peepUser.Id, peepUser.Email, peepUser.Name,
             peepUser.UserName, peepUser.BirthDate, peepUser.ProfileImageUrl, peepUser.JoinedAt);
 
-        Response.Cookies.Append("peep_token", loginDto.IdToken, new CookieOptions
-        {
-            HttpOnly = true,
-            IsEssential = true,
-            SameSite = SameSiteMode.Lax
-        });
-
         return Ok(userView);
     }
 
@@ -105,70 +84,6 @@ public class AccountsController : ControllerBase
             peepUser.UserName, peepUser.BirthDate, peepUser.ProfileImageUrl, peepUser.JoinedAt);
 
         return Ok(userView);
-    }
-
-    [HttpPost]
-    [Route("Logout")]
-    public IActionResult Logout()
-    {
-        Response.Cookies.Delete("peep_token");
-        return NoContent();
-    }
-
-    private async Task SyncAddedUser(ApplicationUser user)
-    {
-        var userToSync = new SyncUserDto
-        {
-            Id = user.Id,
-            Email = user.Email,
-            Name = user.Name,
-            Username = user.UserName,
-            BirthDate = user.BirthDate,
-            JoinedAt = user.JoinedAt
-        };
-
-        await _parrotService.AddUser(userToSync);
-        await _storkService.AddUser(userToSync);
-    }
-
-    private async Task SyncUpdatedUser(ApplicationUser user)
-    {
-        var userToSync = new SyncUserDto
-        {
-            Id = user.Id,
-            Email = user.Email,
-            Name = user.Name,
-            Username = user.UserName,
-            BirthDate = user.BirthDate,
-            JoinedAt = user.JoinedAt
-        };
-
-        await _parrotService.UpdateUser(userToSync);
-        await _storkService.UpdateUser(userToSync);
-    }
-
-    private AcceptedResult PostCreatedAccountMessage(ApplicationUserViewModel user)
-    {
-        using var connection = _factory.CreateConnection();
-        using var channel = connection.CreateModel();
-
-        channel.QueueDeclare(
-            queue: QUEUE_NAME,
-            durable: false,
-            exclusive: false,
-            autoDelete: false,
-            arguments: null);
-
-        var stringfiedMessage = JsonSerializer.Serialize(user);
-        var bytesMessage = Encoding.UTF8.GetBytes(stringfiedMessage);
-
-        channel.BasicPublish(
-            exchange: "",
-            routingKey: QUEUE_NAME,
-            basicProperties: null,
-            body: bytesMessage);
-
-        return Accepted();
     }
 }
 

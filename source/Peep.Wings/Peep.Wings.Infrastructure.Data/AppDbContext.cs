@@ -1,5 +1,4 @@
-﻿using System;
-using Peep.Wings.Domain.Entities;
+﻿using Peep.Wings.Domain.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Peep.Wings.Infrastructure.Data;

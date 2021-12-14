@@ -3,9 +3,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Newtonsoft.Json.Serialization;
-using Ocelot.DependencyInjection;
-using Peep.Wings.Infrastructure.Data;
 using Peep.Wings.Infrastructure.IoC;
 using Peep.Wings.Service.Services;
 
@@ -16,21 +13,12 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(
         builder =>
         {
-            builder.WithOrigins("http://localhost:3000",
-                                "http://localhost:44364",
-                                "http://localhost:44327",
-                                "https://peep.vercel.app")
+            builder.WithOrigins("http://localhost:3000")
                     .AllowAnyHeader().AllowAnyMethod();
         });
 });
 
 builder.Services.AddControllers();
-
-builder.Services.AddMvc()
-    .AddNewtonsoftJson(options =>
-    {
-        options.SerializerSettings.ContractResolver = new DefaultContractResolver();
-    });
 
 builder.Services.AddSwaggerGen(c =>
 {
@@ -46,11 +34,7 @@ builder.Services
 builder.Services.ConfigureServices(builder.Configuration)
     .ConfigureAuthentication(builder.Configuration);
 
-builder.Services.AddHttpClient<PeepParrotService>();
-builder.Services.AddHttpClient<PeepStorkService>();
 builder.Services.AddHttpClient<GoogleService>();
-
-builder.Services.AddOcelot(builder.Configuration);
 
 var app = builder.Build();
 
@@ -60,8 +44,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Peep.Wings.Application v1"));
 }
-
-//await app.UseOcelot();
 
 app.UseHttpsRedirection();
 
