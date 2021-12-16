@@ -197,9 +197,6 @@ export const SendButton = styled(Button)`
   display: flex;
   justify-content: center;
   align-items: center;
-
-  padding-left: 16px;
-  padding-right: 16px;
 `
 
 const iconCSS = css`

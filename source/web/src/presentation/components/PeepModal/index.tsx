@@ -29,7 +29,7 @@ type PeepModalProps = {
 
 export function PeepModal(props: PeepModalProps) {
   const { t } = useTranslation()
-  const { addPeep, editPeep, isModalOpen, closeModal } = useContext(PeepsContext)
+  const { addPeep, isModalOpen, closeModal } = useContext(PeepsContext)
   const [textContent, setTextContent] = useState("")
 
   const onTextContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -58,7 +58,7 @@ export function PeepModal(props: PeepModalProps) {
   }
   
   return (
-    <Container visible={isModalOpen}>
+    <Container visible={false}>
       <Modal>
         <Header>Fechar</Header>
         <Body>

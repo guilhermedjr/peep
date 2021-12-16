@@ -8,7 +8,6 @@ type PeepsContextData = {
   openModal: () => void,
   closeModal: () => void,
   addPeep: (addPeepDto: AddPeepDto) => Promise<boolean>
-  editPeep: (peep: Peep) => Promise<boolean>
 }
 
 type PeepsProviderProps = {
@@ -19,7 +18,7 @@ export const PeepsContext = createContext({} as PeepsContextData)
 
 export default function PeepsProvider({children}: PeepsProviderProps) {
   const httpClient = new ParrotHttpClient()
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(true)
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [peepToEdit, setPeepToEdit] = useState<Peep>()
   
   const openModal = (): void => {
@@ -34,12 +33,7 @@ export default function PeepsProvider({children}: PeepsProviderProps) {
     const response = await httpClient.httpPost('api/Peeps', addPeepDto)
     return response.status == HttpStatusCode.OK
   }
-
-  async function editPeep(peep: Peep): Promise<boolean> {
-    const response = await httpClient.httpPut('api/Peeps', peep)
-    return response.status == HttpStatusCode.NOCONTENT
-  }
-
+  
   return (
     <PeepsContext.Provider
       value={{
@@ -47,7 +41,6 @@ export default function PeepsProvider({children}: PeepsProviderProps) {
         openModal,
         closeModal,
         addPeep,
-        editPeep
       }}
     >
       { children }

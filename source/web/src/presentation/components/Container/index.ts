@@ -8,7 +8,7 @@ export default styled.div<ContainerProps>`
   position: absolute;
   top: 0;
 
-  display: flex;
+  display: none;
 
   width: 100vw;
   height: 100vh;

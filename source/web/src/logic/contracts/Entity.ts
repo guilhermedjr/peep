@@ -37,9 +37,9 @@ export type AccountUserInfo = {
 }
 
 export type User = {
-  readonly UserId?: string
-  Name?: string
-  Username?: string
+  readonly Id: string
+  Name: string
+  Username: string
   ProfileImageUrl?: string
   Bio?: string
   Location?: string

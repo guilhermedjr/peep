@@ -5,7 +5,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
 
-  width: min(601px, 100%);
+  width: min(620px, 100%);
 
   @media screen and (min-width: 500px) {
     border-left: 1px solid var(--outline);

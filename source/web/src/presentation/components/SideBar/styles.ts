@@ -8,21 +8,27 @@ export const Container = styled.div`
   @media (min-width: 1000px) {
     display: flex;
     flex-direction: column;
+    align-items: center;
 
-    width: min(399px, 100%);
+    //width: min(399px, 100%);
+    width: 399px;
   }
 `
 
 export const SearchWrapper = styled.div`
-  padding: 10px 24px;
-  width: min-content(399px, 100%);
-
+  //padding: 10px 24px;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: min(399px, 100%);
+  box-shadow: none;
   position: fixed;
   top: 0;
   z-index: 2;
-  background: var(--primary);
-
   max-height: 57px;
+
+  background: green;
 `
 
 export const SearchInput = styled.input`
