@@ -2,13 +2,13 @@
 
 public class ApplicationUserViewModel
 {
-    public readonly Guid Id;
-    public readonly string Email;
-    public readonly string Name;
-    public readonly string Username;
-    public readonly DateTime BirthDate;
-    public readonly string ProfileImageUrl;
-    public readonly DateTime JoinedAt;
+    public Guid Id { get; set; }
+    public string Email { get; set; }
+    public string Name { get; set; }
+    public string Username { get; set; }
+    public DateTime BirthDate { get; set; }
+    public string ProfileImageUrl { get; set; }
+    public DateTime JoinedAt { get; set; }
 
     public ApplicationUserViewModel(Guid id, string email, string name, string username, DateTime birthDate, 
         string profileImageUrl, DateTime joinedAt)

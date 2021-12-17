@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
+using Newtonsoft.Json.Serialization;
 using Peep.Wings.Infrastructure.IoC;
 using Peep.Wings.Service.Services;
 
@@ -24,6 +26,12 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Peep.Parrot.Application", Version = "v1" });
 });
+
+builder.Services.AddMvc()
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+    });
 
 builder.Services
     .AddDefaultIdentity<ApplicationUser>(Peep.Wings.Infrastructure.IoC.ServiceCollectionExtensions.ConfigureIdentity)

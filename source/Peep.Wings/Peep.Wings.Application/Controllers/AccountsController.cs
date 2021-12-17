@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-
-namespace Peep.Wings.Application.Controllers;
+﻿namespace Peep.Wings.Application.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -63,22 +61,6 @@ public class AccountsController : ControllerBase
         }
 
         peepUser = await _userManager.FindByEmailAsync(userInfo.email);
-
-        var userView = new ApplicationUserViewModel(peepUser.Id, peepUser.Email, peepUser.Name,
-            peepUser.UserName, peepUser.BirthDate, peepUser.ProfileImageUrl, peepUser.JoinedAt);
-
-        return Ok(userView);
-    }
-
-    [HttpGet]
-    [Route("{id}", Name = "GetById")]
-    [Authorize]
-    public async Task<IActionResult> GetUser([FromRoute] Guid id)
-    {
-        var peepUser = await _userManager.FindByIdAsync(id.ToString());
-
-        if (peepUser == null)
-            return NotFound();
 
         var userView = new ApplicationUserViewModel(peepUser.Id, peepUser.Email, peepUser.Name,
             peepUser.UserName, peepUser.BirthDate, peepUser.ProfileImageUrl, peepUser.JoinedAt);
