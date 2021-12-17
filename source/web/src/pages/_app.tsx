@@ -1,6 +1,8 @@
 import { Provider } from 'react-redux'
 import { CookiesProvider } from 'react-cookie'
 import I18nProvider from '../presentation/contexts/i18nContext'
+import LoginProvider from '../logic/contexts/LoginContext'
+import UserTimelineProvider from '../logic/contexts/UserTimelineContext'
 import PeepsProvider from '../logic/contexts/PeepsContext'
 import SearchProvider from '../logic/contexts/SearchContext'
 import store from '../store'
@@ -20,14 +22,18 @@ function MyApp({ Component, pageProps }) {
     <SafeHydrate>
       <CookiesProvider>
         <I18nProvider>
-          <PeepsProvider>
-            <SearchProvider>
-              <Provider store={store}>
-                <Component {...pageProps} />
-                <GlobalStyles />
-              </Provider>
-            </SearchProvider>
-          </PeepsProvider>
+          <LoginProvider>
+            <UserTimelineProvider>
+              <PeepsProvider>
+                <SearchProvider>
+                  <Provider store={store}>
+                    <Component {...pageProps} />
+                    <GlobalStyles />
+                  </Provider>
+                </SearchProvider>
+              </PeepsProvider>
+            </UserTimelineProvider>
+          </LoginProvider>
         </I18nProvider>
       </CookiesProvider>
     </SafeHydrate>

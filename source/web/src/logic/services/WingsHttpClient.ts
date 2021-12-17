@@ -1,7 +1,6 @@
 import AxiosInstances from './config'
 import { AxiosResponse } from 'axios'
-import { LoginDto, ApplicationUser } from '../contracts/Entity'
-import { getCookieFromKeyName } from '../utils'
+import { LoginDto, ApplicationUserViewModel } from '../contracts/Entity'
 
 export default class WingsHttpClient {
   private readonly baseUrl = AxiosInstances.Wings
@@ -13,7 +12,7 @@ export default class WingsHttpClient {
 
   constructor() {}
 
-  public async SignInWithGoogle(loginDto: LoginDto): Promise<ApplicationUser> {
+  public async SignInWithGoogle(loginDto: LoginDto): Promise<ApplicationUserViewModel> {
     let response: AxiosResponse
 
     try {
@@ -25,22 +24,5 @@ export default class WingsHttpClient {
         response = error.response
     }
     return response.data
-  }
-
-  public async GetLoggedUser(): Promise<ApplicationUser> {
-    let response: AxiosResponse
-
-    try {
-      response = await this.baseUrl.get(`api/Accounts/${getCookieFromKeyName('user-id')}`, {
-        headers: { 
-          ...this.headers,
-          'Authorization': `Bearer ${getCookieFromKeyName('peep-token')}` 
-        }
-      })
-    } catch (error) {
-        console.log(error)
-        response = error.response
-    }
-    return response.data 
   }
 }

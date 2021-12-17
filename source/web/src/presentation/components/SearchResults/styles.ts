@@ -82,7 +82,7 @@ export const InfoSection = styled.div`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: flex-end;
 `
 
 export const DiscriminationInfo = styled.div`

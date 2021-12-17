@@ -1,61 +1,39 @@
-export type LoginProvider = 'GitHub' | 'Google' | 'Twitter'
-
 export type LoginDto = {
   Token: string
   IdToken: string
 }
 
-export type ApplicationUser = {
-  readonly Id: string
-  readonly Email: string
-  readonly Name: string
-  readonly Username: string
-  readonly BirthDate: string
-  readonly ProfileImageUrl: string
-  readonly JoinedAt: string
-}
-
-export type Account = {
-  readonly Id?: string
+export type ApplicationUserViewModel = {
+  Id: string
+  Email: string
   Name: string
   Username: string
-  AccountInfo?: AccountInfo
-  AccountUserInfo?: AccountUserInfo
-}
-
-export type AccountInfo = {
-  Email?: string
-  PhoneNumber?: string
-  readonly JoinedAt?: string
-}
-
-export type AccountUserInfo = {
-  Bio: string
-  Location?: string
-  BirthDate?: string
-  Website?: string
+  ProfileImageUrl: string
+  BirthDate: string
+  JoinedAt: string
 }
 
 export type User = {
-  readonly Id: string
+  Id: string
+  Email: string
   Name: string
   Username: string
-  ProfileImageUrl?: string
-  Bio?: string
-  Location?: string
-  BirthDate?: string
-  Website?: string
-  readonly JoinedAt?: string
-  IsPrivateAccount?: boolean
-  Following?: User[]
-  Followers?: User[]
-  readonly Peeps?: Peep[]
-  readonly Replies?: Peep[]
-  readonly UserNests?: Nest[]
-  readonly Nests?: Nest[]
-  readonly FollowRequests?: User[]
-  readonly BlockedUsers?: User[]
-  readonly MutedUsers?: User[]
+  ProfileImageUrl: string | null
+  BirthDate: string
+  JoinedAt: string
+  Bio: string | null
+  Location: string | null
+  Website: string | null
+  PrivateAccount: boolean
+  VerifiedAccount: boolean
+  Following: User[]
+  Followers: User[]
+  UserNests: Nest[]
+  Nests: Nest[]
+  FollowRequests: User[]
+  BlockedUsers: User[]
+  MutedUsers: User[]
+  Peeps: Peep[]
 }
 
 export enum EPeepSource {
@@ -82,26 +60,20 @@ export interface AddPeepDto {
   RepliedPeepId?: string
 }
 
-export interface Peep {
-  readonly PeepId?: string
-  User: User
-  readonly Date?: string
-  readonly Time?: string
-  Description: string
+export type Peep = {
+  Id: string
+  UserId: string
+  PublicationDate: string
+  PublicationTime: string
+  TextContent: string
   Source: EPeepSource
-  ReplyRescriction: EPeepReplyRestriction
-  readonly Quotes?: Quote[]
-  readonly Reposts?: Account[]
-  readonly Likes?: Account[]
-  readonly Replies?: Reply[]
-}
-
-export interface Quote extends Peep {
-  QuotedPeep: Peep
-}
-
-export interface Reply extends Peep {
-  RepliedPeep: Peep
+  ReplyRestriction: EPeepReplyRestriction
+  QuotedPeepId: string | null,
+  RepliedPeepId: string | null,
+  Quotes: Peep[],
+  Replies: Peep[],
+  Rps: User[],
+  Likes: User[]
 }
 
 export type Nest = {
@@ -113,10 +85,4 @@ export type Nest = {
   readonly Members?: User[]
   readonly Followers?: User[]
   readonly CreatedAt?: string
-}
-
-export type SendDirectMessageDto = {
-  SenderId: string
-  ReceiverId: string
-  Text: string
 }

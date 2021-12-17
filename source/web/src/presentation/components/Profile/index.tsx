@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useContext } from 'react'
+import { UserTimelineContext } from '../../../logic/contexts/UserTimelineContext'
 import useTranslation from '../../hooks/useTranslation'
 
 import { 
@@ -17,26 +18,17 @@ import {
 } from './styles'
 
 import { Feed } from '../Feed'
-import { User } from '../../../logic/contracts/Entity'
 
-type ProfileProps = {
-  user: User
-}
-
-export function Profile(props: ProfileProps) {
+export function Profile() {
+  const { user } = useContext(UserTimelineContext)
   const { t } = useTranslation()
-  const [user, setUser] = useState<User>(props.user)
-
-  useEffect(() => {
-    setUser(props.user)
-  }, [props.user])
 
   return (
     <ProfileContainer>
       <Banner>
         <Avatar>
           <ProfileImage src={
-            typeof user.ProfileImageUrl != 'undefined' 
+            user.ProfileImageUrl != null
               ? user.ProfileImageUrl
               : 'defaultProfileImage.png'
             }/>
@@ -55,12 +47,12 @@ export function Profile(props: ProfileProps) {
           color: 'var(--peep)'
         }}>http://apoia.se/ednaldopereira</a>  para receber  seu vídeo</p> */}
 
-        <p>{user.Bio}</p>
+        <p>{user.Bio != null ? user.Bio : ''}</p>
 
         <ul>
           <li>
             <LocationIcon />
-            {user.Location}
+            {user.Location != null ? user.Location : ''}
           </li>
           <li>
             <CakeIcon />
@@ -69,8 +61,8 @@ export function Profile(props: ProfileProps) {
         </ul>
 
         <Followage>
-          <span><strong>0</strong> {t("User.Connections.Following")}</span>
-          <span><strong>0</strong> {t("resource.User.Connections.Followers")}</span>
+          <span><strong>{user.Following.length}</strong> {t("User.Connections.Following")}</span>
+          <span><strong>{user.Followers.length}</strong> {t("resource.User.Connections.Followers")}</span>
         </Followage>
       </ProfileData>
 

@@ -1,12 +1,11 @@
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useContext, useState, useEffect } from 'react'
+import { UserTimelineContext } from '../../../logic/contexts/UserTimelineContext'
 import * as actions from '../../../store/actions'
 import { User } from '../../../logic/contracts/Entity'
 import { ExpandedPeep } from '../ExpandedPeep'
-import WingsHttpClient from '../../../logic/services/WingsHttpClient'
-import ParrotHttpClient from '../../../logic/services/ParrotHttpClient'
 
 import { Profile } from '../Profile'
 
@@ -23,35 +22,7 @@ import {
 } from './styles'
 
 const Main = ({ timeline, dispatch }) => {
-
-  const [user, setUser] = useState<User>({
-    Name: 'Ednaldo Pereira',
-    Username: 'oednaldopereira',
-    Bio: 'Cantor e compositor Ednaldo Pereira',
-    Location: 'Em algum lugar, pra relaxar',
-    Website: 'http://apoia.se/ednaldopereira',
-    BirthDate: 'Algum dia'
-  })
-
-  const wingsHttpClient = new WingsHttpClient()
-  const parrotHttpClient = new ParrotHttpClient()
-
-  useEffect(() => {
-    wingsHttpClient.GetLoggedUser().then(
-      user => {
-        setUser({
-          Name: user.Name,
-          Username: user.Username,
-          ProfileImageUrl: user.ProfileImageUrl,
-          BirthDate: user.BirthDate,
-          JoinedAt: user.JoinedAt,
-          Bio: 'Bio',
-          Location: 'Localização',
-          Website: 'Website'
-        })
-      }
-    )
-  }, [])
+  const { user } = useContext(UserTimelineContext)
 
   return (
     <Container>
@@ -61,11 +32,11 @@ const Main = ({ timeline, dispatch }) => {
         </button>
         <ProfileInfo>
           <strong>{user.Name}</strong>
-          <span>8958 Tweets</span>
+          <span>{user.Peeps.length} Peeps</span>
         </ProfileInfo>
       </Header>
 
-      <Profile user={user} />
+      <Profile />
       {/* <ExpandedPeep 
         user={userTeste} username={usernameTeste} 
         hasContent={[

@@ -24,7 +24,7 @@ export function SideBar() {
   const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value: nextValue } = e.target
     setSearchStr(nextValue)
-    //debouncedSearch(nextValue)
+    debouncedSearch(nextValue)
   }
 
   return (

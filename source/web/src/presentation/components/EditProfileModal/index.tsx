@@ -15,7 +15,7 @@ type EditProfileModalProps = {
 
 export function EditProfileModal(props: EditProfileModalProps) {
   return (
-    <Container visible={true}>
+    <Container visible={false}>
       <Modal>
         <Header>
           <CloseButtonArea>
