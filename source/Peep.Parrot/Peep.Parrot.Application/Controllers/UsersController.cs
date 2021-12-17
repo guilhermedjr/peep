@@ -1,15 +1,16 @@
-﻿using Microsoft.Azure.Cosmos;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Azure.Cosmos;
+namespace Peep.Parrot.Application.Controllers;
 
-namespace Peep.Parrot.Repositories;
-
-public class UsersSearchRepository : ISearchRepository<ApplicationUser>
+[Route("api/[controller]")]
+[ApiController]
+public class UsersController : ControllerBase
 {
     private readonly CosmosDbConnection _cosmosDbConnection;
     private readonly IConfiguration _config;
 
-    public UsersSearchRepository(IConfiguration config)
-    {   
+    public UsersController(IConfiguration config)
+    {
         _config = config;
         var cosmosDbSection = _config.GetSection("CosmosDb");
 
@@ -29,14 +30,18 @@ public class UsersSearchRepository : ISearchRepository<ApplicationUser>
         _cosmosDbConnection = new(client, databaseName, containerName);
     }
 
-    public async Task<IEnumerable<ApplicationUser>> Search(string searchString)
+    //[Authorize]
+    [HttpGet]
+    [Route("{id}")]
+    public async Task<IActionResult> GetUser([FromRoute] Guid id)
     {
-        var queryString = 
-            $"SELECT * FROM Users u WHERE u.username LIKE '{searchString}%' OR u.name LIKE '{searchString}% '" +
-            $"ORDER BY u.name";
+        var user = await _cosmosDbConnection.GetItemAsync<ApplicationUser>(id);
 
-        var users = await _cosmosDbConnection.GetItemsAsync<ApplicationUser>(queryString);
-        return users;
+        if (user == null)
+            return NotFound();
+
+        return Ok(user);
     }
 }
+
 

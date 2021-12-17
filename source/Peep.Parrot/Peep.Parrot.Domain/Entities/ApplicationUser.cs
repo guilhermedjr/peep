@@ -15,14 +15,26 @@ public partial class ApplicationUser
     private readonly IList<ApplicationUser> _blockedUsers;
     private readonly IList<ApplicationUser> _mutedUsers;
 
-    public ApplicationUser(bool isPrivateAccount, string name, string username, string bio, string location, string website)
+    public ApplicationUser(Guid id, string email, string name, string username, 
+        string profileImageUrl, DateOnly birthDate, DateTime joinedAt,
+        bool isPrivateAccount, bool isVerifiedAccount, 
+        string bio, string location, string website)
     {
-        IsPrivateAccount = isPrivateAccount;
+        Id = id;
+        Email = email;
         Name = name;
         Username = username;
+        ProfileImageUrl = profileImageUrl;
+        BirthDate = birthDate;
+        JoinedAt = joinedAt;
+
         Bio = bio;
         Location = location;
         Website = website;
+
+        PrivateAccount = isPrivateAccount;
+        VerifiedAccount = isVerifiedAccount;
+      
         _following = new List<ApplicationUser>();
         _followers = new List<ApplicationUser>();
         _peeps = new List<Peep>();
@@ -38,41 +50,22 @@ public partial class ApplicationUser
     }
 
     public Guid Id { get; private set; }
-    public bool IsPrivateAccount { get; private set; } 
+    public string Email { get; private set; }
     public string Name { get; private set; }
     public string Username { get; private set; }
+    public string ProfileImageUrl { get; private set; }
+    public DateOnly BirthDate { get; private set; }
+    public DateTime JoinedAt { get; private set; }
+
     public string Bio { get; private set; }
     public string Location { get; private set; }
     public string Website { get; private set; }
+
+    public bool PrivateAccount { get; private set; } 
+    public bool VerifiedAccount { get; private set; }
     
     public IReadOnlyCollection<Peep> Peeps { get { return _peeps.ToArray(); } }
-
-    public void ChangeAccountPrivacy() =>
-        IsPrivateAccount = !IsPrivateAccount;
-
-    public void AddPeep(Peep peep) =>
-        _peeps.Add(peep);
-
-    public void DeletePeep(Peep peep) =>
-        _peeps.Remove(peep);
-
-    public void BlockUser(ApplicationUser user) => 
-        _blockedUsers.Add(user);
-
-    public void UnblockUser(ApplicationUser user) =>
-        _blockedUsers.Remove(user);
-
-    public void MuteUser(ApplicationUser user) =>
-        _mutedUsers.Add(user);
-
-    public void UnmuteUser(ApplicationUser user) =>
-        _mutedUsers.Remove(user);
-
-    public void AddNest(Nest nest) =>
-        _userNests.Add(nest);
-
-    public void DeleteNest(Nest nest) =>
-        _userNests.Remove(nest);
+        
 }
 
 /* Attributes that do not map to SQL databases */

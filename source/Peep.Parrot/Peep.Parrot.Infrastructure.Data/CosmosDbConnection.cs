@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Azure.Cosmos;
+using Peep.Parrot.Domain.Entities;
 namespace Peep.Parrot.Infrastructure.Data;
 
 public class CosmosDbConnection
@@ -28,9 +29,10 @@ public class CosmosDbConnection
 
     public async Task<T> GetItemAsync<T>(Guid id)
     {
+        var key = id.ToString().ToUpper();
         try
         {
-            ItemResponse<T> response = await _container.ReadItemAsync<T>(id.ToString(), new PartitionKey(id.ToString()));
+            ItemResponse<T> response = await _container.ReadItemAsync<T>(key, new PartitionKey(key));
             return response.Resource;
         }
         catch (CosmosException ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
@@ -56,7 +58,7 @@ public class CosmosDbConnection
 
     public async Task UpdateItemAsync<T>(Guid id, T item)
     {
-        await _container.UpsertItemAsync<T>(item, new PartitionKey(id.ToString()));
+        await _container.UpsertItemAsync<T>(item, new PartitionKey(id.ToString().ToUpper()));
     }
 }
 

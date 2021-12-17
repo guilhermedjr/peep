@@ -1,4 +1,6 @@
-﻿namespace Peep.Parrot.Domain.Entities;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Peep.Parrot.Domain.Entities;
 
 public class Peep
 {
@@ -30,7 +32,9 @@ public class Peep
     public Guid Id { get; private set; }
     public ApplicationUser User { get; private set; }
     public Guid UserId { get; private set; }
+    [NotMapped]
     public DateOnly? PublicationDate { get; private set; }
+    [NotMapped]
     public TimeOnly? PublicationTime { get; private set; }
     public string TextContent { get; private set; }
     public EPeepSource Source { get; private set; }

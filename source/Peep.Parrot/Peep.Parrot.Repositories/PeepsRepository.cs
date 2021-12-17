@@ -26,11 +26,12 @@ public class PeepsRepository : IPeepsRepository
         await _cosmosDbConnection.AddItemAsync<Domain.Entities.Peep>(peep);
     }
 
-    public async Task<Domain.Entities.Peep> GetPeep(Guid id)
+    /*public async Task<Domain.Entities.Peep> GetPeep(Guid id)
     {
-        var peep = await _cosmosDbConnection.GetItemAsync<Domain.Entities.Peep>(id);
+        var queryString = $"SELECT * FROM Peeps p WHERE p.id = {id}";
+        var peep = await _cosmosDbConnection.GetItemAsync<Domain.Entities.Peep>(queryString);
         return peep;
-    }
+    }*/
 
     public async Task DeletePeep(Domain.Entities.Peep peep)
     {
@@ -38,6 +39,11 @@ public class PeepsRepository : IPeepsRepository
         _sqlDbContext.SaveChanges();
 
         await _cosmosDbConnection.DeleteItemAsync<Domain.Entities.Peep>(peep.Id);
+    }
+
+    public Task<Domain.Entities.Peep> GetPeep(Guid id)
+    {
+        throw new NotImplementedException();
     }
 }
 

@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Peep.Parrot.Infrastructure.IoC;
 
@@ -28,16 +27,11 @@ builder.Services.ConfigureServices(builder.Configuration)
 builder.Services.AddControllers(options => options.UseDateOnlyTimeOnlyStringConverters())
                 .AddJsonOptions(options => options.UseDateOnlyTimeOnlyStringConverters());
 
-/*builder.Services
-    .AddJsonOptions(options =>
+builder.Services.AddMvc()
+    .AddNewtonsoftJson(options =>
     {
-        options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-    });*/
-
-JsonConvert.DefaultSettings = () => new JsonSerializerSettings
-{
-   ContractResolver = new CamelCasePropertyNamesContractResolver()
-};
+        options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+    });
 
 builder.Services.AddSwaggerGen(c =>
 {
