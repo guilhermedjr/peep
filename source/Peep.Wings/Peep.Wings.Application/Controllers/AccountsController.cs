@@ -42,23 +42,6 @@ public class AccountsController : ControllerBase
             await _userManager.CreateAsync(user);
             await _cosmosDbConnection.AddItemAsync<ApplicationUser>(user);
         }
-        else
-        {
-            var user = new ApplicationUser
-            {
-                Email = userInfo.email,
-                Name = userInfo.name,
-                UserName = userInfo.email.Substring(0, userInfo.email.IndexOf("@")),
-                BirthDate = new DateTime(2000, 01, 01),
-                ProfileImageUrl = userInfo.picture,
-                JoinedAt = peepUser.JoinedAt,
-                EmailConfirmed = true
-            };
-
-            await _userManager.UpdateSecurityStampAsync(user);
-            await _userManager.UpdateAsync(user);
-            await _cosmosDbConnection.UpdateItemAsync<ApplicationUser>(user.Id, user);
-        }
 
         peepUser = await _userManager.FindByEmailAsync(userInfo.email);
 

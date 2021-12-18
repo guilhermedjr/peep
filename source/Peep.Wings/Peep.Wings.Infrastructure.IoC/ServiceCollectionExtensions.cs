@@ -44,7 +44,7 @@ public static class ServiceCollectionExtensions
         options.SignIn.RequireConfirmedAccount = true;
     }
 
-    public static IServiceCollection ConfigureAuthentication(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection ConfigureAuthentication(this IServiceCollection services)
     {
         services.AddAuthentication(options =>
         {

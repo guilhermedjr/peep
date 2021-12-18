@@ -40,7 +40,7 @@ builder.Services
     .AddDefaultTokenProviders();
 
 builder.Services.ConfigureServices(builder.Configuration)
-    .ConfigureAuthentication(builder.Configuration);
+    .ConfigureAuthentication();
 
 builder.Services.AddHttpClient<GoogleService>();
 

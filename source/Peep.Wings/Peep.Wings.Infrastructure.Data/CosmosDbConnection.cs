@@ -23,14 +23,16 @@ public class CosmosDbConnection
 
     public async Task DeleteItemAsync<T>(Guid id)
     {
-        await _container.DeleteItemAsync<T>(id.ToString(), new PartitionKey(id.ToString()));
+        var key = id.ToString().ToUpper();
+        await _container.DeleteItemAsync<T>(key, new PartitionKey(key));
     }
 
     public async Task<T> GetItemAsync<T>(Guid id)
     {
+        var key = id.ToString().ToUpper();
         try
         {
-            ItemResponse<T> response = await _container.ReadItemAsync<T>(id.ToString(), new PartitionKey(id.ToString()));
+            ItemResponse<T> response = await _container.ReadItemAsync<T>(key, new PartitionKey(key));
             return response.Resource;
         }
         catch (CosmosException ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
@@ -56,6 +58,7 @@ public class CosmosDbConnection
 
     public async Task UpdateItemAsync<T>(Guid id, T item)
     {
-        await _container.UpsertItemAsync<T>(item, new PartitionKey(id.ToString()));
+        var key = id.ToString().ToUpper();
+        await _container.UpsertItemAsync<T>(item, new PartitionKey(key));
     }
 }
