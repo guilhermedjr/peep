@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useContext, useState, useEffect } from 'react'
-import useTranslation from '../../hooks/useTranslation'
+import ptBR from '../../../i18n/locales/pt-br'
 import { getCookieFromKeyName } from '../../../logic/utils'
 import { PeepsContext } from '../../../logic/contexts/PeepsContext'
 import { AddPeepDto } from '../../../logic/contracts/Entity'
@@ -28,7 +28,6 @@ type PeepModalProps = {
 }
 
 export function PeepModal(props: PeepModalProps) {
-  const { t } = useTranslation()
   const { addPeep, isModalOpen, closeModal } = useContext(PeepsContext)
   const [textContent, setTextContent] = useState("")
 
@@ -69,7 +68,7 @@ export function PeepModal(props: PeepModalProps) {
           </ProfileSection>
           <PeepSection>
             <Description 
-              placeholder={t("PeepModal.Placeholder")}
+              placeholder={ptBR.PeepModal.Placeholder}
               value={textContent} 
               maxLength={280}
               onChange={e => onTextContentChange(e)}

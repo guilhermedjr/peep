@@ -5,7 +5,7 @@ import { useContext, useState, useEffect } from 'react'
 import { UserTimelineContext } from '../../../logic/contexts/UserTimelineContext'
 import * as actions from '../../../store/actions'
 import { User } from '../../../logic/contracts/Entity'
-import { ExpandedPeep } from '../ExpandedPeep'
+//import { ExpandedPeep } from '../ExpandedPeep'
 
 import { Profile } from '../Profile'
 
@@ -32,7 +32,7 @@ const Main = ({ timeline, dispatch }) => {
         </button>
         <ProfileInfo>
           <strong>{user.Name}</strong>
-          <span>{user.Peeps.length} Peeps</span>
+          <span>{user.Peeps != undefined ? user.Peeps.length : '0'} Peeps</span>
         </ProfileInfo>
       </Header>
 

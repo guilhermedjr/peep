@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useState, useEffect, useLayoutEffect } from 'react'
 import { Redirect } from 'react-router-dom'
 import { Peep, User } from '../../../logic/contracts/Entity'
-import { getMonthText, fullTimeToSeconds, formatDateTime } from '../../utils'
+import { formatPeepDateTime } from '../../utils'
 
 import {
   Container, 
@@ -54,7 +54,7 @@ type PeepProps = {
 }
 
 
-export function Peep(props: PeepProps) {
+export function PeepComponent(props: PeepProps) {
   const [showOptions, setShowOptions] = useState<boolean>(false)
 
   const [viewportWidth, viewportHeight] = useWindowSize();
@@ -87,7 +87,7 @@ export function Peep(props: PeepProps) {
               <strong>{props.user.Name}</strong>
               <span>@{props.user.Username}</span>
               <Dot />
-              <time>{formatDateTime(props.peep.PublicationDate, props.peep.PublicationTime)}</time>
+              <time>{formatPeepDateTime(props.peep.PublicationDate, props.peep.PublicationTime)}</time>
             </div>
             <div>
               { viewportWidth >= 1280
@@ -114,19 +114,19 @@ export function Peep(props: PeepProps) {
               <CommentIconArea>
                 <CommentIcon />
               </CommentIconArea>
-              <span>{props.peep.Replies.length}</span>
+              <span>{props.peep.Replies != undefined ? props.peep.Replies.length : '0'}</span>
             </Status>
             <Status>
               <RetweetIconArea>
                 <RetweetIcon />
               </RetweetIconArea>
-              <span>{props.peep.Rps.length + props.peep.Quotes.length}</span>
+              <span>{props.peep.Rps != undefined && props.peep.Quotes != undefined ? props.peep.Rps.length + props.peep.Quotes.length : '0'}</span>
             </Status>
             <Status>
               <LikeIconArea>
                 <LikeIcon />
               </LikeIconArea>
-              <span>{props.peep.Likes.length}</span>
+              <span>{props.peep.Likes != undefined ? props.peep.Likes.length : '0'}</span>
             </Status>
             <Status>
               <ShareIconArea>

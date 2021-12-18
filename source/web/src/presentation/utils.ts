@@ -1,109 +1,117 @@
-import useTranslation from './hooks/useTranslation'
+import dayjs from 'dayjs'
+import ptBR from '../i18n/locales/pt-br'
 
-export const getMonthText = (monthNumber: number) => {
-  const { t } = useTranslation()
-  let monthCode = String(monthNumber)
-  let monthText: string
+const formatDateString = (date: string): string => date.split("-").reverse().join("/")
+const splitDate = (date: string): string[] => date.split("-")
+const formatTimeString = (time: string): string => time.substring(0, 7)
+const splitTime = (time: string): string[] => time.split(":")
 
-  switch (monthCode) {
-    case '1':
-      monthText = t("Peep.Publication.Month.January")
-      break
-    case '2':
-      monthText = t("Peep.Publication.Month.February")
-      break
-    case '3':
-      monthText = t("Peep.Publication.Month.March")
-      break
-    case '4':
-      monthText = t("Peep.Publication.Month.April")
-      break
-    case '5':
-    monthText = t("Peep.Publication.Month.May")
-      break
-    case '6':
-    monthText = t("Peep.Publication.Month.June")
-      break
-    case '7':
-      monthText = t("Peep.Publication.Month.July")
-      break
-    case '8':
-      monthText = t("Peep.Publication.Month.August")
-      break
-    case '9':
-      monthText = t("Peep.Publication.Month.September")
-      break
-    case '10':
-      monthText = t("Peep.Publication.Month.October")
-      break
-    case '11':
-      monthText = t("Peep.Publication.Month.November")
-      break
-    case '12':
-      monthText = t("Peep.Publication.Month.December")
-      break
-  }
-  return monthText
-}
-
-export const fullTimeToSeconds = (time: string) => {
+const fullTimeToSeconds = (time: string) => {
   let t = time.split(':')
   let seconds = +t[0] * 60 * 60 + +t[1] * 60 + +t[2]
   return seconds
 }
 
-export const formatDateTime = (date: string, time: string): string => {
+const getMonthText = (month: string) => {
+  let monthText: string
+
+  switch (month) {
+    case '01':
+      monthText = ptBR.Peep.Publication.Month.January
+      break
+    case '02':
+      monthText = ptBR.Peep.Publication.Month.February
+      break
+    case '03':
+      monthText = ptBR.Peep.Publication.Month.March
+      break
+    case '04':
+      monthText = ptBR.Peep.Publication.Month.April
+      break
+    case '05':
+    monthText = ptBR.Peep.Publication.Month.May
+      break
+    case '06':
+    monthText = ptBR.Peep.Publication.Month.June
+      break
+    case '07':
+      monthText = ptBR.Peep.Publication.Month.July
+      break
+    case '08':
+      monthText = ptBR.Peep.Publication.Month.August
+      break
+    case '09':
+      monthText = ptBR.Peep.Publication.Month.September
+      break
+    case '10':
+      monthText = ptBR.Peep.Publication.Month.October
+      break
+    case '11':
+      monthText = ptBR.Peep.Publication.Month.November
+      break
+    case '12':
+      monthText = ptBR.Peep.Publication.Month.December
+      break
+  }
+  return monthText
+}
+
+export const getDateText = (date: string) => {
+  let dateSplit = splitDate(date)
+  return `${dateSplit[2]} ${getMonthText(dateSplit[1])} ${dateSplit[0]}`
+}
+
+
+export const formatPeepDateTime = (date: string, time: string): string => {
+  let peepDateTime: string
+  
   const now = new Date()
-
-  date = date.replace("/", "").replace("-", "").replace("/", "").replace("-", "")
-
-  let day = date.substr(0, 2),
-      month = Number(date.substr(2, 2)),
-      year = date.substr(6, 2)
-
-  time = time.replace(":", "").replace(":", "")
-
-  let hours = time.substr(0, 2),
-      minutes = time.substr(2, 2),
-      seconds = time.substr(4, 2)
-
   let dayNow: string = String(now.getDate())
   let monthNow: string = String(now.getMonth())
-  let yearNow: string = String(now.getFullYear()).substr(2, 2)
+  let yearNow: string = String(now.getFullYear())
+  let dateNow: string = `${yearNow}-${monthNow}-${dayNow}`
 
   let hoursNow: string = String(now.getHours())
   let minutesNow: string = String(now.getMinutes())
   let secondsNow: string = String(now.getSeconds())
+  let timeNow: string = `${hoursNow}:${minutesNow}:${secondsNow}`
 
-  if (year != yearNow)
-    return `${day} ${getMonthText(month)} ${year}`
+  let peepDate = date
+  let peepTime = formatTimeString(time)
 
-  if (String(month) == monthNow) {
-    let daysSincePost = Number(dayNow) - Number(day)
+  let dateTimeNow = dayjs(dateNow + 'T' + timeNow)
+  let dateTimePeep = dayjs(peepDate + 'T' + peepTime)
 
-    if (daysSincePost < 7) {
-      if (day == dayNow) {
-        if (hours == hoursNow || Number(hours) == Number(hoursNow) - 1) {
-          let secondsSincePast = fullTimeToSeconds(time)
-
-          if (secondsSincePast < 60) 
-            return `${secondsSincePast}s`
-          if (secondsSincePast < 3600)
-            return `${Math.round(secondsSincePast / 60)}min`
-          return '1h'
-        } else {
-          return `${Number(hoursNow) - Number(hours)}h`
-        }
-      } else {
-          return `${Number(dayNow) - Number(day)}d`
-      } 
-    } 
-     else {
-      return `${day} ${getMonthText(month)}`
+  let daysPassed = dateTimeNow.diff(dateTimePeep, 'day')
+ 
+  if (daysPassed >= 7) {
+    let dateSplit = splitDate(peepDate)
+    if (dateTimeNow.year() == dateTimePeep.year()) {
+      peepDateTime = `${dateSplit[2]} ${getMonthText(dateSplit[1])}`
+    } else {
+      peepDateTime = `${dateSplit[2]} ${getMonthText(dateSplit[1])} ${dateSplit[0]}`
     }
+  } else if (daysPassed >= 1) {
+     peepDateTime = `${daysPassed}d`
+  } else {
+     let hoursPassed = dateTimeNow.diff(dateTimePeep, 'hour')
+     if (hoursPassed >= 1) {
+       peepDateTime = `${hoursPassed}h`
+     } else {
+       let minutesPassed = dateTimeNow.diff(dateTimePeep, 'minute')
+       if (minutesPassed >= 1) {
+         peepDateTime = `${minutesPassed}m`
+       } else {
+          peepDateTime = 'Agora mesmo'
+       }
+     }
   }
-  else {
-    return `${day} ${getMonthText(month)}`
-  }
+  return peepDateTime
+}
 
+export const formatExpandedPeepDateAndTime = (date: string, time: string): string[] => {
+  let dateSplit = splitDate(date)
+  let dateText = `${dateSplit[2]} ${getMonthText(dateSplit[1])}, ${dateSplit[0]}`
+  let timeText = formatTimeString(time).substring(0, 4)
+  return [timeText, dateText]
 }

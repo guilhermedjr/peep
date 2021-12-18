@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import { UserTimelineContext } from '../../../logic/contexts/UserTimelineContext'
-import useTranslation from '../../hooks/useTranslation'
+import ptBR from '../../../i18n/locales/pt-br'
+import { getDateText } from '../../utils'
 
 import { 
   ProfileContainer, 
@@ -21,7 +22,6 @@ import { Feed } from '../Feed'
 
 export function Profile() {
   const { user } = useContext(UserTimelineContext)
-  const { t } = useTranslation()
 
   return (
     <ProfileContainer>
@@ -56,13 +56,13 @@ export function Profile() {
           </li>
           <li>
             <CakeIcon />
-            {t("User.Info.BirthDate")} {user.BirthDate}
+            {ptBR.User.Info.BirthDate} {user.BirthDate != undefined ? getDateText(user.BirthDate) : ''}
           </li>
         </ul>
 
         <Followage>
-          <span><strong>{user.Following.length}</strong> {t("User.Connections.Following")}</span>
-          <span><strong>{user.Followers.length}</strong> {t("resource.User.Connections.Followers")}</span>
+          <span><strong>{user.Following != undefined ? user.Following.length : '0'}</strong> {ptBR.User.Connections.Following}</span>
+          <span><strong>{user.Followers != undefined ? user.Followers.length : '0'}</strong> {ptBR.User.Connections.Followers}</span>
         </Followage>
       </ProfileData>
 

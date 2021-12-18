@@ -1,5 +1,3 @@
-import useTranslation from '../../hooks/useTranslation'
-import { PeepProps } from '../../contracts/components'
 import { EPeepSource } from '../../../logic/contracts/Entity'
 
 import { useParams } from 'react-router-dom'
@@ -36,11 +34,11 @@ import {
   
 } from './styles'
 
-type ExpandedPeepProps = PeepProps & {
+/*type ExpandedPeepProps = PeepProps & {
   source: EPeepSource
-}
+}*/
 
-export function ExpandedPeep(props: ExpandedPeepProps) {
+/*export function ExpandedPeep(props: ExpandedPeepProps) {
   const { t } = useTranslation()
   let { peepUsername, peepId } = useParams() as { peepUsername: string, peepId: string }
 
@@ -77,7 +75,7 @@ export function ExpandedPeep(props: ExpandedPeepProps) {
                   :   <OptionsButtonMobile>
                         <OptionsIconMobile />
                       </OptionsButtonMobile>
-              } */}
+              } */
               <OptionsButton>
                 <OptionsIcon />
               </OptionsButton>
@@ -85,7 +83,7 @@ export function ExpandedPeep(props: ExpandedPeepProps) {
             
               {/* <PeepOptions style={{ display: showOptions ? 'flex' : 'none'}}>
               <PeepOptions/> */}
-            </div>
+            /*</div>
           </Header>
         </Head>
         <Content>
@@ -155,4 +153,4 @@ export function ExpandedPeep(props: ExpandedPeepProps) {
       </Body>
     </Container>
   )
-}
+}*/

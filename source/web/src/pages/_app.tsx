@@ -22,8 +22,8 @@ function MyApp({ Component, pageProps }) {
     <SafeHydrate>
       <CookiesProvider>
         <I18nProvider>
-          <LoginProvider>
-            <UserTimelineProvider>
+          <UserTimelineProvider>
+            <LoginProvider>
               <PeepsProvider>
                 <SearchProvider>
                   <Provider store={store}>
@@ -32,8 +32,8 @@ function MyApp({ Component, pageProps }) {
                   </Provider>
                 </SearchProvider>
               </PeepsProvider>
-            </UserTimelineProvider>
-          </LoginProvider>
+            </LoginProvider>
+          </UserTimelineProvider>
         </I18nProvider>
       </CookiesProvider>
     </SafeHydrate>

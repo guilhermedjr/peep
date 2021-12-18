@@ -17,13 +17,12 @@ import {
 } from './styles'
 
 export function SearchResults() {
-  const { results } = useContext(SearchContext)
+  const { results, resultsVisible, hideResults } = useContext(SearchContext)
   const { getUser } = useContext(UserTimelineContext)
-  const [visible, setVisible] = useState<boolean>(true)
 
   const onResultClick = (userId: string) => {
     getUser(userId)
-    setVisible(false)
+    hideResults()
   }
 
   let resultBoxes: JSX.Element[] =
@@ -116,7 +115,7 @@ export function SearchResults() {
                   </div>
                 </DiscriminationInfo>
                 <AdditionalInfo>
-                  <span>{result.Bio}</span>
+                  <span>{result.Bio != null ? result.Bio : ''}</span>
                 </AdditionalInfo>
               </InfoSection>
             </ResultBox>
@@ -126,7 +125,7 @@ export function SearchResults() {
       : []
 
   return (
-    <Container style={{display: visible ? 'block' : 'none'}}>
+    <Container style={{display: resultsVisible ? 'flex' : 'none'}}>
       <MessageArea style={{display: resultBoxes.length == 0 ? 'block' : 'none'}}>
         <span>Try searching for people</span>
       </MessageArea>

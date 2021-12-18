@@ -38,6 +38,8 @@ export const Avatar = styled.div`
   bottom: max(-60px, -10vw);
   left: 15px;
 
+  cursor: pointer;
+
 `
 export const ProfileImage = styled.img`
   width: 100%;

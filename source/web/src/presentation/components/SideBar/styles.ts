@@ -27,8 +27,6 @@ export const SearchWrapper = styled.div`
   top: 0;
   z-index: 2;
   max-height: 57px;
-
-  background: green;
 `
 
 export const SearchInput = styled.input`

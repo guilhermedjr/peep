@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 import Button from '../Button'
+import { LoginContext } from '../../../logic/contexts/LoginContext'
 import { PeepsContext } from '../../../logic/contexts/PeepsContext'
 
 import {
@@ -22,6 +23,7 @@ import {
 } from './styles'
 
 export function MenuBar() {
+  const { loggedUser } = useContext(LoginContext)
   const { openModal } = useContext(PeepsContext)
   return (
     <Container>
@@ -76,8 +78,8 @@ export function MenuBar() {
       <Bottomside>
         <Avatar />
         <ProfileData>
-          <strong>Ednaldo Pereira</strong>
-          <span>@oednaldopereira</span>
+          <strong>{loggedUser.Name}</strong>
+          <span>@{loggedUser.Username}</span>
         </ProfileData>
 
         <OptionsIcon />

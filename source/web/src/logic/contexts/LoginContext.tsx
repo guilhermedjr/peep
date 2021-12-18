@@ -40,6 +40,12 @@ export default function LoginProvider({children}: LoginProviderProps) {
   const { getUser, user: peepUser } = useContext(UserTimelineContext)
   const [loggedUser, setLoggedUser] = useState<User>({} as User)
 
+  const goToHome = (userId: string) => {
+    Router.push('home') 
+    getUser(userId)
+    setLoggedUser(peepUser)
+  }
+
   async function login(): Promise<void> {
     signInWithPopup(auth, googleProvider).then(
       result => {
@@ -51,9 +57,7 @@ export default function LoginProvider({children}: LoginProviderProps) {
             httpClient.SignInWithGoogle({ Token: token, IdToken: idToken }).then(
               user => { 
                 setCookie('user-id', user.Id)
-                Router.push('home') 
-                getUser(user.Id)
-                setLoggedUser(peepUser)
+                goToHome(user.Id)
               }
             )
           }

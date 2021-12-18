@@ -16,7 +16,7 @@ import {
 } from './styles'
 
 export function SideBar() {
-  const { search } = useContext(SearchContext)
+  const { search, showResults, hideResults } = useContext(SearchContext)
   const [searchStr, setSearchStr] = useState<string>("")
 
   const debouncedSearch = useDebounce(nextValue => search(nextValue), 1000);
@@ -34,6 +34,8 @@ export function SideBar() {
           placeholder="Buscar no Twitter" 
           value={searchStr}
           onChange={e => onSearchChange(e)}
+          onFocus={showResults}
+          onBlur={hideResults}
         />
         <SearchIcon />
       </SearchWrapper>

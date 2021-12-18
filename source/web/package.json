@@ -10,6 +10,7 @@
   "dependencies": {
     "@microsoft/signalr": "^5.0.8",
     "axios": "^0.21.1",
+    "dayjs": "^1.10.7",
     "firebase": "^9.2.0",
     "history": "^5.0.0",
     "http-server": "^14.0.0",

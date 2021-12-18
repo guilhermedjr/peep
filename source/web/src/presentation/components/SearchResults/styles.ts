@@ -22,7 +22,6 @@ export const Container = styled.div`
   overflow-x: hidden;
   overscroll-behavior: contain;
 
-  display: flex;
   flex-direction: column;
 `
 
