@@ -5,8 +5,6 @@ namespace Peep.Parrot.Domain.Entities;
 /* Attributes that can be used in both NoSQL and SQL databases, and entity methods */
 public partial class ApplicationUser
 {
-    private readonly IList<Peep> _peeps;
-
     private readonly IList<ApplicationUser> _following;
     private readonly IList<ApplicationUser> _followers;
     private readonly IList<Nest> _userNests;
@@ -37,7 +35,6 @@ public partial class ApplicationUser
       
         _following = new List<ApplicationUser>();
         _followers = new List<ApplicationUser>();
-        _peeps = new List<Peep>();
         _userNests = new List<Nest>();
         _nests = new List<Nest>();
         _followRequests = new List<ApplicationUser>();
@@ -64,7 +61,7 @@ public partial class ApplicationUser
     public bool PrivateAccount { get; private set; } 
     public bool VerifiedAccount { get; private set; }
     
-    public IReadOnlyCollection<Peep> Peeps { get { return _peeps.ToArray(); } }
+    public IEnumerable<Peep> Peeps { get; set; }
         
 }
 

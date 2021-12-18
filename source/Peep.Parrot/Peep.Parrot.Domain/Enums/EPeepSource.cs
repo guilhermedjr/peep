@@ -1,6 +1,6 @@
 ﻿namespace Peep.Parrot.Domain.Enums;
 
-public enum EPeepSource
+public enum EPeepSource : byte
 {
     PeepWebApp,
     PeepForAndroid,

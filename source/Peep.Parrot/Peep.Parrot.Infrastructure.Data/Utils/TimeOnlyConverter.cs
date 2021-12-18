@@ -1,11 +1,11 @@
-﻿/*using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Peep.Parrot.Infrastructure.Data.Utils;
 
-public class TimeOnlyConverter : ValueConverter<TimeOnly, DateTime>
+public class TimeOnlyConverter : ValueConverter<TimeOnly, TimeSpan>
 {
     public TimeOnlyConverter() : base(
-            t => t.ToDateTime(TimeOnly.MinValue),
-            t => TimeOnly.FromDateTime(t))
+            t => t.ToTimeSpan(),
+            t => TimeOnly.FromTimeSpan(t))
     { }
-}*/
+}

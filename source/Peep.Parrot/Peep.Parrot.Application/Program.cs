@@ -22,7 +22,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.ConfigureServices(builder.Configuration)
-    .ConfigureAuthentication(builder.Configuration);
+    .ConfigureAuthentication();
 
 builder.Services.AddControllers(options => options.UseDateOnlyTimeOnlyStringConverters())
                 .AddJsonOptions(options => options.UseDateOnlyTimeOnlyStringConverters());

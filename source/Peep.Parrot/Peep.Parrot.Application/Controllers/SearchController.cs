@@ -13,7 +13,7 @@ public class SearchController : ControllerBase
         _searchHandler = searchHandler;
     }
 
-    //[Authorize]
+    [Authorize]
     [HttpGet]
     public async Task<IActionResult> Search([FromQuery] string s)
     {

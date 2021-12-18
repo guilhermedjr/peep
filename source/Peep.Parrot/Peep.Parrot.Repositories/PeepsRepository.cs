@@ -16,7 +16,12 @@ public class PeepsRepository : IPeepsRepository
         _cosmosDbConnection = cosmosDbConnection;
     }
 
-    public async Task AddPeep(AddPeepDto addPeepDto)
+    public Task AddPeep(AddPeepDto addPeepDto)
+    {
+        throw new NotImplementedException();
+    }
+
+    /*public async Task AddPeep(AddPeepDto addPeepDto)
     {
         var peep = new Domain.Entities.Peep(addPeepDto.UserId, addPeepDto.TextContent, 0, 0);
 
@@ -24,26 +29,21 @@ public class PeepsRepository : IPeepsRepository
         _sqlDbContext.SaveChanges();
 
         await _cosmosDbConnection.AddItemAsync<Domain.Entities.Peep>(peep);
-    }
-
-    /*public async Task<Domain.Entities.Peep> GetPeep(Guid id)
-    {
-        var queryString = $"SELECT * FROM Peeps p WHERE p.id = {id}";
-        var peep = await _cosmosDbConnection.GetItemAsync<Domain.Entities.Peep>(queryString);
-        return peep;
     }*/
 
-    public async Task DeletePeep(Domain.Entities.Peep peep)
+    public async Task<Domain.Entities.Peep> GetPeep(Guid id)
     {
-        _sqlDbContext.Peep.Remove(peep);
-        _sqlDbContext.SaveChanges();
-
-        await _cosmosDbConnection.DeleteItemAsync<Domain.Entities.Peep>(peep.Id);
+        var peep = await _cosmosDbConnection.GetItemAsync<Domain.Entities.Peep>(id);
+        return peep;
     }
 
-    public Task<Domain.Entities.Peep> GetPeep(Guid id)
+    public async Task<IEnumerable<Domain.Entities.Peep>> GetUserPeeps(Guid userId)
     {
-        throw new NotImplementedException();
+        var queryString = 
+            $"SELECT * FROM Peeps p WHERE p.userId = '{userId.ToString().ToUpper()}'";
+
+        var peeps = await _cosmosDbConnection.GetItemsAsync<Domain.Entities.Peep>(queryString);
+        return peeps;
     }
 }
 

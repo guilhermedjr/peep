@@ -32,7 +32,8 @@ public class UsersSearchRepository : ISearchRepository<ApplicationUser>
     public async Task<IEnumerable<ApplicationUser>> Search(string searchString)
     {
         var queryString = 
-            $"SELECT * FROM Users u WHERE u.username LIKE '{searchString}%' OR u.name LIKE '{searchString}% '" +
+            $"SELECT * FROM Users u WHERE UPPER(u.username) LIKE '{searchString.ToUpper()}%' " +
+            $"OR UPPER(u.name) LIKE '{searchString.ToUpper()}%' " +
             $"ORDER BY u.name";
 
         var users = await _cosmosDbConnection.GetItemsAsync<ApplicationUser>(queryString);

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Peep.Parrot.Domain.Entities;
+using Peep.Parrot.Infrastructure.Data.Utils;
 
 namespace Peep.Parrot.Infrastructure.Data;
 
@@ -13,12 +14,16 @@ public class AppDbContext : DbContext
     public DbSet<Mute> Mutes { get; set; }
     public DbSet<Block> Blocks { get; set; }
 
-    /*protected override void ConfigureConventions(ModelConfigurationBuilder builder)
+    protected override void ConfigureConventions(ModelConfigurationBuilder builder)
     {
         builder.Properties<DateOnly>()
             .HaveConversion<DateOnlyConverter>()
             .HaveColumnType("date");
-    }*/
+
+        builder.Properties<TimeOnly>()
+            .HaveConversion<TimeOnlyConverter>()
+            .HaveColumnType("time");
+    }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

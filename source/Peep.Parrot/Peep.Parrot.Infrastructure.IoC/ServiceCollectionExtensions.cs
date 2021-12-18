@@ -35,7 +35,7 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-    public static IServiceCollection ConfigureAuthentication(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection ConfigureAuthentication(this IServiceCollection services)
     {
         services.AddAuthentication(options =>
         {

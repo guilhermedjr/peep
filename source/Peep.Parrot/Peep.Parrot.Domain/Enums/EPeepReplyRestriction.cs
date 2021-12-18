@@ -1,6 +1,6 @@
 ﻿namespace Peep.Parrot.Domain.Enums;
 
-public enum EPeepReplyRestriction
+public enum EPeepReplyRestriction : byte
 {
     Everyone,
     Followed,
