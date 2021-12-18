@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import Button from '../Button'
-import { LoginContext } from '../../../logic/contexts/LoginContext'
+import { AuthContext } from '../../../logic/contexts/AuthContext'
 import { PeepsContext } from '../../../logic/contexts/PeepsContext'
 
 import {
@@ -23,7 +23,7 @@ import {
 } from './styles'
 
 export function MenuBar() {
-  const { loggedUser } = useContext(LoginContext)
+  const { loggedUser } = useContext(AuthContext)
   const { openModal } = useContext(PeepsContext)
   return (
     <Container>

@@ -4,15 +4,16 @@ import Router from 'next/router'
 import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth'
 import { initializeApp } from 'firebase/app'
 import WingsHttpClient from '../services/WingsHttpClient'
-import { UserTimelineContext } from '../../logic/contexts/UserTimelineContext'
-import { User } from '../../logic/contracts/Entity'
+import { UserTimelineContext } from './UserTimelineContext'
+import { User } from '../contracts/Entity'
 
-type LoginContextData = {
+type AuthContextData = {
   login: () => Promise<void>
-  loggedUser: User
+  loggedUser: User,
+  isAuthenticated: boolean
 }
 
-type LoginProviderProps = {
+type AuthProviderProps = {
   children: ReactNode
 }
 
@@ -32,18 +33,23 @@ const auth = getAuth(app)
 var googleProvider = new GoogleAuthProvider()
 googleProvider.addScope("https://www.googleapis.com/auth/userinfo.profile")
 
-export const LoginContext = createContext({} as LoginContextData)
+export const AuthContext = createContext({} as AuthContextData)
 
-export default function LoginProvider({children}: LoginProviderProps) {
+export default function AuthProvider({children}: AuthProviderProps) {
   const httpClient = new WingsHttpClient()
   const [cookies, setCookie] = useCookies(['peep-token', 'user-id'])
-  const { getUser, user: peepUser } = useContext(UserTimelineContext)
   const [loggedUser, setLoggedUser] = useState<User>({} as User)
-
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
+  const { getUser, user: peepUser } = useContext(UserTimelineContext)
+  
   const goToHome = (userId: string) => {
-    Router.push('home') 
-    getUser(userId)
-    setLoggedUser(peepUser)
+    getUser(userId).then(
+      promiseResolved => { 
+        setIsAuthenticated(true)
+        Router.push('home') 
+        setLoggedUser(peepUser)
+      }
+    )
   }
 
   async function login(): Promise<void> {
@@ -67,13 +73,14 @@ export default function LoginProvider({children}: LoginProviderProps) {
   }
 
   return (
-    <LoginContext.Provider
+    <AuthContext.Provider
       value={{
         login,
-        loggedUser
+        loggedUser,
+        isAuthenticated
       }}
     >
       { children }
-    </LoginContext.Provider>
+    </AuthContext.Provider>
   )
 }

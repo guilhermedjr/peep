@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useContext } from 'react'
 import ptBR from '../../../i18n/locales/pt-br'
-import { LoginContext } from '../../../logic/contexts/LoginContext'
+import { AuthContext } from '../../../logic/contexts/AuthContext'
 
 import {
   Container,
@@ -16,7 +16,7 @@ import {
 } from './styles'
 
 export function Login() { 
-  const { login } = useContext(LoginContext)
+  const { login } = useContext(AuthContext)
 
   return (
     <Container>

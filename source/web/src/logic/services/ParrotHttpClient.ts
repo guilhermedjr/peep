@@ -8,7 +8,7 @@ export default class ParrotHttpClient implements IHttpClient {
   private readonly headers = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    // 'Authorization': `Bearer ${getCookieFromKeyName('peep-token')}` 
+    'Authorization': `Bearer ${getCookieFromKeyName('peep-token')}` 
   }
 
   constructor() {}

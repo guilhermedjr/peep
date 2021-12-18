@@ -1,6 +1,5 @@
 import StickyBox from 'react-sticky-box'
-import React, { useState, useContext } from 'react'
-import useDebounce from '../../hooks/useDebounce'
+import React, { useContext, useEffect } from 'react'
 import { SearchContext } from '../../../logic/contexts/SearchContext'
 
 import { SearchResults } from '../SearchResults'
@@ -16,16 +15,19 @@ import {
 } from './styles'
 
 export function SideBar() {
-  const { search, showResults, hideResults } = useContext(SearchContext)
-  const [searchStr, setSearchStr] = useState<string>("")
+  const { searchStr, onSearchChange, showResults, hideResults, loading, changeLoading } 
+    = useContext(SearchContext)
 
-  const debouncedSearch = useDebounce(nextValue => search(nextValue), 1000);
+  useEffect(() => {
+    if (searchStr.length > 0) {
+      if (!loading) 
+        changeLoading(true)
+    } else {
+      changeLoading(false)
+    }
+  }, [searchStr])
 
-  const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value: nextValue } = e.target
-    setSearchStr(nextValue)
-    debouncedSearch(nextValue)
-  }
+  
 
   return (
     <Container>

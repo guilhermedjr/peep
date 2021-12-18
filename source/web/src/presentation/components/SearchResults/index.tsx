@@ -17,10 +17,12 @@ import {
 } from './styles'
 
 export function SearchResults() {
-  const { results, resultsVisible, hideResults } = useContext(SearchContext)
+  const { results, resultsVisible, hideResults, loading } = useContext(SearchContext)
   const { getUser } = useContext(UserTimelineContext)
 
   const onResultClick = (userId: string) => {
+    alert("Cliquei no usuário, caralho!")
+    console.log("Cliquei no usuário, caralho!")
     getUser(userId)
     hideResults()
   }
@@ -30,9 +32,9 @@ export function SearchResults() {
       ? results.map(
         result => {
           return (
-            <ResultBox 
+            <ResultBox
               key={result.Id}
-              onClick={() => onResultClick(result.Id)}
+              //onClick={() => onResultClick(result.Id)}
             >
               <ImageSection>
                 <ImageContainer>
@@ -126,7 +128,14 @@ export function SearchResults() {
 
   return (
     <Container style={{display: resultsVisible ? 'flex' : 'none'}}>
-      <MessageArea style={{display: resultBoxes.length == 0 ? 'block' : 'none'}}>
+      <MessageArea 
+        style={{
+          display: resultBoxes.length == 0 
+            ? loading
+                ? 'none' : 'block'
+            : 'none'
+        }}
+      >
         <span>Try searching for people</span>
       </MessageArea>
       { resultBoxes }

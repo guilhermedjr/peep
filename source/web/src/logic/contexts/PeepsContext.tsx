@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
+import { createContext, useState, ReactNode } from 'react'
 import { Peep, AddPeepDto } from '../contracts/Entity'
 import { HttpStatusCode } from '../contracts/HttpClient'
 import ParrotHttpClient from '../services/ParrotHttpClient'

@@ -1,6 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import React from 'react'
-import Routes from '../presentation/Routes'
 
 export default class MyDocument extends Document {
   render() {
@@ -9,8 +8,7 @@ export default class MyDocument extends Document {
         <Head></Head>
         <body>
           <Main />
-          <NextScript />
-          <Routes />
+          <NextScript /> 
         </body>
       </Html>
     )

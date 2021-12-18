@@ -1,12 +1,10 @@
-import { Provider } from 'react-redux'
 import { CookiesProvider } from 'react-cookie'
-import I18nProvider from '../presentation/contexts/i18nContext'
-import LoginProvider from '../logic/contexts/LoginContext'
+import AuthProvider from '../logic/contexts/AuthContext'
 import UserTimelineProvider from '../logic/contexts/UserTimelineContext'
 import PeepsProvider from '../logic/contexts/PeepsContext'
 import SearchProvider from '../logic/contexts/SearchContext'
-import store from '../store'
 import GlobalStyles from '../presentation/styles/GlobalStyles'
+import RouteGuard from '../presentation/HOCs/RouteGuard'
 
 // Disable SSR and SSG (temporary)
 function SafeHydrate({ children }) {
@@ -21,20 +19,18 @@ function MyApp({ Component, pageProps }) {
   return (
     <SafeHydrate>
       <CookiesProvider>
-        <I18nProvider>
-          <UserTimelineProvider>
-            <LoginProvider>
-              <PeepsProvider>
-                <SearchProvider>
-                  <Provider store={store}>
-                    <Component {...pageProps} />
-                    <GlobalStyles />
-                  </Provider>
-                </SearchProvider>
-              </PeepsProvider>
-            </LoginProvider>
-          </UserTimelineProvider>
-        </I18nProvider>
+        <UserTimelineProvider>
+          <AuthProvider>
+            <PeepsProvider>
+              <SearchProvider>
+                <RouteGuard>
+                  <Component {...pageProps} />
+                </RouteGuard>
+                <GlobalStyles />
+              </SearchProvider>
+            </PeepsProvider>
+          </AuthProvider>
+        </UserTimelineProvider>
       </CookiesProvider>
     </SafeHydrate>
   )
