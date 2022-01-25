@@ -15,7 +15,7 @@ export function Feed() {
       : []
 
   return (
-    <Peeps>
+    <Peeps data-testid="feed">
       { peeps }
     </Peeps> 
   )   

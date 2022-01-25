@@ -21,8 +21,6 @@ export function SearchResults() {
   const { getUser } = useContext(UserTimelineContext)
 
   const onResultClick = (userId: string) => {
-    alert("Cliquei no usuário, caralho!")
-    console.log("Cliquei no usuário, caralho!")
     getUser(userId)
     hideResults()
   }

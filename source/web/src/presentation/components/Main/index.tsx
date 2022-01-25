@@ -1,9 +1,9 @@
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import { useParams } from 'react-router-dom'
+// import { bindActionCreators } from 'redux'
+// import { connect } from 'react-redux'
+// import { useParams } from 'react-router-dom'
 import { useContext, useState, useEffect } from 'react'
 import { UserTimelineContext } from '../../../logic/contexts/UserTimelineContext'
-import * as actions from '../../../store/actions'
+// import * as actions from '../../../store/actions'
 import { User } from '../../../logic/contracts/Entity'
 //import { ExpandedPeep } from '../ExpandedPeep'
 
@@ -65,4 +65,5 @@ const Main = ({ timeline, dispatch }) => {
   )
 }
 
-export default connect(state => ({ timeline: state }))(Main)
+export default Main
+// export default connect(state => ({ timeline: state }))(Main)

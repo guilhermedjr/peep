@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useState, useEffect, useLayoutEffect } from 'react'
-import { Redirect } from 'react-router-dom'
+//import { Redirect } from 'react-router-dom'
 import { Peep, User } from '../../../logic/contracts/Entity'
 import { formatPeepDateTime } from '../../utils'
 
@@ -60,11 +60,11 @@ export function PeepComponent(props: PeepProps) {
   const [viewportWidth, viewportHeight] = useWindowSize();
 
   const expandPeep = () => {
-    return <Redirect to={'/:peepUser/status/:peepId'} />
+    //return <Redirect to={'/:peepUser/status/:peepId'} />
   }
 
   return (
-    <Container onClick={expandPeep}>
+    <Container onClick={expandPeep} data-testid="peep">
       {/* { props.isRepost 
           ? <Retweeted>
               <RtIcon />
