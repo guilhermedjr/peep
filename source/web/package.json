@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "cypress": "cypress open"
   },
   "dependencies": {
     "@microsoft/signalr": "^5.0.8",
@@ -23,11 +24,19 @@
     "typescript": "^4.3.5"
   },
   "devDependencies": {
+    "@playwright/test": "^1.18.0",
+    "@testing-library/dom": "^8.11.2",
+    "@testing-library/jest-dom": "^5.16.1",
+    "@testing-library/react": "^12.1.2",
+    "@testing-library/user-event": "^13.5.0",
     "@types/axios": "^0.14.0",
     "@types/firebase": "^3.2.1",
+    "@types/jest": "^27.4.0",
     "@types/lodash": "^4.14.178",
     "@types/node": "^15.6.1",
     "@types/react": "^17.0.15",
-    "@types/styled-components": "^5.1.9"
+    "@types/styled-components": "^5.1.9",
+    "cypress": "^9.3.1",
+    "jest": "^27.4.7"
   }
 }
