@@ -33,6 +33,7 @@ export function SideBar() {
     <Container>
       <SearchWrapper>
         <SearchInput 
+          data-testid="input-search"
           placeholder="Buscar no Twitter" 
           value={searchStr}
           onChange={e => onSearchChange(e)}

@@ -74,11 +74,14 @@ export function PeepComponent(props: PeepProps) {
       } */}
       <Body>
         <Avatar>
-          <ProfileImage src={
-            props.user.ProfileImageUrl != null
-            ? props.user.ProfileImageUrl
-            : 'defaultProfileImage.png'
-          } />
+          <ProfileImage 
+            data-testid="peep-profile-image"
+            src={
+              props.user.ProfileImageUrl != null
+              ? props.user.ProfileImageUrl
+              : 'defaultProfileImage.png'
+            } 
+          />
         </Avatar> 
 
         <Content>

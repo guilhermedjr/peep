@@ -29,7 +29,9 @@ export function Profile() {
     <ProfileContainer>
       <Banner>
         <Avatar>
-          <ProfileImage src={
+          <ProfileImage 
+            data-testid="profile-profile-image"
+            src={
             user.ProfileImageUrl != null
               ? user.ProfileImageUrl
               : 'defaultProfileImage.png'
@@ -40,7 +42,7 @@ export function Profile() {
       <ProfileData>
         <EditButton 
           style={{
-            display: user.Id == loggedUser.Id
+            display: user.Id == loggedUser?.Id
               ? 'block' : 'none'
           }} 
           outlined
@@ -48,8 +50,8 @@ export function Profile() {
           Editar perfil
         </EditButton>
 
-        <h1>{user.Name}</h1>
-        <h2>@{user.Username}</h2>
+        <h1 data-testid="profile-name">{user.Name}</h1>
+        <h2 data-testid="profile-username">@{user.Username}</h2>
 
         <p>{user.Bio != null ? user.Bio : ''}</p>
 

@@ -23,11 +23,7 @@ import {
 
 import Container from '../Container'
 
-type PeepModalProps = {
-  isVisible: boolean
-}
-
-export function PeepModal(props: PeepModalProps) {
+export function PeepModal() {
   const { addPeep, isModalOpen, closeModal } = useContext(PeepsContext)
   const [textContent, setTextContent] = useState("")
 
@@ -57,17 +53,18 @@ export function PeepModal(props: PeepModalProps) {
   }
   
   return (
-    <Container visible={false}>
+    <Container data-testid="peep-modal" visible={isModalOpen}>
       <Modal>
         <Header>Fechar</Header>
         <Body>
           <ProfileSection>
             <Avatar>
-              <ProfileImage src="defaultProfileImage.png" />
+              <ProfileImage data-testid="peep-modal-profile-image" src="defaultProfileImage.png" />
             </Avatar>
           </ProfileSection>
           <PeepSection>
             <Description 
+              data-testid="peep-textarea"
               placeholder={ptBR.PeepModal.Placeholder}
               value={textContent} 
               maxLength={280}
@@ -88,6 +85,7 @@ export function PeepModal(props: PeepModalProps) {
                 </CharacterCounterContainer> */}
                 {/* <ThreadedPeepButton /> */}
                 <SendButton 
+                  data-testid="send-peep-button"
                   disabled={textContent == ""}
                   onClick={() => sendPeep()}
                 >

@@ -70,7 +70,7 @@ export function MenuBar() {
           <span>Mais</span>
         </MenuButton>
 
-        <Button onClick={openModal}>
+        <Button data-testid="peep-button" onClick={openModal}>
           <span>Peep</span>
         </Button>
       </Topside>
