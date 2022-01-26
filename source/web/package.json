@@ -11,10 +11,12 @@
     "e2e": "playwright test"
   },
   "dependencies": {
+    "@apollo/client": "^3.5.8",
     "@microsoft/signalr": "^5.0.8",
     "axios": "^0.21.1",
     "dayjs": "^1.10.7",
     "firebase": "^9.2.0",
+    "graphql": "^16.3.0",
     "lodash": "^4.17.21",
     "next": "11.0.1",
     "react": "17.0.2",
