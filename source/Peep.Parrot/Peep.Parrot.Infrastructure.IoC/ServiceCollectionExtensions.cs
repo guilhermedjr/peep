@@ -4,6 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Azure.Cosmos;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Serialization;
+using GraphQL.MicrosoftDI;
+using GraphQL.Types;
+using Peep.Parrot.GraphQL.Schemas;
 using Peep.Parrot.Domain.Repository;
 using Peep.Parrot.Domain.Entities;
 using Peep.Parrot.Domain.Handler;
@@ -15,17 +20,58 @@ namespace Peep.Parrot.Infrastructure.IoC;
 
 public static class ServiceCollectionExtensions
 {
+    public static IServiceCollection ConfigureCors(this IServiceCollection services)
+    {
+        services.AddCors(options =>
+        {
+            options.AddDefaultPolicy(
+                builder =>
+                {
+                    builder.WithOrigins("http://localhost:3000",
+                                        "http://localhost:44364",
+                                        "http://localhost:44327",
+                                        "https://peep.vercel.app")
+                            .AllowAnyHeader().AllowAnyMethod();
+                });
+        });
+
+        return services;
+    }
+
     public static IServiceCollection ConfigureServices(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddControllers(options => options.UseDateOnlyTimeOnlyStringConverters())
+                .AddJsonOptions(options => options.UseDateOnlyTimeOnlyStringConverters());
+
+        services.AddMvc()
+            .AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+            });
+
+        services.AddSwaggerGen(c =>
+        {
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "Peep.Wings.Application", Version = "v1" });
+            c.UseDateOnlyTimeOnlyStringConverters();
+
+        });
+
         services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("sqlServer")));
 
+        services.AddSingleton<ISchema, UsersSchema>(services => new UsersSchema(
+            new SelfActivatingServiceProvider(services)
+            ));
+
+        services.AddSingleton<ISchema, PeepsSchema>(services => new PeepsSchema(
+           new SelfActivatingServiceProvider(services)
+           ));
+
+        services.AddScoped<IUsersRepository, UsersRepository>();
         services.AddScoped<IPeepsRepository, PeepsRepository>();
         services.AddScoped<ISearchRepository<ApplicationUser>, UsersSearchRepository>();
 
         services.AddScoped<ISearchHandler, SearchHandler>();
-
-        /*services.AddScoped<IUserInfoRepository, UserInfoRepository>();*/
 
         services.AddSingleton<CosmosDbConnection>(InitializeCosmosClientInstanceAsync(
             configuration.GetSection("CosmosDb")).GetAwaiter().GetResult());

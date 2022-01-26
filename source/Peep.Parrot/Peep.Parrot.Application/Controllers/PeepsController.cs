@@ -25,9 +25,9 @@ public class PeepsController : ControllerBase
 
     [Authorize]
     [HttpGet]
-    public async Task<IActionResult> GetPeep([FromQuery] Guid peepId) 
+    public async Task<IActionResult> GetPeep([FromQuery] Guid id) 
     {
-        var peep = await _peepsRepository.GetPeep(peepId);
+        var peep = await _peepsRepository.GetById(id);
 
         if (peep == null)
             return BadRequest(new { Message = "There is no peep with the specified id" });

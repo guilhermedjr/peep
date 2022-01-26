@@ -7,7 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="GraphQL" Version="4.7.1" />
+    <PackageReference Include="GraphQL.MicrosoftDI" Version="4.7.1" />
+    <PackageReference Include="GraphQL.Server" Version="1.7.0.1" />
+    <PackageReference Include="GraphQL.Server.Ui.Altair" Version="5.2.0" />
+    <PackageReference Include="GraphQL.SystemTextJson" Version="4.7.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
@@ -15,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Peep.Parrot.GraphQL\Peep.Parrot.GraphQL.csproj" />
     <ProjectReference Include="..\Peep.Parrot.Handlers\Peep.Parrot.Handlers.csproj" />
     <ProjectReference Include="..\Peep.Parrot.Infrastructure.Data\Peep.Parrot.Infrastructure.Data.csproj" />
     <ProjectReference Include="..\Peep.Parrot.Repositories\Peep.Parrot.Repositories.csproj" />

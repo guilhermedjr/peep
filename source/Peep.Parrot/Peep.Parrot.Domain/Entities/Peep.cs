@@ -4,10 +4,10 @@ namespace Peep.Parrot.Domain.Entities;
 
 public class Peep
 {
-    /*private readonly IList<Peep> _quotes;
+    private IList<Peep> _quotes;
     private readonly IList<ApplicationUser> _rps;
     private readonly IList<ApplicationUser> _likes;
-    private readonly IList<Peep> _replies;*/
+    private readonly IList<Peep> _replies;
 
     /// <summary>
     /// ORM constructor
@@ -49,10 +49,10 @@ public class Peep
     public EPeepReplyRestriction ReplyRestriction { get; private set; }
     public Guid? QuotedPeepId { get; private set; }
     public Guid? RepliedPeepId { get; private set; }
-    /*public IReadOnlyCollection<Peep> Quotes { get { return _quotes.ToArray(); } }
+    public IReadOnlyCollection<Peep> Quotes { get { return _quotes.ToArray(); } }
     public IReadOnlyCollection<ApplicationUser> Rps { get { return _rps.ToArray(); } }
     public IReadOnlyCollection<ApplicationUser> Likes { get { return _likes.ToArray(); } }
-    public IReadOnlyCollection<Peep> Replies { get { return _replies.ToArray(); } }*/
+    public IReadOnlyCollection<Peep> Replies { get { return _replies.ToArray(); } }
 
 }
 

@@ -31,7 +31,7 @@ public class PeepsRepository : IPeepsRepository
         await _cosmosDbConnection.AddItemAsync<Domain.Entities.Peep>(peep);
     }*/
 
-    public async Task<Domain.Entities.Peep> GetPeep(Guid id)
+    public async Task<Domain.Entities.Peep> GetById(Guid id)
     {
         var peep = await _cosmosDbConnection.GetItemAsync<Domain.Entities.Peep>(id);
         return peep;

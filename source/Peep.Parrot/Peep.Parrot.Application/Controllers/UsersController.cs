@@ -9,36 +9,20 @@ namespace Peep.Parrot.Application.Controllers;
 [ApiController]
 public class UsersController : ControllerBase
 {
-    private readonly CosmosDbConnection _cosmosDbConnection;
+    
     private readonly AppDbContext _appDbContext;
-    private readonly IConfiguration _config;
+    private readonly IUsersRepository _usersRepository;
     private readonly IPeepsRepository _peepsRepository;
 
     public UsersController(
         AppDbContext appDbContext,
-        IConfiguration config,
+        IUsersRepository usersRepository,
         IPeepsRepository peepsRepository
         )
     {
         _appDbContext = appDbContext;
 
-        _config = config;
-        var cosmosDbSection = _config.GetSection("CosmosDb");
-
-        string databaseName = cosmosDbSection.GetSection("DatabaseName").Value;
-        string containerName = "Users";
-        string account = cosmosDbSection.GetSection("Account").Value;
-        string key = cosmosDbSection.GetSection("Key").Value;
-
-        CosmosClientOptions clientOptions = new()
-        {
-            SerializerOptions = new CosmosSerializationOptions
-            { PropertyNamingPolicy = CosmosPropertyNamingPolicy.CamelCase }
-        };
-
-        CosmosClient client = new(account, key, clientOptions);
-
-        _cosmosDbConnection = new(client, databaseName, containerName);
+       
 
         _peepsRepository = peepsRepository;
     }
@@ -48,7 +32,7 @@ public class UsersController : ControllerBase
     [Route("{id}")]
     public async Task<IActionResult> GetUser([FromRoute] Guid id)
     {
-        var user = await _cosmosDbConnection.GetItemAsync<ApplicationUser>(id);
+        var user = await _usersRepository.GetById(id);
 
         if (user == null)
             return NotFound();
