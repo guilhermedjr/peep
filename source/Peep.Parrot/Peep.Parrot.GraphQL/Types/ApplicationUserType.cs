@@ -27,3 +27,8 @@ public class ApplicationUserType : ObjectGraphType<ApplicationUser>
     }
 }
 
+public class ApplicationUserInputType : InputObjectGraphType<ApplicationUser>
+{
+    public ApplicationUserInputType() { }
+}
+

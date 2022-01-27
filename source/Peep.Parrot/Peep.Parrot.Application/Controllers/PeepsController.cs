@@ -14,12 +14,12 @@ public class PeepsController : ControllerBase
 
     [Authorize]
     [HttpPost]
-    public async Task<IActionResult> AddPeep([FromBody] AddPeepDto addPeepDto)
+    public async Task<IActionResult> AddPeep([FromBody] Domain.Entities.Peep peep)
     {
-        if (String.IsNullOrEmpty(addPeepDto.UserId.ToString()))
+        if (String.IsNullOrEmpty(peep.UserId.ToString()))
             return BadRequest(new { Message = "User Id not specified" });
 
-        await _peepsRepository.AddPeep(addPeepDto);
+        await _peepsRepository.AddPeep(peep);
         return Ok();
     }
 

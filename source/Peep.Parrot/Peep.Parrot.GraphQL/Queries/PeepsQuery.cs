@@ -7,7 +7,7 @@ public class PeepsQuery : ObjectGraphType
         Field<PeepType>(
             "GetPeep",
             arguments: new QueryArguments(
-                new QueryArgument<GuidGraphType>() { Name = "id" }
+                new QueryArgument<GuidGraphType> { Name = "id" }
             ),
             resolve: context =>
             {

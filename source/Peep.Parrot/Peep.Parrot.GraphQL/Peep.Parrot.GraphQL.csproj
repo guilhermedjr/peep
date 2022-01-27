@@ -18,8 +18,4 @@
     <ProjectReference Include="..\Peep.Parrot.Domain\Peep.Parrot.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Mutations\" />
-  </ItemGroup>
-
 </Project>

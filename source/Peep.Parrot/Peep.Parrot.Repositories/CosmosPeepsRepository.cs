@@ -2,12 +2,12 @@
 
 namespace Peep.Parrot.Repositories;
 
-public class PeepsRepository : IPeepsRepository
+public class CosmosPeepsRepository : IPeepsRepository
 {
     private readonly AppDbContext _sqlDbContext;
     private readonly CosmosDbConnection _cosmosDbConnection;
 
-    public PeepsRepository(
+    public CosmosPeepsRepository(
         AppDbContext sqlDbContext,
         CosmosDbConnection cosmosDbConnection
         )
@@ -16,20 +16,10 @@ public class PeepsRepository : IPeepsRepository
         _cosmosDbConnection = cosmosDbConnection;
     }
 
-    public Task AddPeep(AddPeepDto addPeepDto)
+    public Task<Domain.Entities.Peep> AddPeep(Domain.Entities.Peep peep)
     {
         throw new NotImplementedException();
     }
-
-    /*public async Task AddPeep(AddPeepDto addPeepDto)
-    {
-        var peep = new Domain.Entities.Peep(addPeepDto.UserId, addPeepDto.TextContent, 0, 0);
-
-        _sqlDbContext.Peep.Add(peep);
-        _sqlDbContext.SaveChanges();
-
-        await _cosmosDbConnection.AddItemAsync<Domain.Entities.Peep>(peep);
-    }*/
 
     public async Task<Domain.Entities.Peep> GetById(Guid id)
     {

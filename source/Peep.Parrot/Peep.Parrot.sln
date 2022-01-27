@@ -38,7 +38,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Peep.Parrot.Handlers", "Pee
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GraphQL", "GraphQL", "{EE26E35E-47B2-48AB-B82B-D161DC4D0970}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peep.Parrot.GraphQL", "Peep.Parrot.GraphQL\Peep.Parrot.GraphQL.csproj", "{5AB1E517-5810-4FCD-8B45-5FFF73DC2A7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Peep.Parrot.GraphQL", "Peep.Parrot.GraphQL\Peep.Parrot.GraphQL.csproj", "{5AB1E517-5810-4FCD-8B45-5FFF73DC2A7C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_development_", "_development_", "{C1A69895-B60D-4FE1-A403-94FB1C2A934F}"
+	ProjectSection(SolutionItems) = preProject
+		CreateDatabase.sql = CreateDatabase.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

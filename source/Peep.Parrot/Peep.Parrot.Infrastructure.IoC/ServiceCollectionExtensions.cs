@@ -56,8 +56,8 @@ public static class ServiceCollectionExtensions
 
         });
 
-        services.AddDbContext<AppDbContext>(options =>
-            options.UseSqlServer(configuration.GetConnectionString("sqlServer")));
+        /*services.AddDbContext<AppDbContext>(options =>
+            options.UseSqlServer(configuration.GetConnectionString("sqlServer")));*/
 
         services.AddSingleton<ISchema, UsersSchema>(services => new UsersSchema(
             new SelfActivatingServiceProvider(services)
@@ -67,14 +67,10 @@ public static class ServiceCollectionExtensions
            new SelfActivatingServiceProvider(services)
            ));
 
-        services.AddScoped<IUsersRepository, UsersRepository>();
-        services.AddScoped<IPeepsRepository, PeepsRepository>();
-        services.AddScoped<ISearchRepository<ApplicationUser>, UsersSearchRepository>();
-
         services.AddScoped<ISearchHandler, SearchHandler>();
 
-        services.AddSingleton<CosmosDbConnection>(InitializeCosmosClientInstanceAsync(
-            configuration.GetSection("CosmosDb")).GetAwaiter().GetResult());
+        /*services.AddSingleton<CosmosDbConnection>(InitializeCosmosClientInstanceAsync(
+            configuration.GetSection("CosmosDb")).GetAwaiter().GetResult());*/
 
         services.AddSignalR();
 

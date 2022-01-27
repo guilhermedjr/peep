@@ -2,7 +2,7 @@
 
 public interface IPeepsRepository
 {
-    Task AddPeep(AddPeepDto addPeepDto);
+    Task<Entities.Peep> AddPeep(Entities.Peep peep);
     Task<Entities.Peep> GetById(Guid id);
     Task<IEnumerable<Entities.Peep>> GetUserPeeps(Guid userId);
 }

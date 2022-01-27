@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Content Remove="C:\Users\GuilhermeSantos-BDSD\.nuget\packages\microsoft.azure.cosmos\3.23.0\contentFiles\any\netstandard2.0\ThirdPartyNotice.txt" />
+    <Content Remove="C:\Users\guilh\.nuget\packages\microsoft.azure.cosmos\3.23.0\contentFiles\any\netstandard2.0\ThirdPartyNotice.txt" />
   </ItemGroup>
 
   <ItemGroup>

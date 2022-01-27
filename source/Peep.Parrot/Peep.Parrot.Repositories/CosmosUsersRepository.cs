@@ -3,13 +3,13 @@ using Microsoft.Extensions.Configuration;
 
 namespace Peep.Parrot.Repositories;
 
-public class UsersSearchRepository : ISearchRepository<ApplicationUser>
+public class CosmosUsersRepository : IUsersRepository
 {
     private readonly CosmosDbConnection _cosmosDbConnection;
     private readonly IConfiguration _config;
 
-    public UsersSearchRepository(IConfiguration config)
-    {   
+    public CosmosUsersRepository(IConfiguration config)
+    {
         _config = config;
         var cosmosDbSection = _config.GetSection("CosmosDb");
 
@@ -29,15 +29,7 @@ public class UsersSearchRepository : ISearchRepository<ApplicationUser>
         _cosmosDbConnection = new(client, databaseName, containerName);
     }
 
-    public async Task<IEnumerable<ApplicationUser>> Search(string searchString)
-    {
-        var queryString = 
-            $"SELECT * FROM Users u WHERE UPPER(u.username) LIKE '{searchString.ToUpper()}%' " +
-            $"OR UPPER(u.name) LIKE '{searchString.ToUpper()}%' " +
-            $"ORDER BY u.name";
-
-        var users = await _cosmosDbConnection.GetItemsAsync<ApplicationUser>(queryString);
-        return users;
-    }
+    public async Task<ApplicationUser> GetById(Guid id) =>
+        await _cosmosDbConnection.GetItemAsync<ApplicationUser>(id);
 }
 

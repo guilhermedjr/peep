@@ -21,3 +21,18 @@ public class PeepType : ObjectGraphType<Domain.Entities.Peep>
     }
 }
 
+public class PeepInputType : InputObjectGraphType<Domain.Entities.Peep>
+{
+    public PeepInputType()
+    {
+        Field(p => p.Id);
+        Field(p => p.UserId);
+        Field(p => p.User);
+        Field(p => p.TextContent);
+        Field(p => p.Source);
+        Field(p => p.ReplyRestriction);
+        Field(p => p.QuotedPeepId);
+        Field(p => p.RepliedPeepId);
+    }
+}
+
