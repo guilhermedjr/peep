@@ -1,7 +1,7 @@
 import { useContext } from 'react'
-import Button from '../Button'
-import { AuthContext } from '../../../logic/contexts/AuthContext'
-import { PeepsContext } from '../../../logic/contexts/PeepsContext'
+import Button from '@components/Button'
+import { AuthContext } from '@contexts/AuthContext'
+import { PeepsContext } from '@contexts/PeepsContext'
 
 import {
   Container, 

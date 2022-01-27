@@ -1,7 +1,7 @@
 import { render, screen, within } from '@testing-library/react'
-import { Feed } from '../../../../presentation/components/Feed'
-import { UserTimelineContext } from '../../../../logic/contexts/UserTimelineContext'
-import UserMock from '../../../mocks/entity/UserMock'
+import { Feed } from '@components/Feed'
+import { UserTimelineContext } from '@contexts/UserTimelineContext'
+import UserMock from '@tests/mocks/entity/UserMock'
 
 describe("Testing Feed component", () => {
   it("should be able to render the user peeps", () => {

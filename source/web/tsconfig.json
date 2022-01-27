@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "target": "es5",
     "lib": [
       "dom",
@@ -16,7 +17,19 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "paths": {
+      "@logic/*": ["src/logic/*"],
+      "@pages/*": ["src/pages/*"],
+      "@presentation/*": ["src/presentation/*"],
+      "@tests/*": ["src/tests/*"],
+      "@contexts/*": ["src/logic/contexts/*"],
+      "@contracts/*": ["src/logic/contracts/*"],
+      "@services/*": ["src/logic/services/*"],
+      "@components/*": ["src/presentation/components/*"],
+      "@HOCs/*": ["src/presentation/HOCs/*"],
+      "@styles/*": ["src/presentation/styles/*"],
+    }
   },
   "include": [
     "next-env.d.ts",

@@ -1,11 +1,11 @@
 import { useContext } from 'react'
-import { Container, Wrapper } from '../../styles/main'
-import Main from '../Main'
-import { MenuBar } from '../MenuBar'
-import { SideBar } from '../SideBar'
-import { PeepModal } from '../PeepModal'
-import { EditProfileModal } from '../EditProfileModal'
-import { PeepsContext } from '../../../logic/contexts/PeepsContext'
+import { Container, Wrapper } from '@styles/main'
+import Main from '@components/Main'
+import { MenuBar } from '@components/MenuBar'
+import { SideBar } from '@components/SideBar'
+import { PeepModal } from '@components/PeepModal'
+import { EditProfileModal } from '@components/EditProfileModal'
+import { PeepsContext } from '@contexts/PeepsContext'
 
 export function Home() {
   const { isModalOpen } = useContext(PeepsContext)
@@ -21,7 +21,7 @@ export function Home() {
           <SideBar />
         </Wrapper>
       </Container>
-      <PeepModal isVisible={isModalOpen} />
+      <PeepModal />
       <EditProfileModal isVisible={true} />
     </>
   )   

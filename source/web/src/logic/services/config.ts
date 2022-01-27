@@ -1,4 +1,4 @@
-import IAxiosInstances from '../contracts/IAxiosInstances'
+import IAxiosInstances from '@contracts/IAxiosInstances'
 import axios from 'axios'
 
 const AxiosInstances: IAxiosInstances = {

@@ -1,6 +1,4 @@
-import { EPeepSource } from '../../../logic/contracts/Entity'
-
-//import { useParams } from 'react-router-dom'
+import { EPeepSource } from '@contracts/Entity'
 
 import {
   Container,

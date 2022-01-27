@@ -1,4 +1,4 @@
-import { EPeepReplyRestriction, EPeepSource, User } from '../../../logic/contracts/Entity'
+import { EPeepReplyRestriction, EPeepSource, User } from '@contracts/Entity'
 
 const UserMock: User = {
   Id: '98DEA457-643D-4796-AD3C-5793ADD3F5F6',

@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react'
-import { Profile } from '../../../../presentation/components/Profile'
-import { UserTimelineContext } from '../../../../logic/contexts/UserTimelineContext'
-import { AuthContext } from '../../../../logic/contexts/AuthContext'
-import UserMock from '../../../mocks/entity/UserMock'
+import { Profile } from '@components/Profile'
+import { UserTimelineContext } from '@contexts/UserTimelineContext'
+import { AuthContext } from '@contexts/AuthContext'
+import UserMock from '@tests/mocks/entity/UserMock'
 
 describe("Testing Profile component", () => {
   beforeAll(() => {

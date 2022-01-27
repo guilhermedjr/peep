@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
-import { PeepComponent } from '../../../../presentation/components/Peep'
-import UserMock from '../../../mocks/entity/UserMock'
+import { PeepComponent } from '@components/Peep'
+import UserMock from '@tests/mocks/entity/UserMock'
 
 describe("Testing Peep component", () => {
   beforeAll(() => {

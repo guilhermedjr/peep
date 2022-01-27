@@ -1,6 +1,6 @@
-import AxiosInstances from './config'
+import AxiosInstances from '@services/config'
 import { AxiosResponse } from 'axios'
-import { LoginDto, ApplicationUserViewModel } from '../contracts/Entity'
+import { LoginDto, ApplicationUserViewModel } from '@contracts/Entity'
 
 export default class WingsHttpClient {
   private readonly baseUrl = AxiosInstances.Wings

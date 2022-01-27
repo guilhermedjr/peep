@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 
-import { Comment, Retweet, Favorite, Share, Options, OptionsMobile } from '../../styles/icons'
+import { Comment, Retweet, Favorite, Share, Options, OptionsMobile } from '@styles/icons'
 
 export const Container = styled.article`
   display: flex;

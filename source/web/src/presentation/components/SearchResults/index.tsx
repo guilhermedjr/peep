@@ -1,8 +1,8 @@
-import { useContext, useState } from 'react'
-import { SearchContext } from '../../../logic/contexts/SearchContext'
-import { UserTimelineContext } from '../../../logic/contexts/UserTimelineContext'
+import { useContext } from 'react'
+import { SearchContext } from '@contexts/SearchContext'
+import { UserTimelineContext } from '@contexts/UserTimelineContext'
 
-import { VerifiedAccountIcon } from '../VerifiedAccountIcon'
+import { VerifiedAccountIcon } from '@components/VerifiedAccountIcon'
 
 import {
   Container,

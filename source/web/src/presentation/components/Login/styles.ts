@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Twitter } from '../../styles/icons'
+import { Twitter } from '@styles/icons'
 
 export const Container = styled.div`
   display: flex;

@@ -1,11 +1,7 @@
-// import { bindActionCreators } from 'redux'
-// import { connect } from 'react-redux'
-// import { useParams } from 'react-router-dom'
 import { useContext, useState, useEffect } from 'react'
-import { UserTimelineContext } from '../../../logic/contexts/UserTimelineContext'
-// import * as actions from '../../../store/actions'
-import { User } from '../../../logic/contracts/Entity'
-//import { ExpandedPeep } from '../ExpandedPeep'
+import { UserTimelineContext } from '@contexts/UserTimelineContext'
+import { User } from '@contracts/Entity'
+//import { ExpandedPeep } from '@components/ExpandedPeep'
 
 import { Profile } from '../Profile'
 
@@ -21,7 +17,7 @@ import {
   DmIcon  
 } from './styles'
 
-const Main = ({ timeline, dispatch }) => {
+const Main = () => {
   const { user } = useContext(UserTimelineContext)
 
   return (

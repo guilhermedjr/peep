@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useState } from 'react'
 import ptBR from '../../../i18n/locales/pt-br'
-import { getCookieFromKeyName } from '../../../logic/utils'
-import { PeepsContext } from '../../../logic/contexts/PeepsContext'
-import { AddPeepDto } from '../../../logic/contracts/Entity'
+import { getCookieFromKeyName } from '@logic/utils'
+import { PeepsContext } from '@contexts/PeepsContext'
+import { AddPeepDto } from '@contracts/Entity'
 
 import {
   Modal,

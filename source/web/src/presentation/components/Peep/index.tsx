@@ -1,8 +1,7 @@
 import * as React from 'react'
-import { useState, useEffect, useLayoutEffect } from 'react'
-//import { Redirect } from 'react-router-dom'
-import { Peep, User } from '../../../logic/contracts/Entity'
-import { formatPeepDateTime } from '../../utils'
+import { useState, useLayoutEffect } from 'react'
+import { Peep, User } from '@contracts/Entity'
+import { formatPeepDateTime } from '@presentation/utils'
 
 import {
   Container, 

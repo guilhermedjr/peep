@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { Search } from '../../styles/icons'
+import { Search } from '@styles/icons'
 
 export const Container = styled.div`
   display: none;

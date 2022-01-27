@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios'
-import AxiosInstances from './config'
-import { HttpResponse, IHttpClient } from '../contracts/HttpClient'
-import { getCookieFromKeyName } from '../utils'
+import AxiosInstances from '@services/config'
+import { HttpResponse, IHttpClient } from '@contracts/HttpClient'
+import { getCookieFromKeyName } from '@logic/utils'
 
 export default class ParrotHttpClient implements IHttpClient {
   private readonly baseUrl = AxiosInstances.Parrot

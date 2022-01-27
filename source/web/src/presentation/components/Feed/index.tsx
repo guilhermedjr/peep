@@ -1,7 +1,7 @@
 import { useContext } from 'react'
-import { UserTimelineContext } from '../../../logic/contexts/UserTimelineContext'
+import { UserTimelineContext } from '@contexts/UserTimelineContext'
 
-import { PeepComponent } from '../Peep'
+import { PeepComponent } from '@components/Peep'
 import { Peeps } from './styles'
 
 export function Feed() {

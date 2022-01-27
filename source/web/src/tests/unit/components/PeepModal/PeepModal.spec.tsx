@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { PeepModal } from '../../../../presentation/components/PeepModal'
-import { PeepsContext } from '../../../../logic/contexts/PeepsContext'
-import UserMock from '../../../mocks/entity/UserMock'
+import { PeepModal } from '@components/PeepModal'
+import { PeepsContext } from '@contexts/PeepsContext'
+import UserMock from '@tests/mocks/entity/UserMock'
 
 describe("Testing PeepModal component", () => {
   beforeAll(() => {

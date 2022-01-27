@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useContext } from 'react'
 import ptBR from '../../../i18n/locales/pt-br'
-import { AuthContext } from '../../../logic/contexts/AuthContext'
+import { AuthContext } from '@contexts/AuthContext'
 
 import {
   Container,

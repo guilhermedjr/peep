@@ -7,7 +7,7 @@ import {
   Body
 } from './styles'
 
-import Container from '../Container'
+import Container from '@components/Container'
 
 type EditProfileModalProps = {
   isVisible: boolean     

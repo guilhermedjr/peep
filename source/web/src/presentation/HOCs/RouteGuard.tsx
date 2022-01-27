@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { AuthContext } from '../../logic/contexts/AuthContext'
+import { AuthContext } from '@contexts/AuthContext'
 
 export default function RouteGuard({ children }): JSX.Element {
   const router = useRouter()

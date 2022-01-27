@@ -1,11 +1,11 @@
 import StickyBox from 'react-sticky-box'
 import React, { useContext, useEffect } from 'react'
-import { SearchContext } from '../../../logic/contexts/SearchContext'
+import { SearchContext } from '@contexts/SearchContext'
 
-import { SearchResults } from '../SearchResults'
-import { List } from '../List'
-import { News } from '../News'
-import { FollowSuggestion } from '../FollowSuggestion'
+import { SearchResults } from '@components/SearchResults'
+import { List } from '@components/List'
+import { News } from '@components/News'
+import { FollowSuggestion } from '@components/FollowSuggestion'
 import {
   Container,
   SearchWrapper,

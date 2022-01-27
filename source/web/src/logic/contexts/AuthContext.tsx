@@ -3,9 +3,9 @@ import { useCookies } from 'react-cookie'
 import Router from 'next/router'
 import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth'
 import { initializeApp } from 'firebase/app'
-import WingsHttpClient from '../services/WingsHttpClient'
-import { UserTimelineContext } from './UserTimelineContext'
-import { User } from '../contracts/Entity'
+import WingsHttpClient from '@services/WingsHttpClient'
+import { UserTimelineContext } from '@contexts/UserTimelineContext'
+import { User } from '@contracts/Entity'
 
 type AuthContextData = {
   login: () => Promise<void>

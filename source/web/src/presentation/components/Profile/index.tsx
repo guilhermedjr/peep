@@ -1,8 +1,8 @@
 import { useContext } from 'react'
-import { UserTimelineContext } from '../../../logic/contexts/UserTimelineContext'
-import { AuthContext } from '../../../logic/contexts/AuthContext'
+import { UserTimelineContext } from '@contexts/UserTimelineContext'
+import { AuthContext } from '@contexts/AuthContext'
 import ptBR from '../../../i18n/locales/pt-br'
-import { getDateText } from '../../utils'
+import { getDateText } from '@presentation/utils'
 
 import { 
   ProfileContainer, 

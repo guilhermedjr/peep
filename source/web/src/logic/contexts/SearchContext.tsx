@@ -1,7 +1,7 @@
 import { createContext, useState, ReactNode } from 'react'
-import useDebounce from '../../presentation/hooks/useDebounce'
-import ParrotHttpClient from '../services/ParrotHttpClient'
-import { User } from '../contracts/Entity'
+import useDebounce from '@presentation/hooks/useDebounce'
+import ParrotHttpClient from '@services/ParrotHttpClient'
+import { User } from '@contracts/Entity'
 
 type SearchContextData = {
   searchStr: string

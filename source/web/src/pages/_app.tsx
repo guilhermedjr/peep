@@ -1,10 +1,12 @@
+import { ApolloProvider } from '@apollo/client'
 import { CookiesProvider } from 'react-cookie'
-import AuthProvider from '../logic/contexts/AuthContext'
-import UserTimelineProvider from '../logic/contexts/UserTimelineContext'
-import PeepsProvider from '../logic/contexts/PeepsContext'
-import SearchProvider from '../logic/contexts/SearchContext'
-import GlobalStyles from '../presentation/styles/GlobalStyles'
-import RouteGuard from '../presentation/HOCs/RouteGuard'
+import client from '../graphql/client'
+import AuthProvider from '@contexts/AuthContext'
+import UserTimelineProvider from '@contexts/UserTimelineContext'
+import PeepsProvider from '@contexts/PeepsContext'
+import SearchProvider from '@contexts/SearchContext'
+import GlobalStyles from '@styles/GlobalStyles'
+import RouteGuard from '@HOCs/RouteGuard'
 
 // Disable SSR and SSG (temporary)
 function SafeHydrate({ children }) {
@@ -18,20 +20,22 @@ function SafeHydrate({ children }) {
 function MyApp({ Component, pageProps }) {
   return (
     <SafeHydrate>
-      <CookiesProvider>
-        <UserTimelineProvider>
-          <AuthProvider>
-            <PeepsProvider>
-              <SearchProvider>
-                <RouteGuard>
-                  <Component {...pageProps} />
-                </RouteGuard>
-                <GlobalStyles />
-              </SearchProvider>
-            </PeepsProvider>
-          </AuthProvider>
-        </UserTimelineProvider>
-      </CookiesProvider>
+      <ApolloProvider client={client}>
+        <CookiesProvider>
+          <UserTimelineProvider>
+            <AuthProvider>
+              <PeepsProvider>
+                <SearchProvider>
+                  <RouteGuard>
+                    <Component {...pageProps} />
+                  </RouteGuard>
+                  <GlobalStyles />
+                </SearchProvider>
+              </PeepsProvider>
+            </AuthProvider>
+          </UserTimelineProvider>
+        </CookiesProvider>
+      </ApolloProvider>
     </SafeHydrate>
   )
 }

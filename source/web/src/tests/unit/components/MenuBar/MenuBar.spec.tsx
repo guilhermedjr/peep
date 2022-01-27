@@ -1,10 +1,10 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { MenuBar } from '../../../../presentation/components/MenuBar'
-import { PeepModal } from '../../../../presentation/components/PeepModal'
-import { AuthContext } from '../../../../logic/contexts/AuthContext'
-import { PeepsContext } from '../../../../logic/contexts/PeepsContext'
-import UserMock from '../../../mocks/entity/UserMock'
+import { MenuBar } from '@components/MenuBar'
+import { PeepModal } from '@components/PeepModal'
+import { AuthContext } from '@contexts/AuthContext'
+import { PeepsContext } from '@contexts/PeepsContext'
+import UserMock from '@tests/mocks/entity/UserMock'
 
 describe("Testing MenuBar component", () => {
   beforeAll(() => {

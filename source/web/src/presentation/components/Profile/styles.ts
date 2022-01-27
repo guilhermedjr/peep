@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components'
 
-import { LocationOn, Cake } from '../../styles/icons'
-import Button from '../Button'
+import { LocationOn, Cake } from '@styles/icons'
+import Button from '@components/Button'
 
 export const ProfileContainer = styled.div`
   display: flex;

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import Button from '../Button'
+import Button from '@components/Button'
 
 export const Modal = styled.div`
   background-color: var(--primary);

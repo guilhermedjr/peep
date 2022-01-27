@@ -1,6 +1,6 @@
 import { createContext, useState, ReactNode } from 'react'
-import ParrotHttpClient from '../services/ParrotHttpClient'
-import { User } from '../contracts/Entity'
+import ParrotHttpClient from '@services/ParrotHttpClient'
+import { User } from '@contracts/Entity'
 
 type UserTimelineContextData = {
   getUser: (id: string) => Promise<void>
