@@ -1,7 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Azure.Cosmos;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -9,13 +7,6 @@ using Newtonsoft.Json.Serialization;
 using GraphQL.MicrosoftDI;
 using GraphQL.Types;
 using Peep.Parrot.GraphQL.Schemas;
-using Peep.Parrot.Domain.Repository;
-using Peep.Parrot.Domain.Entities;
-using Peep.Parrot.Domain.Handler;
-using Peep.Parrot.Handlers;
-using Peep.Parrot.Infrastructure.Data;
-using Peep.Parrot.Repositories;
-
 namespace Peep.Parrot.Infrastructure.IoC;
 
 public static class ServiceCollectionExtensions
@@ -67,11 +58,6 @@ public static class ServiceCollectionExtensions
            new SelfActivatingServiceProvider(services)
            ));
 
-        services.AddScoped<ISearchHandler, SearchHandler>();
-
-        /*services.AddSingleton<CosmosDbConnection>(InitializeCosmosClientInstanceAsync(
-            configuration.GetSection("CosmosDb")).GetAwaiter().GetResult());*/
-
         services.AddSignalR();
 
         return services;
@@ -100,31 +86,5 @@ public static class ServiceCollectionExtensions
         });
 
         return services;
-    }
-
-    /// <summary>
-    /// Creates a Cosmos DB database and a container with the specified partition key. 
-    /// </summary>
-    /// <returns></returns>
-    private static async Task<CosmosDbConnection> InitializeCosmosClientInstanceAsync(IConfigurationSection configurationSection)
-    {
-        string databaseName = configurationSection.GetSection("DatabaseName").Value;
-        string containerName = configurationSection.GetSection("ContainerName").Value;
-        string account = configurationSection.GetSection("Account").Value;
-        string key = configurationSection.GetSection("Key").Value;
-
-        CosmosClientOptions clientOptions = new()
-        {
-            SerializerOptions = new CosmosSerializationOptions
-            { PropertyNamingPolicy = CosmosPropertyNamingPolicy.CamelCase }
-        };
-
-        CosmosClient client = new(account, key, clientOptions);
-        CosmosDbConnection cosmosDbService = new(client, databaseName, containerName);
-
-        DatabaseResponse database = await client.CreateDatabaseIfNotExistsAsync(databaseName);
-        await database.Database.CreateContainerIfNotExistsAsync(containerName, "/id");
-
-        return cosmosDbService;
     }
 }

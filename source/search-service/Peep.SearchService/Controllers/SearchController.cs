@@ -1,4 +1,4 @@
-﻿namespace Peep.Parrot.Application.Controllers;
+﻿namespace Peep.Search.Application.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
