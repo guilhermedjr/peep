@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Peep.Parrot.GraphQL\Peep.Parrot.GraphQL.csproj" />
-    <ProjectReference Include="..\Peep.Parrot.Handlers\Peep.Parrot.Handlers.csproj" />
     <ProjectReference Include="..\Peep.Parrot.Infrastructure.Data\Peep.Parrot.Infrastructure.Data.csproj" />
     <ProjectReference Include="..\Peep.Parrot.Repositories\Peep.Parrot.Repositories.csproj" />
   </ItemGroup>
