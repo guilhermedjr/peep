@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Peep.TimelineService", "Peep.TimelineService\Peep.TimelineService.csproj", "{A7D2DC40-3780-4DDF-86C8-1E25A6346F93}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peep.Timeline", "Peep.Timeline.csproj", "{ED1F7BCD-483A-4E09-9394-BFBCC1E3ED70}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A7D2DC40-3780-4DDF-86C8-1E25A6346F93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A7D2DC40-3780-4DDF-86C8-1E25A6346F93}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A7D2DC40-3780-4DDF-86C8-1E25A6346F93}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A7D2DC40-3780-4DDF-86C8-1E25A6346F93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED1F7BCD-483A-4E09-9394-BFBCC1E3ED70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED1F7BCD-483A-4E09-9394-BFBCC1E3ED70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED1F7BCD-483A-4E09-9394-BFBCC1E3ED70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED1F7BCD-483A-4E09-9394-BFBCC1E3ED70}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {7DAFA694-E256-41BA-B625-2FD9AE6C73BD}
+		SolutionGuid = {F283AAEA-1A71-4717-B98C-225F77B8AE1A}
 	EndGlobalSection
 EndGlobal

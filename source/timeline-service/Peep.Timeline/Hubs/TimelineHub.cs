@@ -1,8 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
-using Peep.TimelineService.Entities;
-using Peep.Timeline.Interfaces;
 using Peep.Timeline.Entities;
+using Peep.Timeline.Interfaces;
 
 namespace Peep.Timeline.Hubs;
 
