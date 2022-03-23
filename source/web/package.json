@@ -38,7 +38,7 @@
     "@types/jest": "^27.4.0",
     "@types/lodash": "^4.14.178",
     "@types/node": "^15.6.1",
-    "@types/react": "^17.0.15",
+    "@types/react": "^17.0.42",
     "@types/styled-components": "^5.1.9",
     "babel-jest": "^27.4.6",
     "jest": "^27.4.7"
