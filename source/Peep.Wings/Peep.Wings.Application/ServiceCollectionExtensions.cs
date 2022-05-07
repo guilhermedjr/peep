@@ -1,16 +1,11 @@
-﻿using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
-using Peep.Wings.Domain.Services;
-using Peep.Wings.Domain.Dtos;
-using Peep.Wings.Infrastructure.Data;
 using Peep.Wings.Service.Services;
 
-namespace Peep.Wings.Infrastructure.IoC;
+namespace Peep.Wings.Application;
 
 public static class ServiceCollectionExtensions
 {
@@ -20,9 +15,6 @@ public static class ServiceCollectionExtensions
             options.UseSqlServer(configuration.GetConnectionString("sqlServer")));
 
         services.AddScoped<IOAuthService<GoogleUserInfoDto>, GoogleService>();
-
-        services.AddSingleton<CosmosDbConnection>(InitializeCosmosClientInstanceAsync(
-            configuration.GetSection("CosmosDb")).GetAwaiter().GetResult());
 
         return services;
     }
