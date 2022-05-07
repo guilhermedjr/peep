@@ -1,7 +1,6 @@
 ﻿global using System;
 global using System.Threading.Tasks;
 global using Microsoft.AspNetCore.Mvc;
-global using Microsoft.AspNetCore.Http;
 global using Microsoft.AspNetCore.Identity;
 global using Peep.Wings.Domain.Dtos;
 global using Peep.Wings.Domain.Entities;

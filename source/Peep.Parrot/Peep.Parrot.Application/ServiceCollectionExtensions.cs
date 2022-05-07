@@ -11,7 +11,13 @@ namespace Peep.Parrot.Application;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection ConfigureCors(this IServiceCollection services)
+    public static IServiceCollection ConfigureIoC(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.ConfigureCors().ConfigureAuthentication().ConfigureServices(configuration);
+        return services;
+    }
+
+    private static IServiceCollection ConfigureCors(this IServiceCollection services)
     {
         services.AddCors(options =>
         {
@@ -29,7 +35,7 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-    public static IServiceCollection ConfigureServices(this IServiceCollection services, IConfiguration configuration)
+    private static IServiceCollection ConfigureServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddControllers(options => options.UseDateOnlyTimeOnlyStringConverters())
                 .AddJsonOptions(options => options.UseDateOnlyTimeOnlyStringConverters());
@@ -63,7 +69,7 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-    public static IServiceCollection ConfigureAuthentication(this IServiceCollection services)
+    private static IServiceCollection ConfigureAuthentication(this IServiceCollection services)
     {
         services.AddAuthentication(options =>
         {

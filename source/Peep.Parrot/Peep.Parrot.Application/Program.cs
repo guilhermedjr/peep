@@ -4,15 +4,12 @@ using Microsoft.Extensions.Hosting;
 using GraphQL.Types;
 using GraphQL.MicrosoftDI;
 using GraphQL.SystemTextJson;
-using Peep.Parrot.Infrastructure.IoC;
+using Peep.Parrot.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.ConfigureCors()
-    .ConfigureServices(builder.Configuration)
-    .ConfigureAuthentication();
-
-builder.Services.AddGraphQL().AddSystemTextJson();
+builder.Services.ConfigureIoC(builder.Configuration)
+    .AddGraphQL().AddSystemTextJson();
 
 var app = builder.Build();
 

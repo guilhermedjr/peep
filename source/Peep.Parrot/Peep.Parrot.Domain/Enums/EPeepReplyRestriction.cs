@@ -4,6 +4,8 @@ public enum EPeepReplyRestriction : byte
 {
     Everyone,
     Followed,
+    Followers,
+    Mutuals,
     Mentioned
 }
 
