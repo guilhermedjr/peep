@@ -2,10 +2,10 @@
 
 public class UsersQuery : ObjectGraphType
 {
-    public UsersQuery(IUsersRepository usersRepository)
+    public UsersQuery(IUsersRepository usersRepository, IPeepsRepository peepsRepository)
     {
         Field<ApplicationUserType>(
-            "GetUser",
+            "user",
             arguments: new QueryArguments(
                 new QueryArgument<GuidGraphType> { Name = "id" }
             ),
@@ -14,6 +14,17 @@ public class UsersQuery : ObjectGraphType
                 return usersRepository.GetById(context.GetArgument<Guid>("id")).Result;
             }
         );
+
+        Field<ListGraphType<PeepType>>(
+           "peeps",
+           arguments: new QueryArguments(
+               new QueryArgument<GuidGraphType> { Name = "userId" }
+           ),
+           resolve: context =>
+           {
+               return peepsRepository.GetUserPeeps(context.GetArgument<Guid>("userId")).Result;
+           }
+       );
     }
 }
 

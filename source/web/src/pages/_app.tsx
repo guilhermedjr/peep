@@ -1,6 +1,6 @@
 import { ApolloProvider } from '@apollo/client'
 import { CookiesProvider } from 'react-cookie'
-import client from '../graphql/client'
+import client from '@services/apollo'
 import AuthProvider from '@contexts/AuthContext'
 import UserTimelineProvider from '@contexts/UserTimelineContext'
 import PeepsProvider from '@contexts/PeepsContext'

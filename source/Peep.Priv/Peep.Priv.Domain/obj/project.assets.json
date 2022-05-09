@@ -1,0 +1,73 @@
+{
+  "version": 3,
+  "targets": {
+    "net6.0": {}
+  },
+  "libraries": {},
+  "projectFileDependencyGroups": {
+    "net6.0": []
+  },
+  "packageFolders": {
+    "C:\\Users\\g.santos\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\g.santos\\Documents\\GitHub\\peep\\source\\Peep.Priv\\Peep.Priv.Domain\\Peep.Priv.Domain.csproj",
+      "projectName": "Peep.Priv.Domain",
+      "projectPath": "C:\\Users\\g.santos\\Documents\\GitHub\\peep\\source\\Peep.Priv\\Peep.Priv.Domain\\Peep.Priv.Domain.csproj",
+      "packagesPath": "C:\\Users\\g.santos\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\g.santos\\Documents\\GitHub\\peep\\source\\Peep.Priv\\Peep.Priv.Domain\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\g.santos\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net6.0"
+      ],
+      "sources": {
+        "https://api.nuget.org/v3/index.json": {},
+        "https://gitlab.com/api/v4/projects/34173147/packages/nuget/index.json": {},
+        "https://gitlab.com/api/v4/projects/34176264/packages/nuget/index.json": {},
+        "https://gitlab.com/api/v4/projects/34701127/packages/nuget/index.json": {}
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net6.0": {
+        "targetAlias": "net6.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

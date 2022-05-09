@@ -5,7 +5,7 @@ public class PeepsQuery : ObjectGraphType
     public PeepsQuery(IPeepsRepository peepsRepository)
     {
         Field<PeepType>(
-            "GetPeep",
+            "peep",
             arguments: new QueryArguments(
                 new QueryArgument<GuidGraphType> { Name = "id" }
             ),

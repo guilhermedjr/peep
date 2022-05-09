@@ -12,6 +12,7 @@
     <PackageReference Include="GraphQL.Server.Transports.AspNetCore" Version="5.2.0" />
     <PackageReference Include="GraphQL.Server.Ui.Playground" Version="5.2.0" />
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>

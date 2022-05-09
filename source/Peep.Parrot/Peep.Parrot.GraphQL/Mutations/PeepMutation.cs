@@ -5,7 +5,7 @@ public class PeepMutation : ObjectGraphType<Domain.Entities.Peep>
     public PeepMutation(IPeepsRepository peepsRepository) 
     {
         Field<PeepType>(
-            "AddPeep",
+            "peep",
             arguments: new QueryArguments(
                 new QueryArgument<NonNullGraphType<PeepInputType>> { Name = "peep" }
             ),

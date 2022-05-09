@@ -4,6 +4,8 @@ public class ApplicationUserType : ObjectGraphType<ApplicationUser>
 {
     public ApplicationUserType()
     {
+        Name = "user";
+
         Field(u => u.Id);
         Field(u => u.Email);
         Field(u => u.Name);

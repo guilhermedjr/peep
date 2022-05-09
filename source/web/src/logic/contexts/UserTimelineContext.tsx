@@ -1,4 +1,6 @@
 import { createContext, useState, ReactNode } from 'react'
+import { useQuery } from '@apollo/client'
+import { GET_USER, GET_USER_PEEPS } from '@logic/graphql/queries'
 import ParrotHttpClient from '@services/ParrotHttpClient'
 import { User } from '@contracts/Entity'
 
@@ -18,8 +20,12 @@ export default function UserTimelineProvider({children}: UserTimelineProviderPro
   const [user, setUser] = useState<User>({} as User)
 
   async function getUser(id: string): Promise<void> {
-    const response = await httpClient.httpGet(`api/Users/${id}`)
-    setUser(response.data as User)
+    /*const response = await httpClient.httpGet(`api/Users/${id}`)
+    setUser(response.data as User)*/
+    const { loading, error, data } = useQuery(GET_USER, {
+      variables: { id }
+    });
+    setUser(data)
   }
 
   return (

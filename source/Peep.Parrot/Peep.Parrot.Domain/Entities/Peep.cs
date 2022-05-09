@@ -31,13 +31,13 @@ public class Peep
         _replies = new List<Peep>();*/
     }
 
-    /*public Peep(Guid userId, string textContent, EPeepSource source, EPeepReplyRestriction replyRestriction)
+    public Peep(Guid userId, string textContent, EPeepSource source, EPeepReplyRestriction replyRestriction)
     {
         UserId = userId;
         TextContent = textContent;
         Source = source;
         ReplyRestriction = replyRestriction;
-    }*/
+    }
 
     public Guid Id { get; private set; }
     public ApplicationUser User { get; private set; }
@@ -48,6 +48,7 @@ public class Peep
     public EPeepSource Source { get; private set; }
     public EPeepReplyRestriction ReplyRestriction { get; private set; }
     public Guid? QuotedPeepId { get; private set; }
+    public Peep QuotedPeep { get; private set; }
     public Guid? RepliedPeepId { get; private set; }
     public IReadOnlyCollection<Peep> Quotes { get { return _quotes.ToArray(); } }
     public IReadOnlyCollection<ApplicationUser> Rps { get { return _rps.ToArray(); } }
