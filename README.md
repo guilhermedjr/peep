@@ -4,7 +4,7 @@
 
 <br/>
 
-> #### Peep is a social network freely inspired by Twitter, currently under development.
+> #### Peep is a social network freely inspired by Twitter.
 
 <br/>
 My goal with this project, which will be the biggest and best designed in my portfolio, is to improve my skills as a developer. With it I will get to know new technologies, standards and architectures, explore the best possibilities for each part of the application and acquire a more mature and embracing view of the software development process.
