@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Peep.Parrot.Domain.Entities;
+﻿namespace Peep.Parrot.Domain.Entities;
 
 public class Peep
 {
@@ -25,10 +23,6 @@ public class Peep
         ReplyRestriction = replyRestriction;
         PublicationDate = date;
         PublicationTime = time;
-        /*_quotes = new List<Peep>();
-        _rps = new List<ApplicationUser>();
-        _likes = new List<ApplicationUser>();
-        _replies = new List<Peep>();*/
     }
 
     public Peep(Guid userId, string textContent, EPeepSource source, EPeepReplyRestriction replyRestriction)
@@ -40,20 +34,24 @@ public class Peep
     }
 
     public Guid Id { get; private set; }
+    public Guid VersionSnapshotId { get; private set; }
     public ApplicationUser User { get; private set; }
     public Guid UserId { get; private set; }
     public DateOnly PublicationDate { get; set; }
     public TimeOnly PublicationTime { get; set; }
     public string TextContent { get; private set; }
+    public EPeepType Type { get; private set; }
     public EPeepSource Source { get; private set; }
+    public EPeepViewRestriction ViewRestriction { get; private set; }
     public EPeepReplyRestriction ReplyRestriction { get; private set; }
-    public Guid? QuotedPeepId { get; private set; }
-    public Peep QuotedPeep { get; private set; }
-    public Guid? RepliedPeepId { get; private set; }
+
     public IReadOnlyCollection<Peep> Quotes { get { return _quotes.ToArray(); } }
     public IReadOnlyCollection<ApplicationUser> Rps { get { return _rps.ToArray(); } }
     public IReadOnlyCollection<ApplicationUser> Likes { get { return _likes.ToArray(); } }
     public IReadOnlyCollection<Peep> Replies { get { return _replies.ToArray(); } }
+
+    public Peep QuotedPeep { get; private set; }
+    public Peep RepliedPeep { get; private set; }
 
 }
 

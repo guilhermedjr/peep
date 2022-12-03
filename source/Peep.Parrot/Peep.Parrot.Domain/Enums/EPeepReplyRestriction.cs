@@ -6,6 +6,7 @@ public enum EPeepReplyRestriction : byte
     Followed,
     Followers,
     Mutuals,
-    Mentioned
+    Mentioned,
+    Cicle
 }
 
