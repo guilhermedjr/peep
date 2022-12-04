@@ -14,7 +14,7 @@ public partial class ApplicationUser
     private readonly IList<ApplicationUser> _mutedUsers;
 
     public ApplicationUser(Guid id, string email, string name, string username, 
-        string profileImageUrl, DateOnly birthDate, DateTime joinedAt,
+        string profileImageUrl, string bannerImageUrl, DateOnly birthDate, DateTime joinedAt,
         bool isPrivateAccount, bool isVerifiedAccount, 
         string bio, string location, string website)
     {
@@ -23,6 +23,7 @@ public partial class ApplicationUser
         Name = name;
         Username = username;
         ProfileImageUrl = profileImageUrl;
+        BannerImageUrl = bannerImageUrl;
         BirthDate = birthDate;
         JoinedAt = joinedAt;
 
@@ -51,6 +52,7 @@ public partial class ApplicationUser
     public string Name { get; private set; }
     public string Username { get; private set; }
     public string ProfileImageUrl { get; private set; }
+    public string BannerImageUrl { get; private set; }
     public DateOnly BirthDate { get; private set; }
     public DateTime JoinedAt { get; private set; }
 

@@ -2,6 +2,7 @@
 
 public enum EPeepSource : byte
 {
+    Undefined,
     PeepWebApp,
     PeepForAndroid,
     PeepForIPhone,

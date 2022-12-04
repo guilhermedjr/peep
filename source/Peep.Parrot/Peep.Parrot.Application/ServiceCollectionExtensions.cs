@@ -6,7 +6,6 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using GraphQL.MicrosoftDI;
 using GraphQL.Types;
-using Peep.Parrot.GraphQL.Schemas;
 namespace Peep.Parrot.Application;
 
 public static class ServiceCollectionExtensions
@@ -40,11 +39,11 @@ public static class ServiceCollectionExtensions
         services.AddControllers(options => options.UseDateOnlyTimeOnlyStringConverters())
                 .AddJsonOptions(options => options.UseDateOnlyTimeOnlyStringConverters());
 
-        services.AddMvc()
+        /*services.AddMvc()
             .AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.ContractResolver = new DefaultContractResolver();
-            });
+            });*/
 
         services.AddSwaggerGen(c =>
         {
@@ -55,14 +54,6 @@ public static class ServiceCollectionExtensions
 
         /*services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("sqlServer")));*/
-
-        services.AddSingleton<ISchema, UsersSchema>(services => new UsersSchema(
-            new SelfActivatingServiceProvider(services)
-            ));
-
-        services.AddSingleton<ISchema, PeepsSchema>(services => new PeepsSchema(
-           new SelfActivatingServiceProvider(services)
-           ));
 
         services.AddSignalR();
 
