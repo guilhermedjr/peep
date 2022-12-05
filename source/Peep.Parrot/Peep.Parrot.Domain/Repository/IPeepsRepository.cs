@@ -4,6 +4,7 @@ public interface IPeepsRepository
 {
     Task<Entities.Peep> AddPeep(Entities.Peep peep);
     Task<Entities.Peep> GetById(Guid id);
-    Task<IEnumerable<Entities.Peep>> GetUserPeeps(Guid userId);
+    Task<Entities.Peep> UpdatePeep(Entities.Peep peep);
+    Task DeletePeep(Guid id);
 }
 

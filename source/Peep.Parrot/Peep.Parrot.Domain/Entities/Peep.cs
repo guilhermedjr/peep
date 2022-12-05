@@ -3,8 +3,8 @@ namespace Peep.Parrot.Domain.Entities;
 
 public class Peep
 {
-    private readonly Dictionary<ApplicationUser, DateTime> _likes;
-    private readonly Dictionary<ApplicationUser, DateTime> _rps;
+    private readonly Dictionary<Guid, DateTime> _likes;
+    private readonly Dictionary<Guid, DateTime> _rps;
     private readonly IList<Peep> _replies;
     private readonly IList<Peep> _quotes;
 
@@ -25,12 +25,12 @@ public class Peep
     /// <param name="source"></param>
     /// <param name="viewRestriction"></param>
     /// <param name="replyRestriction"></param>
-    /// <param name="quotedPeep"></param>
-    /// <param name="repliedPeep"></param>
+    /// <param name="quotedPeepId"></param>
+    /// <param name="repliedPeepId"></param>
     public Peep(Guid userId, PeepContent peepContent,
         DateOnly date, TimeOnly time,
         EPeepSource source, EPeepViewRestriction viewRestriction, EPeepReplyRestriction replyRestriction,
-        Peep quotedPeep = null, Peep repliedPeep = null)
+        Guid? quotedPeepId = null, Guid? repliedPeepId = null)
     {
         Id = new Guid();
         UserId = userId;
@@ -38,13 +38,17 @@ public class Peep
         Source = source;
         ViewRestriction = viewRestriction;
         ReplyRestriction = replyRestriction;
-        QuotedPeep = quotedPeep;
-        RepliedPeep = repliedPeep;
+        QuotedPeepId = quotedPeepId;
+        RepliedPeepId = repliedPeepId;
         PublicationDate = date;
         PublicationTime = time;
 
+        _likes = new Dictionary<Guid, DateTime>();
+        _rps = new Dictionary<Guid, DateTime>();
+
         _replies = new List<Peep>();
         _quotes = new List<Peep>();
+        _versionHistory = new List<PeepVersionSnapshot>();
     }
 
     /// <summary>
@@ -55,11 +59,11 @@ public class Peep
     /// <param name="source"></param>
     /// <param name="viewRestriction"></param>
     /// <param name="replyRestriction"></param>
-    /// <param name="quotedPeep"></param>
-    /// <param name="repliedPeep"></param>
+    /// <param name="quotedPeepId"></param>
+    /// <param name="repliedPeepId"></param>
     public Peep(Guid userId, PeepContent peepContent, 
         EPeepSource source, EPeepViewRestriction viewRestriction, EPeepReplyRestriction replyRestriction,
-        Peep quotedPeep = null, Peep repliedPeep = null)
+        Guid? quotedPeepId = null, Guid? repliedPeepId = null)
     {
         Id = new Guid();
         UserId = userId;
@@ -67,34 +71,40 @@ public class Peep
         Source = source;
         ViewRestriction = viewRestriction;
         ReplyRestriction = replyRestriction;
-        QuotedPeep = quotedPeep;
-        RepliedPeep = repliedPeep;
+        QuotedPeepId = quotedPeepId;
+        RepliedPeepId = repliedPeepId;
 
         var now = DateTime.UtcNow;
         PublicationDate = DateOnly.FromDateTime(now);
         PublicationTime = TimeOnly.FromDateTime(now);
 
+        _likes = new Dictionary<Guid, DateTime>();
+        _rps = new Dictionary<Guid, DateTime>();
+
         _replies = new List<Peep>();
         _quotes = new List<Peep>();
+        _versionHistory = new List<PeepVersionSnapshot>();
     }
 
     public Guid Id { get; private set; }
-    public ApplicationUser User { get; private set; }
     public Guid UserId { get; private set; }
     public DateOnly PublicationDate { get; set; }
     public TimeOnly PublicationTime { get; set; }
     public EPeepSource Source { get; private set; } = EPeepSource.Undefined;
     public EPeepViewRestriction ViewRestriction { get; private set; } = EPeepViewRestriction.Everyone;
     public EPeepReplyRestriction ReplyRestriction { get; private set; } = EPeepReplyRestriction.Everyone;
+
     public Peep QuotedPeep { get; private set; } = null;
     public Peep RepliedPeep { get; private set; } = null;
+    public Guid? QuotedPeepId { get; private set; } = null;
+    public Guid? RepliedPeepId { get; private set; } = null;
 
     public PeepContent PeepContent { get; private set; }
 
-    public Dictionary<ApplicationUser, DateTime> Likes { get { return _likes; } }
+    public Dictionary<Guid, DateTime> Likes { get { return _likes; } }
     public IReadOnlyCollection<Peep> Replies { get { return _replies.ToArray(); } }
     public IReadOnlyCollection<Peep> Quotes { get { return _quotes.ToArray(); } }
-    public Dictionary<ApplicationUser, DateTime> Rps { get { return _rps; } }
+    public Dictionary<Guid, DateTime> Rps { get { return _rps; } }
 
     public IReadOnlyCollection<PeepVersionSnapshot> VersionHistory { get { return _versionHistory.ToArray(); } }
 
@@ -104,6 +114,10 @@ public class Peep
         _versionHistory.Add(peepSnapshot);
 
         PeepContent = editedContent;
+
+        var now = DateTime.UtcNow;
+        PublicationDate = DateOnly.FromDateTime(now);
+        PublicationTime = TimeOnly.FromDateTime(now);
     }
 
     public void ChangeReplyRestriction(EPeepReplyRestriction replyRestriction)
@@ -111,38 +125,44 @@ public class Peep
         ReplyRestriction = replyRestriction;
     }
 
-    public void Like(ApplicationUser user)
+    public void Like(Guid user)
     {
         _likes.Add(user, DateTime.UtcNow);
     }
 
-    public void RemoveLike(ApplicationUser user)
+    public void RemoveLike(Guid user)
     {
         _likes.Remove(user);
     }
 
-    public void Repeep(ApplicationUser user)
+    public void Repeep(Guid user)
     {
         _rps.Add(user, DateTime.UtcNow);
     }
 
-    public void RemoveRp(ApplicationUser user)
+    public void RemoveRp(Guid user)
     { 
         _rps.Remove(user); 
     }
 
-    public void Reply(Guid userId, PeepContent peepContent, EPeepSource source)
+    public void AddReply(Peep peep)
     {
-        var reply = new Peep(userId, peepContent, source, EPeepViewRestriction.Everyone, EPeepReplyRestriction.Everyone, repliedPeep: this);
-        _replies.Add(reply);
+        _replies.Add(peep);
     }
 
-    public void Quote(Guid userId, PeepContent peepContent, EPeepSource source, EPeepViewRestriction viewRestriction)
+    public void RemoveReply(Peep peep)
     {
-        var quote = new Peep(userId, peepContent, source, viewRestriction, 
-            viewRestriction == EPeepViewRestriction.Cicle ? EPeepReplyRestriction.Cicle : EPeepReplyRestriction.Everyone, quotedPeep: this);
+        _replies.Remove(peep);
+    }
 
-        _quotes.Add(quote);
+    public void AddQuote(Peep peep)
+    {
+        _quotes.Add(peep);
+    }
+
+    public void RemoveQuote(Peep peep)
+    {
+        _quotes.Remove(peep);
     }
 
     public int GetLikesCount() => _likes.Count;

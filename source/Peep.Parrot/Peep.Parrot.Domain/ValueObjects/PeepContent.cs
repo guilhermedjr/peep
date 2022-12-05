@@ -3,7 +3,7 @@
 public record PeepContent
 {
     private string _textContent;
-    private string[] _media;
+    private string[] _media = null;
 
     public PeepContent(string textContent = null, string[] media = null, Poll poll = null)
     {
