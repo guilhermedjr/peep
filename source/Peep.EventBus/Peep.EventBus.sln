@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peep.EventBus", "Peep.EventBus.csproj", "{9835C481-4B45-4DE8-81CA-63EFDC0A435A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peep.EventBus.Kafka", "..\Peep.EventBus.Kafka\Peep.EventBus.Kafka.csproj", "{87A761CE-37F6-426A-897E-3EB07A53601C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9835C481-4B45-4DE8-81CA-63EFDC0A435A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9835C481-4B45-4DE8-81CA-63EFDC0A435A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9835C481-4B45-4DE8-81CA-63EFDC0A435A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9835C481-4B45-4DE8-81CA-63EFDC0A435A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87A761CE-37F6-426A-897E-3EB07A53601C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87A761CE-37F6-426A-897E-3EB07A53601C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87A761CE-37F6-426A-897E-3EB07A53601C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87A761CE-37F6-426A-897E-3EB07A53601C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6D69DAA6-FFC7-4B82-B704-98728A39734D}
+	EndGlobalSection
+EndGlobal
