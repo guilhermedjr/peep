@@ -4,6 +4,10 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <PackageId>Peep.EventBus</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Guilherme Djrdjrjan</Authors>
+    <RepositoryUrl>https://github.com/guilhermedjr/peep</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

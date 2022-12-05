@@ -4,6 +4,10 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <PackageId>Peep.EventBus.Kafka</PackageId>
+    <Version>1.0.1</Version>
+    <Authors>Guilherme Djrdjrjan</Authors>
+    <RepositoryUrl>https://github.com/guilhermedjr/peep</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,10 +15,7 @@
     <PackageReference Include="Confluent.SchemaRegistry" Version="1.9.3" />
     <PackageReference Include="Confluent.SchemaRegistry.Serdes.Avro" Version="1.9.3" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Peep.EventBus\Peep.EventBus.csproj" />
+    <PackageReference Include="Peep.EventBus" Version="1.0.0" />
   </ItemGroup>
 
 </Project>
