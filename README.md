@@ -12,6 +12,8 @@ My goal with this project, which will be the biggest and best designed in my por
 
 ### Back-end services (under development)
 
+| Service                             | Description                                  |
+| ----------------------------------- | -------------------------------------------- |
 | [Wings](source/Peep.Wings)          | Auth + Social Graph Service                  |
 | [Parrot](source/Peep.Parrot)        | Parrot service (new posts, likes, reposts)   |
 | Soon                                | User Timeline service                        |
@@ -22,7 +24,12 @@ My goal with this project, which will be the biggest and best designed in my por
 ## Some Twitter architecture references:
 
 [Twitter System Architecture](https://medium.com/interviewnoodle/twitter-system-architecture-8dafce16aec4)
+
+<br/>
+
 [System Design: Twitter](https://dev.to/karanpratapsingh/system-design-twitter-865)
+
+<br/>
 
 Better docs soon!
 
