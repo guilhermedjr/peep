@@ -1,5 +1,4 @@
-﻿using Peep.EventBus.Events;
-namespace Peep.EventBus;
+﻿namespace Peep.EventBus;
 
 public interface IEventBus
 {

@@ -1,4 +1,4 @@
-﻿namespace Peep.EventBus.Events;
+﻿namespace Peep.EventBus;
 
 public abstract class Event
 {

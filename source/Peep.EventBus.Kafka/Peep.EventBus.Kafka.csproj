@@ -5,7 +5,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PackageId>Peep.EventBus.Kafka</PackageId>
-    <Version>1.0.1</Version>
+    <Description>
+      Kafka implementation of EventBus, for use in Peep Services
+    </Description>
+    <Version>1.0.3</Version>
     <Authors>Guilherme Djrdjrjan</Authors>
     <RepositoryUrl>https://github.com/guilhermedjr/peep</RepositoryUrl>
   </PropertyGroup>

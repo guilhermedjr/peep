@@ -1,5 +1,4 @@
-﻿using Peep.EventBus.Events;
-namespace Peep.EventBus.Subscriptions;
+﻿namespace Peep.EventBus.Subscriptions;
 
 public class SubscriptionsManager : IEventBusSubscriptionsManager
 {
