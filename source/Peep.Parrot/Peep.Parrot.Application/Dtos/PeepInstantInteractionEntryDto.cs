@@ -1,5 +1,4 @@
 ﻿using Peep.Parrot.Domain.Enums;
-
 namespace Peep.Parrot.Application.Dtos;
 
 public record PeepInstantInteractionEntryDto

@@ -1,6 +1,8 @@
-﻿using Peep.EventBus;
+﻿using Peep.DomainEvents.Events.InstantInteractions;
+using Peep.EventBus;
 using Peep.Parrot.Application.Dtos;
 using Peep.Parrot.Application.Events;
+using Peep.Parrot.Domain.Aggregates.PeepAggregate;
 using Peep.Parrot.Domain.Enums;
 namespace Peep.Parrot.Application.Services;
 
@@ -60,7 +62,7 @@ public class PeepInteractionsApplicationService
         await _peepsRepository.UpdatePeep(peep);
     }
 
-    public async Task CommitInteractionsFromAddedPeep(Domain.Entities.Peep peep)
+    public async Task CommitInteractionsFromAddedPeep(Domain.Aggregates.PeepAggregate.Peep peep)
     {
         var repliedPeepId = peep.RepliedPeepId;
         var quotedPeepId = peep.QuotedPeepId;
@@ -76,7 +78,7 @@ public class PeepInteractionsApplicationService
         }
     }
 
-    public async Task RollbackInteractionsFromRemovedPeep(Domain.Entities.Peep peep)
+    public async Task RollbackInteractionsFromRemovedPeep(Domain.Aggregates.PeepAggregate.Peep peep)
     {
         var repliedPeepId = peep.RepliedPeepId;
         var quotedPeepId = peep.QuotedPeepId;
@@ -92,7 +94,7 @@ public class PeepInteractionsApplicationService
         }
     }
 
-    private async Task AddReplyToPeep(Guid repliedPeepId, Domain.Entities.Peep reply)
+    private async Task AddReplyToPeep(Guid repliedPeepId, Domain.Aggregates.PeepAggregate.Peep reply)
     {
         var repliedPeep = await _peepsRepository.GetById(repliedPeepId);
 
@@ -102,7 +104,7 @@ public class PeepInteractionsApplicationService
         await _eventBus.Publish(new PeepReplied(repliedPeepId, reply));
     }
 
-    private async Task RemoveReplyFromPeep(Guid repliedPeepId, Domain.Entities.Peep reply)
+    private async Task RemoveReplyFromPeep(Guid repliedPeepId, Domain.Aggregates.PeepAggregate.Peep reply)
     {
         var repliedPeep = await _peepsRepository.GetById(repliedPeepId);
 
@@ -112,7 +114,7 @@ public class PeepInteractionsApplicationService
         await _eventBus.Publish(new PeepReplyRemoved(repliedPeepId, reply));
     }
 
-    private async Task AddQuoteToPeep(Guid quotedPeepId, Domain.Entities.Peep quote)
+    private async Task AddQuoteToPeep(Guid quotedPeepId, Domain.Aggregates.PeepAggregate.Peep quote)
     {
         var quotedPeep = await _peepsRepository.GetById(quotedPeepId);
 
@@ -122,7 +124,7 @@ public class PeepInteractionsApplicationService
         await _eventBus.Publish(new PeepQuoted(quotedPeepId, quote));
     }
 
-    private async Task RemoveQuoteFromPeep(Guid quotedPeepId, Domain.Entities.Peep quote)
+    private async Task RemoveQuoteFromPeep(Guid quotedPeepId, Domain.Aggregates.PeepAggregate.Peep quote)
     {
         var quotedPeep = await _peepsRepository.GetById(quotedPeepId);
 

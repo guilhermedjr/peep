@@ -1,11 +1,11 @@
-﻿namespace Peep.Parrot.Domain.Entities;
+﻿namespace Peep.Parrot.Domain.Aggregates.PeepAggregate;
 
-public class Poll
+public class PeepPoll
 {
     private Dictionary<string, int> _choices;
     private Dictionary<string, IList<Guid>> _votingUsers;
 
-    public Poll(string[] pollOptions, DateTime closingTime)
+    public PeepPoll(string[] pollOptions, DateTime closingTime)
     {
         _choices = new Dictionary<string, int>();
 

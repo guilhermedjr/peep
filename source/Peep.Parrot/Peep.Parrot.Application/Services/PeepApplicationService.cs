@@ -1,9 +1,8 @@
-﻿using Peep.EventBus;
+﻿using Peep.DomainEvents.Events.Peep;
+using Peep.EventBus;
 using Peep.Parrot.Application.Dtos;
-using Peep.Parrot.Application.Events;
+using Peep.Parrot.Domain.Aggregates.PeepAggregate;
 using Peep.Parrot.Domain.Enums;
-using Peep.Parrot.Domain.ValueObjects;
-using System.Linq;
 namespace Peep.Parrot.Application.Services;
 
 public class PeepApplicationService
@@ -27,7 +26,7 @@ public class PeepApplicationService
         var repliedPeepId = peepEntryDto.RepliedPeepId;
         var quotedPeepId = peepEntryDto.QuotedPeepId;
 
-        var newPeep = new Domain.Entities.Peep(peepEntryDto.UserId, sanitizedContent,
+        var newPeep = new Domain.Aggregates.PeepAggregate.Peep(peepEntryDto.UserId, sanitizedContent,
             EPeepSource.Undefined, peepEntryDto.ViewRestriction, peepEntryDto.ReplyRestriction,
             quotedPeepId, repliedPeepId);
 
@@ -35,7 +34,7 @@ public class PeepApplicationService
 
         await _eventBus.Publish(new PeepAdded(
             peep.Id, peep.UserId, peep.PublicationDate, peep.PublicationTime,
-            peep.Source, peep.ViewRestriction, peep.ReplyRestriction, peep.QuotedPeepId,
+            (byte)peep.Source, (byte)peep.ViewRestriction, (byte)peep.ReplyRestriction, peep.QuotedPeepId,
             peep.RepliedPeepId, peep.PeepContent
             ));
 
@@ -50,7 +49,7 @@ public class PeepApplicationService
         peep.ChangeReplyRestriction(peepDto.ReplyRestriction);
         await _peepsRepository.UpdatePeep(peep);
 
-        await _eventBus.Publish(new PeepReplyRestrictionChanged(peep.Id, peep.ReplyRestriction));
+        await _eventBus.Publish(new PeepReplyRestrictionChanged(peep.Id, (byte)peep.ReplyRestriction));
     }
 
     public async Task EditPeep(EditPeepDto editPeepDto)
@@ -63,10 +62,7 @@ public class PeepApplicationService
         peep.EditPeep(sanitizedContent);
         var editedPeep = await _peepsRepository.UpdatePeep(peep);
 
-        var peepLastSnapshot = editedPeep.VersionHistory.Last();
-
-        await _eventBus.Publish(new PeepEdited(editedPeep.Id, editedPeep.PeepContent,
-            peepLastSnapshot, editedPeep.PublicationDate, editedPeep.PublicationTime));
+        await _eventBus.Publish(new PeepEdited(editedPeep.Id, editedPeep.PeepContent, editedPeep.PublicationDate, editedPeep.PublicationTime));
     }
 
     public async Task RemovePeep(Guid id)
@@ -82,6 +78,6 @@ public class PeepApplicationService
 
     private static PeepContent SanitizeContent(PeepContentEntryDto peepContentEntry)
     {
-        return new PeepContent(peepContentEntry.TextContent, media: null, poll: null);
+        return new PeepContent(peepContentEntry.TextContent, mediaItems: null, poll: null);
     }
 }

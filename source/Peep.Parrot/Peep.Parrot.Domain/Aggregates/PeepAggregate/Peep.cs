@@ -1,12 +1,16 @@
-﻿using Peep.Parrot.Domain.ValueObjects;
-namespace Peep.Parrot.Domain.Entities;
+﻿using Peep.Parrot.Domain.Enums;
+using Peep.Parrot.Domain.SeedWork;
+namespace Peep.Parrot.Domain.Aggregates.PeepAggregate;
 
-public class Peep
+public class Peep : Entity, IAggregateRoot
 {
-    private readonly Dictionary<Guid, DateTime> _likes;
-    private readonly Dictionary<Guid, DateTime> _rps;
+    private readonly IList<PeepLike> _likes;
+    private readonly IList<PeepRepost> _rps;
     private readonly IList<Peep> _replies;
     private readonly IList<Peep> _quotes;
+
+    private readonly IList<PeepDislike> _dislikes;
+    private readonly IList<PeepDisrepost> _disreposts;
 
     private readonly IList<PeepVersionSnapshot> _versionHistory;
 
@@ -14,42 +18,6 @@ public class Peep
     /// ORM ctor
     /// </summary>
     protected Peep() { }
-
-    /// <summary>
-    /// Scheduled peep ctor
-    /// </summary>
-    /// <param name="userId"></param>
-    /// <param name="peepContent"></param>
-    /// <param name="date"></param>
-    /// <param name="time"></param>
-    /// <param name="source"></param>
-    /// <param name="viewRestriction"></param>
-    /// <param name="replyRestriction"></param>
-    /// <param name="quotedPeepId"></param>
-    /// <param name="repliedPeepId"></param>
-    public Peep(Guid userId, PeepContent peepContent,
-        DateOnly date, TimeOnly time,
-        EPeepSource source, EPeepViewRestriction viewRestriction, EPeepReplyRestriction replyRestriction,
-        Guid? quotedPeepId = null, Guid? repliedPeepId = null)
-    {
-        Id = new Guid();
-        UserId = userId;
-        PeepContent = peepContent;
-        Source = source;
-        ViewRestriction = viewRestriction;
-        ReplyRestriction = replyRestriction;
-        QuotedPeepId = quotedPeepId;
-        RepliedPeepId = repliedPeepId;
-        PublicationDate = date;
-        PublicationTime = time;
-
-        _likes = new Dictionary<Guid, DateTime>();
-        _rps = new Dictionary<Guid, DateTime>();
-
-        _replies = new List<Peep>();
-        _quotes = new List<Peep>();
-        _versionHistory = new List<PeepVersionSnapshot>();
-    }
 
     /// <summary>
     /// Normal peep ctor
@@ -61,7 +29,7 @@ public class Peep
     /// <param name="replyRestriction"></param>
     /// <param name="quotedPeepId"></param>
     /// <param name="repliedPeepId"></param>
-    public Peep(Guid userId, PeepContent peepContent, 
+    public Peep(Guid userId, PeepContent peepContent,
         EPeepSource source, EPeepViewRestriction viewRestriction, EPeepReplyRestriction replyRestriction,
         Guid? quotedPeepId = null, Guid? repliedPeepId = null)
     {
@@ -78,8 +46,8 @@ public class Peep
         PublicationDate = DateOnly.FromDateTime(now);
         PublicationTime = TimeOnly.FromDateTime(now);
 
-        _likes = new Dictionary<Guid, DateTime>();
-        _rps = new Dictionary<Guid, DateTime>();
+        _likes = new List<PeepLike>();
+        _rps = new List<PeepRepost>();
 
         _replies = new List<Peep>();
         _quotes = new List<Peep>();
@@ -101,10 +69,10 @@ public class Peep
 
     public PeepContent PeepContent { get; private set; }
 
-    public Dictionary<Guid, DateTime> Likes { get { return _likes; } }
+    public IReadOnlyCollection<PeepLike> Likes { get { return _likes.ToArray(); } }
     public IReadOnlyCollection<Peep> Replies { get { return _replies.ToArray(); } }
     public IReadOnlyCollection<Peep> Quotes { get { return _quotes.ToArray(); } }
-    public Dictionary<Guid, DateTime> Rps { get { return _rps; } }
+    public IReadOnlyCollection<PeepRepost> Rps { get { return _rps.ToArray(); } }
 
     public IReadOnlyCollection<PeepVersionSnapshot> VersionHistory { get { return _versionHistory.ToArray(); } }
 
@@ -127,22 +95,22 @@ public class Peep
 
     public void Like(Guid user)
     {
-        _likes.Add(user, DateTime.UtcNow);
+        _likes.Add(new PeepLike(Id, user));
     }
 
     public void RemoveLike(Guid user)
     {
-        _likes.Remove(user);
+        _dislikes.Add(new PeepDislike(Id, user));
     }
 
     public void Repeep(Guid user)
     {
-        _rps.Add(user, DateTime.UtcNow);
+        _rps.Add(new PeepRepost(Id, user));
     }
 
     public void RemoveRp(Guid user)
-    { 
-        _rps.Remove(user); 
+    {
+        _disreposts.Add(new PeepDisrepost(Id, user));
     }
 
     public void AddReply(Peep peep)
@@ -165,9 +133,16 @@ public class Peep
         _quotes.Remove(peep);
     }
 
-    public int GetLikesCount() => _likes.Count;
-    public int GetQuotesCount() => _quotes.Count;
-    public int GetRepeepsCount() => _rps.Count;
+    // 🤯 event sourcing? 
+    private int GetLikesCount()
+    {
+        // listar todos os PeepLike e todos os PeepDislike
+        // pra cada "user" que realizou no mínimo um like, verificar os eventos e checar qual foi a última ação realizada (like ou dislike)
+        // se foi um like, adiciona mais um like na contagem
+        return 0;
+    }
 
+    private int GetRepliesCount() => _replies.Count;
+    private int GetQuotesCount() => _quotes.Count;
+    private int GetRepeepsCount() => _rps.Count;
 }
-

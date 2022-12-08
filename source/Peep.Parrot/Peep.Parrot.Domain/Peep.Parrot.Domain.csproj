@@ -4,4 +4,10 @@
     <TargetFramework>net7.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Peep.DomainEvents" Version="1.0.3" />
+    <PackageReference Include="Peep.EventBus" Version="1.0.3" />
+    <PackageReference Include="Peep.EventBus.Kafka" Version="1.0.3" />
+  </ItemGroup>
+
 </Project>

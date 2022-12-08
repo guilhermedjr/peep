@@ -1,14 +1,14 @@
-﻿using Peep.EventBus.Events;
+﻿using Peep.EventBus;
 namespace Peep.Parrot.Application.Events;
 
 public class PeepReplyRemoved : Event
 {
-    public PeepReplyRemoved(Guid repliedPeepId, Domain.Entities.Peep reply)
+    public PeepReplyRemoved(Guid repliedPeepId, Domain.Aggregates.PeepAggregate.Peep reply)
     {
         RepliedPeepId = repliedPeepId;
         Reply = reply;
     }
 
     public Guid RepliedPeepId { get; init; }
-    public Domain.Entities.Peep Reply { get; init; }
+    public Domain.Aggregates.PeepAggregate.Peep Reply { get; init; }
 }

@@ -20,8 +20,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
-    <PackageReference Include="Peep.EventBus" Version="1.0.0" />
-    <PackageReference Include="Peep.EventBus.Kafka" Version="1.0.1" />
+    <PackageReference Include="Peep.DomainEvents" Version="1.0.3" />
+    <PackageReference Include="Peep.EventBus" Version="1.0.3" />
+    <PackageReference Include="Peep.EventBus.Kafka" Version="1.0.3" />
     <PackageReference Include="RabbitMQ.Client" Version="6.2.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
