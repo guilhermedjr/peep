@@ -28,7 +28,7 @@
     "typescript": "^4.3.5"
   },
   "devDependencies": {
-    "@playwright/test": "^1.18.0",
+    "@playwright/test": "^1.29.2",
     "@testing-library/dom": "^8.11.2",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
