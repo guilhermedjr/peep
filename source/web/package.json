@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.5.8",
-    "@microsoft/signalr": "^5.0.8",
+    "@microsoft/signalr": "^7.0.2",
     "axios": "^0.21.1",
     "dayjs": "^1.10.7",
     "firebase": "^9.2.0",
