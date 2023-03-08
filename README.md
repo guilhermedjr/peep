@@ -35,7 +35,7 @@ Better docs soon!
 
 ### Monolithic front-end
 
-On hold - POC started, I just copied Twitter design and did some React state management sh*t.
+On hold - POC started, I just copied Twitter design and did some React state management.
 
 | App                                                         |  Description              |
 | ----------------------------------------------------------- | ------------------------- |
